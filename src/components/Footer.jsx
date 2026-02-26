@@ -136,7 +136,7 @@ const Footer = () => {
             <span style={styles.logoText}>INNO</span>
           </div>
           <p style={styles.brandDesc}>
-            L'application qui révolutionne vos déplacements en taxi. Sécurisé, rapide et disponible partout en Tunisie.
+            L'application qui révolutionne vos déplacements en taxi. Sécurisé, rapide et disponible à Tunis , Sfax et Gabes.
           </p>
           
           <div style={styles.socialLinks}>
@@ -180,11 +180,11 @@ const Footer = () => {
           <h4 style={styles.colTitle}>Contact</h4>
           <div style={styles.contactItem}>
             <span style={styles.iconWrap}>📍</span>
-            <span>Tunis, Tunisie</span>
+            <span>Tunis, Sfax et Gabes</span>
           </div>
           <div style={styles.contactItem}>
             <span style={styles.iconWrap}>📞</span>
-            <span>+216 51 037 800</span>
+            <span>+216 58 000 800</span>
           </div>
           <div style={styles.contactItem}>
             <span style={styles.iconWrap}>✉️</span>

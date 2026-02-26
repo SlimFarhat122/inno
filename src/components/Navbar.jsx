@@ -7,6 +7,7 @@ const Navbar = () => {
   const [visible, setVisible] = useState(true);
   const [prevScrollPos, setPrevScrollPos] = useState(window.scrollY);
   const [showDropdown, setShowDropdown] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   
   const navigate = useNavigate();
   const location = useLocation();
@@ -15,42 +16,17 @@ const Navbar = () => {
     const handleScroll = () => {
       const current = window.scrollY;
       setScrolled(current > 50);
-      if (current < 10) setVisible(true);
-      else setVisible(prevScrollPos > current);
+      setVisible(prevScrollPos > current || current < 10 || isMobileMenuOpen);
       setPrevScrollPos(current);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [prevScrollPos]);
-
-  const scrollToSection = (id) => {
-    const element = document.getElementById(id);
-    if (element) {
-      const offset = 80; 
-      const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
-      window.scrollTo({
-        top: elementPosition - offset,
-        behavior: "smooth",
-      });
-    }
-  };
-
-  useEffect(() => {
-    if (location.pathname === "/" && location.hash) {
-      const id = location.hash.replace("#", "");
-      const timeout = setTimeout(() => scrollToSection(id), 200);
-      return () => clearTimeout(timeout);
-    }
-  }, [location]);
+  }, [prevScrollPos, isMobileMenuOpen]);
 
   const handleNavClick = (id) => {
+    setIsMobileMenuOpen(false);
     setShowDropdown(false);
-    if (location.pathname !== "/") {
-      navigate(`/#${id}`);
-    } else {
-      scrollToSection(id);
-      window.history.pushState(null, null, `/#${id}`);
-    }
+    navigate(`/#${id}`); 
   };
 
   const styles = {
@@ -58,20 +34,25 @@ const Navbar = () => {
       display: "flex", 
       justifyContent: "space-between", 
       alignItems: "center",
-      padding: scrolled ? "12px 8%" : "20px 8%",
-      // Fond sombre élégant qui laisse voir les couleurs du logo
-      backgroundColor: scrolled ? "rgba(3, 22, 66, 0.98)" : "rgba(2, 0, 116, 0.85)", 
+      padding: scrolled ? "10px 5%" : "15px 5%",
+      backgroundColor: scrolled || isMobileMenuOpen ? "#031642" : "rgba(2, 0, 116, 0.85)", 
       backdropFilter: "blur(12px)",
       boxShadow: scrolled ? "0 10px 30px rgba(0,0,0,0.3)" : "none",
-      borderBottom: "1px solid rgba(255, 255, 255, 0.05)",
       position: "fixed", 
       top: visible ? "0" : "-100px",
       width: "100%", 
-      zIndex: 2000, 
-      transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
+      zIndex: 3000, 
+      transition: "all 0.4s ease",
       boxSizing: "border-box",
     },
-    links: { display: "flex", alignItems: "center", gap: "35px", listStyle: "none" },
+    linksContainer: { 
+      display: "flex", 
+      alignItems: "center", 
+      gap: "35px",
+      listStyle: "none",
+      margin: 0,
+      padding: 0
+    },
     linkItem: { 
         fontSize: "13px", 
         fontWeight: "700", 
@@ -79,7 +60,23 @@ const Navbar = () => {
         cursor: "pointer", 
         textTransform: "uppercase",
         letterSpacing: "0.8px",
-        transition: "all 0.3s ease"
+    },
+    hamburger: {
+      display: "none", // Sera activé via media query
+      flexDirection: "column",
+      gap: "6px",
+      cursor: "pointer",
+      border: "none",
+      background: "none",
+      padding: "5px",
+      zIndex: 3001
+    },
+    bar: {
+      width: "28px",
+      height: "3px",
+      backgroundColor: "white",
+      borderRadius: "10px",
+      transition: "all 0.3s ease"
     },
     dropdownMenu: {
       position: "absolute", 
@@ -87,23 +84,14 @@ const Navbar = () => {
       left: "50%", 
       transform: "translateX(-50%)",
       backgroundColor: "#ffffff", 
-      minWidth: "220px", 
-      boxShadow: "0 20px 50px rgba(0,0,0,0.3)",
-      borderRadius: "16px", 
+      minWidth: "200px", 
+      borderRadius: "12px", 
       padding: "10px 0", 
       visibility: showDropdown ? "visible" : "hidden",
       opacity: showDropdown ? 1 : 0, 
       transition: "all 0.3s ease", 
-      border: "1px solid #f1f5f9",
-      marginTop: "15px"
-    },
-    dropdownItem: {
-        padding: "12px 20px", 
-        cursor: "pointer", 
-        fontSize: "14px", 
-        fontWeight: "600",
-        color: "#1e3a8a",
-        transition: "all 0.2s ease"
+      marginTop: "15px",
+      boxShadow: "0 10px 25px rgba(0,0,0,0.2)"
     }
   };
 
@@ -111,71 +99,108 @@ const Navbar = () => {
     <nav style={styles.nav}>
       <style>
         {`
-          .nav-link:hover { color: #62a15b !important; }
-          .dropdown-item:hover { background-color: #f8fafc; color: #62a15b !important; }
-          .btn-download-nav:hover { background-color: #ffffff !important; color: #62a15b !important; transform: translateY(-2px); }
+          @media (max-width: 992px) {
+            .hamburger-btn { display: flex !important; order: 3; }
+            .logo-img { order: 1; height: 35px !important; }
+            .nav-right-buttons { display: none !important; } /* Masque le bouton Télécharger sur mobile */
+            
+            .nav-links-wrapper {
+              position: absolute;
+              top: 100%; left: 0; width: 100%;
+              background-color: #031642;
+              flex-direction: column !important;
+              padding: 40px 0;
+              gap: 25px !important;
+              transform: translateY(${isMobileMenuOpen ? "0" : "-150%"});
+              transition: transform 0.4s ease;
+              display: flex !important;
+              box-shadow: 0 20px 20px rgba(0,0,0,0.2);
+            }
+            .dropdown-menu-custom {
+              position: static !important;
+              transform: none !important;
+              opacity: 1 !important;
+              visibility: visible !important;
+              display: ${showDropdown ? "block" : "none"};
+              background: rgba(255,255,255,0.05) !important;
+              box-shadow: none !important;
+              margin-top: 10px !important;
+            }
+            .dropdown-item { color: white !important; text-align: center; }
+            .mobile-download-btn { display: block !important; }
+          }
+
+          @media (min-width: 993px) {
+            .mobile-download-btn { display: none !important; }
+          }
+
+          .open .bar1 { transform: rotate(45deg) translate(7px, 6px); }
+          .open .bar2 { opacity: 0; }
+          .open .bar3 { transform: rotate(-45deg) translate(7px, -6px); }
         `}
       </style>
 
-      {/* Le filtre "invert" a été supprimé pour garder les couleurs originales */}
+      {/* LOGO */}
       <img 
         src={innoLogo} 
-        alt="Inno Logo" 
-        style={{
-          height: scrolled ? "45px" : "55px", 
-          cursor: "pointer", 
-          transition: "all 0.3s ease"
-        }} 
+        alt="Inno" 
+        className="logo-img"
+        style={{ height: scrolled ? "40px" : "50px", cursor: "pointer", transition: "0.3s" }} 
         onClick={() => navigate("/")} 
       />
 
-      <ul style={styles.links}>
+      {/* HAMBURGER (Uniquement Mobile) */}
+      <button 
+        className={`hamburger-btn ${isMobileMenuOpen ? "open" : ""}`} 
+        style={styles.hamburger} 
+        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+      >
+        <div className="bar bar1" style={styles.bar}></div>
+        <div className="bar bar2" style={styles.bar}></div>
+        <div className="bar bar3" style={styles.bar}></div>
+      </button>
+
+      {/* LIENS */}
+      <ul className="nav-links-wrapper" style={styles.linksContainer}>
         <li className="nav-link" onClick={() => handleNavClick("about")} style={styles.linkItem}>À Propos</li>
 
         <li 
-          onMouseEnter={() => setShowDropdown(true)} 
-          onMouseLeave={() => setShowDropdown(false)} 
-          style={{position: "relative"}}
+          onMouseEnter={() => window.innerWidth > 992 && setShowDropdown(true)} 
+          onMouseLeave={() => window.innerWidth > 992 && setShowDropdown(false)}
+          style={{ position: "relative", textAlign: "center" }}
         >
-          <span className="nav-link" style={styles.linkItem}>Application <small style={{fontSize: '10px', marginLeft: '4px'}}>▼</small></span>
-          <div style={styles.dropdownMenu}>
-            <div className="dropdown-item" onClick={() => handleNavClick("user-version")} style={styles.dropdownItem}>👤 Version Utilisateur</div>
-            <div className="dropdown-item" onClick={() => handleNavClick("driver-version")} style={styles.dropdownItem}>🚕 Version Chauffeur</div>
+          <span 
+            className="nav-link" 
+            style={styles.linkItem}
+            onClick={() => setShowDropdown(!showDropdown)}
+          >
+            Application <small>▼</small>
+          </span>
+          <div className="dropdown-menu-custom" style={styles.dropdownMenu}>
+            <div className="dropdown-item" onClick={() => handleNavClick("user-version")} style={{padding: "12px", cursor: "pointer", color: "#1e3a8a", fontWeight: "600"}}>👤 Utilisateur</div>
+            <div className="dropdown-item" onClick={() => handleNavClick("driver-version")} style={{padding: "12px", cursor: "pointer", color: "#1e3a8a", fontWeight: "600"}}>🚕 Chauffeur</div>
           </div>
         </li>
 
         <li 
           className="nav-link" 
-          onClick={() => navigate("/business")} 
+          onClick={() => { navigate("/business"); setIsMobileMenuOpen(false); }} 
           style={{...styles.linkItem, color: location.pathname === "/business" ? "#62a15b" : "#ffffff"}}
         >
           Business
         </li>
+
+        {/* Bouton Télécharger (Visible UNIQUEMENT dans le menu mobile ouvert) */}
+        <li className="mobile-download-btn" style={{ padding: "0 20px" }}>
+           <button style={{ width: "100%", backgroundColor: "#62a15b", color: "white", padding: "12px", borderRadius: "10px", border: "none", fontWeight: "800"}}>
+             Télécharger l'app
+           </button>
+        </li>
       </ul>
 
-      <div style={{display: "flex", gap: "25px", alignItems: "center"}}>
-        <span 
-          className="nav-link" 
-          onClick={() => handleNavClick("contact")} 
-          style={{...styles.linkItem, textTransform: "none", fontSize: "14px"}}
-        >
-          Support
-        </span>
-        <button 
-          className="btn-download-nav"
-          style={{
-            backgroundColor: "#62a15b", 
-            color: "white", 
-            padding: "10px 22px", 
-            borderRadius: "10px", 
-            border: "none", 
-            fontWeight: "800", 
-            cursor: "pointer",
-            fontSize: "13px",
-            transition: "all 0.3s ease",
-            boxShadow: "0 4px 12px rgba(98, 161, 91, 0.2)"
-          }}
-        >
+      {/* BOUTON DESKTOP (Masqué sur mobile) */}
+      <div className="nav-right-buttons" style={{ display: "flex", gap: "20px" }}>
+        <button style={{ backgroundColor: "#62a15b", color: "white", padding: "10px 20px", borderRadius: "10px", border: "none", fontWeight: "800", cursor: "pointer"}}>
           Télécharger
         </button>
       </div>
