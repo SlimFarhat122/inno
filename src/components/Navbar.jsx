@@ -182,14 +182,24 @@ const Navbar = () => {
           </div>
         </li>
 
-        <li 
-          className="nav-link" 
-          onClick={() => { navigate("/business"); setIsMobileMenuOpen(false); }} 
-          style={{...styles.linkItem, color: location.pathname === "/business" ? "#62a15b" : "#ffffff"}}
-        >
-          Business
-        </li>
-
+<li 
+  className="nav-link" 
+  onClick={() => { 
+    setIsMobileMenuOpen(false);
+    navigate("/business");
+    // On force le scroll juste après le changement de route
+    requestAnimationFrame(() => {
+      window.scrollTo(0, 0);
+    });
+  }} 
+  style={{
+    ...styles.linkItem, 
+    color: location.pathname === "/business" ? "#62a15b" : "#ffffff",
+    cursor: "pointer"
+  }}
+>
+  Business
+</li>
         {/* Bouton Télécharger (Visible UNIQUEMENT dans le menu mobile ouvert) */}
         <li className="mobile-download-btn" style={{ padding: "0 20px" }}>
            <button style={{ width: "100%", backgroundColor: "#62a15b", color: "white", padding: "12px", borderRadius: "10px", border: "none", fontWeight: "800"}}>

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useLayoutEffect } from 'react'; // Import indispensable
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import './App.css';
 
@@ -18,11 +18,17 @@ import BusinessPlatform from "./components/BusinessPlatform";
 import BusinessContact from "./components/BusinessContact";
 import PrivacyPolicy from './components/PrivacyPolicy';
 import TermsOfService from './components/TermsOfService';
-// Gestionnaire de Scroll Universel
+
 const ScrollToSection = () => {
   const { pathname, hash } = useLocation();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
+    // 1. Désactive la mémoire de scroll du navigateur
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
+    }
+
+    // Cas A : Si on a un hash (#about, etc.)
     if (hash) {
       const id = hash.replace('#', '');
       const element = document.getElementById(id);
@@ -31,14 +37,21 @@ const ScrollToSection = () => {
           element.scrollIntoView({ behavior: 'smooth' });
         }, 100);
       }
-    } else {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } 
+    // Cas B : Changement de page (clic sur Business)
+    else {
+      // On force le scroll en haut IMMEDIATEMENT
+      window.scrollTo(0, 0);
+      // Double sécurité pour certains navigateurs
+      document.body.scrollTop = 0;
+      document.documentElement.scrollTop = 0;
     }
   }, [pathname, hash]);
 
   return null;
 };
 
+// 2. Composants de structure de page
 const Home = () => (
   <>
     <Hero />
@@ -48,6 +61,7 @@ const Home = () => (
     <div id="contact"><ContactForm /></div>
   </>
 );
+
 const BusinessPage = () => (
   <div style={{ paddingTop: "80px" }}>
     <BusinessHero />
@@ -58,6 +72,7 @@ const BusinessPage = () => (
   </div>
 );
 
+// 3. Application principale
 function App() {
   return (
     <Router>
