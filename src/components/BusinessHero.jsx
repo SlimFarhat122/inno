@@ -1,8 +1,30 @@
 import React from "react";
-// Assurez-vous que le chemin correspond à votre fichier bus.jpeg renommé en bus.png
+// Ensure this path is correct based on your file structure
 import taxiBusiness from "../assets/taxi.png"; 
 
 const BusinessHero = () => {
+  /**
+   * Smooth scrolls to a component by its ID.
+   * Includes an offset to account for a fixed Navbar.
+   */
+  const scrollToComponent = (id) => {
+    const element = document.getElementById(id);
+    if (element) {
+      const offset = 80; // Height of your fixed header
+      const bodyRect = document.body.getBoundingClientRect().top;
+      const elementRect = element.getBoundingClientRect().top;
+      const elementPosition = elementRect - bodyRect;
+      const offsetPosition = elementPosition - offset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+    } else {
+      console.warn(`Element with ID "${id}" not found.`);
+    }
+  };
+
   const styles = {
     section: {
       display: "flex",
@@ -14,13 +36,13 @@ const BusinessHero = () => {
       background: "linear-gradient(135deg, #ffffff 0%, #f8fafc 100%)",
       minHeight: "85vh",
       overflow: "hidden",
-      position: "relative"
+      position: "relative",
+      fontFamily: "'Inter', sans-serif"
     },
     content: { 
       flex: "1", 
       minWidth: "450px",
       zIndex: 2,
-      animation: "fadeInUp 0.8s ease-out"
     },
     badge: {
       display: "inline-flex",
@@ -91,18 +113,16 @@ const BusinessHero = () => {
       display: "flex",
       justifyContent: "flex-end",
       alignItems: "center",
-      animation: "fadeInRight 1s ease-out"
     },
     imageWrapper: {
       position: "relative",
-      width: "110%", // L'image déborde légèrement pour le style
+      width: "110%", 
       maxWidth: "700px",
     },
     img: { 
       width: "100%", 
       height: "auto",
       display: "block",
-      // Effet de fondu sur les bords pour intégration pro
       maskImage: "linear-gradient(to left, black 80%, transparent 100%)",
       WebkitMaskImage: "linear-gradient(to left, black 80%, transparent 100%)",
     },
@@ -119,7 +139,6 @@ const BusinessHero = () => {
       gap: "5px",
       zIndex: 3,
       border: "1px solid #f1f5f9",
-      animation: "float 6s ease-in-out infinite"
     }
   };
 
@@ -139,6 +158,10 @@ const BusinessHero = () => {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-20px); }
           }
+          .hero-content-anim { animation: fadeInUp 0.8s ease-out; }
+          .hero-image-anim { animation: fadeInRight 1s ease-out; }
+          .hero-stats-anim { animation: float 6s ease-in-out infinite; }
+          
           .btn-primary:hover { 
             transform: translateY(-5px); 
             background-color: #62a15b !important;
@@ -147,38 +170,58 @@ const BusinessHero = () => {
           .btn-secondary:hover { 
             border-color: #1e3a8a;
             background-color: #f8fafc;
+            transform: translateY(-2px);
+          }
+
+          @media (max-width: 992px) {
+            .hero-image-side { display: none; }
+            .hero-content-anim { text-align: center; min-width: 100%; }
+            .hero-btn-container { justify-content: center; }
+            .hero-desc { margin-left: auto; margin-right: auto; }
           }
         `}
       </style>
 
       <section style={styles.section}>
-        <div style={styles.content}>
+        {/* Text Content Side */}
+        <div style={styles.content} className="hero-content-anim">
           <div style={styles.badge}>
             <span style={{fontSize: "16px"}}>✨</span> Leader de la mobilité B2B
           </div>
+          
           <h1 style={styles.title}>
             Propulsez votre <br /> 
             <span style={styles.highlight}>Entreprise</span> avec Inno
           </h1>
-          <p style={styles.desc}>
+          
+          <p style={{...styles.desc, ...{ className: "hero-desc" }}}>
             Optimisez vos déplacements professionnels avec une plateforme 
             tout-en-un. Réduisez vos coûts opérationnels jusqu'à <strong>30%</strong> dès le premier mois.
           </p>
           
-          <div style={styles.btnContainer}>
-            <button className="btn-primary" style={styles.btnPrimary}>
+          <div style={styles.btnContainer} className="hero-btn-container">
+            <button 
+              className="btn-primary" 
+              style={styles.btnPrimary}
+              onClick={() => scrollToComponent('business-contact')}
+            >
               DÉMARRER MAINTENANT
             </button>
-            <button className="btn-secondary" style={styles.btnSecondary}>
-              VOIR LES TARIFS
+            
+            <button 
+              className="btn-secondary" 
+              style={styles.btnSecondary}
+              onClick={() => scrollToComponent('business-platform')}
+            >
+              EN SAVOIR PLUS
             </button>
           </div>
         </div>
 
-        <div style={styles.imageSide}>
+        {/* Visual Side */}
+        <div style={styles.imageSide} className="hero-image-anim hero-image-side">
           <div style={styles.imageWrapper}>
-            {/* Carte flottante pour le côté "Data/Business" */}
-            <div style={styles.statsCard}>
+            <div style={styles.statsCard} className="hero-stats-anim">
               <span style={{fontSize: "24px", fontWeight: "900", color: "#62a15b"}}>-30%</span>
               <span style={{fontSize: "12px", color: "#64748b", fontWeight: "600", textTransform: "uppercase"}}>Économies moyennes</span>
             </div>

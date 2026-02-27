@@ -134,10 +134,10 @@ const BusinessContact = () => {
   };
 
   return (
-    <section style={styles.section}>
+    <section id="business-contact" style={styles.section}>
       <h2 style={styles.title}>Prêt à transformer la mobilité <br/> de votre entreprise ?</h2>
 
-      <div style={styles.topButtons}>
+      <div style={styles.topButtons} >
         <button style={styles.serviceBtn}>💻 Demandez une démo personnalisée</button>
         <button style={styles.serviceBtn}>📄 Obtenez un devis adapté</button>
         <button style={styles.serviceBtn}>🚀 Démarrez votre essai gratuit</button>
