@@ -16,7 +16,8 @@ import BusinessStats from "./components/BusinessStats";
 import BusinessSectors from "./components/BusinessSectors";
 import BusinessPlatform from "./components/BusinessPlatform";
 import BusinessContact from "./components/BusinessContact";
-
+import PrivacyPolicy from './components/PrivacyPolicy';
+import TermsOfService from './components/TermsOfService';
 // Gestionnaire de Scroll Universel
 const ScrollToSection = () => {
   const { pathname, hash } = useLocation();
@@ -63,6 +64,8 @@ function App() {
       <ScrollToSection />
       <Navbar />
       <Routes>
+        <Route path="/privacy-policy/" element={<PrivacyPolicy />} />
+        <Route path="/condition-of-use/" element={<TermsOfService />} />
         <Route path="/" element={<Home />} />
         <Route path="/business" element={<BusinessPage />} />
       </Routes>

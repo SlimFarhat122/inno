@@ -1,5 +1,5 @@
 import React from "react";
-
+import { Link } from 'react-router-dom';
 const Footer = () => {
   const styles = {
     footer: {
@@ -194,9 +194,28 @@ const Footer = () => {
 
       </div>
 
-      <div style={styles.bottomBar}>
-        &copy; {new Date().getFullYear()} INNO. Tous droits réservés.
-      </div>
+ <div style={{
+  ...styles.bottomBar, 
+  display: 'flex', 
+  justifyContent: 'space-between', 
+  flexWrap: 'wrap', 
+  gap: '20px',
+  borderTop: '1px solid rgba(255,255,255,0.1)',
+  paddingTop: '20px'
+}}>
+  <div>
+    &copy; {new Date().getFullYear()} INNO. Tous droits réservés.
+  </div>
+  
+  <div style={{ display: 'flex', gap: '20px' }}>
+    <Link to="/privacy-policy/" style={{ color: 'rgba(255,255,255,0.6)', textDecoration: 'none', fontSize: '14px' }}>
+      Politique de confidentialité
+    </Link>
+    <Link to="/condition-of-use/" style={{ color: 'rgba(255,255,255,0.6)', textDecoration: 'none', fontSize: '14px' }}>
+      Conditions d'utilisation
+    </Link>
+  </div>
+</div>
     </footer>
   );
 };
