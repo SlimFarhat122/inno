@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import innoLogo from "../assets/logo.png"; 
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [visible, setVisible] = useState(true);
-  const [prevScrollPos, setPrevScrollPos] = useState(window.scrollY);
+  const prevScrollPos = useRef(window.scrollY);
   const [showDropdown, setShowDropdown] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   
@@ -16,12 +16,12 @@ const Navbar = () => {
     const handleScroll = () => {
       const current = window.scrollY;
       setScrolled(current > 50);
-      setVisible(prevScrollPos > current || current < 10 || isMobileMenuOpen);
-      setPrevScrollPos(current);
+      setVisible(prevScrollPos.current > current || current < 10 || isMobileMenuOpen);
+      prevScrollPos.current = current;
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [prevScrollPos, isMobileMenuOpen]);
+  }, [isMobileMenuOpen]);
 
   const handleNavClick = (id) => {
     setIsMobileMenuOpen(false);
