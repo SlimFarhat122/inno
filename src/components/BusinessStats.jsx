@@ -1,181 +1,161 @@
 import React from "react";
 
 const BusinessStats = () => {
-  const cards = [
-    { 
-      title: "Réduction des coûts", 
-      desc: "Optimisez vos dépenses opérationnelles et économisez sur chaque trajet.", 
-      icon: "📈",
-      color: "#62a15b" 
-    },
-    { 
-      title: "Gain de temps", 
-      desc: "Automatisez la facturation et la gestion des notes de frais simplement.", 
-      icon: "⚡",
-      color: "#1e3a8a" 
-    },
-    { 
-      title: "Visibilité Totale", 
-      desc: "Reporting détaillé et analytics en temps réel pour un pilotage précis.", 
-      icon: "🎯",
-      color: "#0ea5e9" 
-    },
-    { 
-      title: "Satisfaction Employés", 
-      desc: "Une application intuitive garantissant le confort de vos collaborateurs.", 
-      icon: "⭐",
-      color: "#f59e0b" 
-    },
-    { 
-      title: "Sécurité Renforcée", 
-      desc: "Protocoles de sécurité stricts et suivi GPS permanent 24h/24.", 
-      icon: "🛡️",
-      color: "#ef4444" 
-    },
-    { 
-      title: "Expertise Locale", 
-      desc: "Un partenaire tunisien qui vous accompagne sur tous vos défis.", 
-      icon: "🇹🇳",
-      color: "#1e3a8a" 
-    }
-  ];
+  const colors = {
+    primary: "#0B31AF",
+    textMain: "#0F172A",
+    textSecondary: "#64748B",
+    border: "rgba(15, 23, 42, 0.08)",
+    bgGhost: "#F8FAFC"
+  };
 
   const styles = {
     section: {
-      padding: "60px 8%",
-      backgroundColor: "#ffffff",
-      fontFamily: "'Inter', sans-serif"
+      padding: "60px 5%", // Réduit de 120px à 60px
+      backgroundColor: "#FFFFFF",
+      fontFamily: "'Inter', sans-serif",
+    },
+    container: {
+      maxWidth: "1100px", // Plus étroit pour plus de focus
+      margin: "0 auto",
     },
     header: {
-      maxWidth: "700px",
-      margin: "0 auto 40px",
-      textAlign: "center"
+      marginBottom: "40px", // Réduit de 80px à 40px
+      textAlign: "left",
     },
     badge: {
-      backgroundColor: "#f0fdf4",
-      color: "#166534",
-      padding: "6px 16px",
-      borderRadius: "100px",
-      fontSize: "12px",
+      fontSize: "10px",
       fontWeight: "800",
-      display: "inline-flex",
-      alignItems: "center",
-      gap: "6px",
-      marginBottom: "15px",
-      border: "1px solid #dcfce7",
-      letterSpacing: "0.5px"
+      color: colors.primary,
+      textTransform: "uppercase",
+      letterSpacing: "1.5px",
+      marginBottom: "12px",
+      display: "block"
     },
     title: {
-      fontSize: "clamp(24px, 3vw, 32px)",
-      color: "#1e3a8a",
+      fontSize: "clamp(26px, 4vw, 38px)", // Plus compact
+      color: colors.textMain,
       fontWeight: "900",
-      lineHeight: "1.2",
+      letterSpacing: "-0.03em",
+      lineHeight: "1.1",
+      maxWidth: "600px"
     },
     grid: {
       display: "grid",
-      // ICI : On force 3 colonnes égales
-      gridTemplateColumns: "repeat(3, 1fr)", 
-      gap: "25px",
-      width: "100%",
-      maxWidth: "1200px",
-      margin: "0 auto"
+      gridTemplateColumns: "repeat(6, 1fr)",
+      gridAutoRows: "160px", // Hauteur fixe plus petite pour le contrôle
+      gap: "16px", // Gap réduit de 24px à 16px
     },
     card: {
-      padding: "30px",
-      borderRadius: "20px",
-      backgroundColor: "#ffffff",
-      border: "1px solid #f1f5f9",
-      transition: "all 0.4s ease",
-      cursor: "pointer",
-      position: "relative",
-      overflow: "hidden",
-      textAlign: "left",
+      backgroundColor: "#FFFFFF",
+      borderRadius: "24px", // Plus petit rayon pour cartes plus petites
+      padding: "24px", // Padding réduit de 40px à 24px
+      border: `1px solid ${colors.border}`,
       display: "flex",
       flexDirection: "column",
-      justifyContent: "center"
+      justifyContent: "space-between",
+      transition: "all 0.5s cubic-bezier(0.16, 1, 0.3, 1)",
+      position: "relative",
     },
-    iconWrapper: {
-      width: "50px",
-      height: "50px",
-      borderRadius: "14px",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      fontSize: "24px",
-      marginBottom: "20px",
+    // Classes de taille pour la grille Bento
+    large: { gridColumn: "span 3", gridRow: "span 2" },
+    medium: { gridColumn: "span 3", gridRow: "span 1" },
+    small: { gridColumn: "span 2", gridRow: "span 1" },
+    
+    cardLabel: {
+      fontSize: "10px",
+      fontWeight: "700",
+      color: colors.primary,
+      textTransform: "uppercase",
+      marginBottom: "12px",
     },
     cardTitle: {
-      fontSize: "18px",
+      fontSize: "19px", // Réduit
       fontWeight: "800",
-      color: "#1e3a8a",
-      marginBottom: "10px"
+      color: colors.textMain,
+      marginBottom: "8px",
+      letterSpacing: "-0.01em"
     },
     cardDesc: {
-      fontSize: "15px",
-      color: "#64748b",
-      lineHeight: "1.6",
-      margin: 0
+      fontSize: "13.5px", // Réduit
+      color: colors.textSecondary,
+      lineHeight: "1.5",
     }
   };
 
   return (
     <section style={styles.section}>
-      <div style={styles.header}>
-        <div style={styles.badge}>
-          <span>💰</span> JUSQU'À 30% D'ÉCONOMIES
+      <div style={styles.container}>
+        <header style={styles.header}>
+          <span style={styles.badge}>Inno Ecosystem</span>
+          <h2 style={styles.title}>L'infrastructure de mobilité pour la croissance.</h2>
+        </header>
+
+        <div className="bento-grid" style={styles.grid}>
+          {/* RENTABILITÉ - LARGE */}
+          <div className="bento-item" style={{...styles.card, ...styles.large, backgroundColor: colors.bgGhost}}>
+            <div>
+              <span style={styles.cardLabel}>Rentabilité</span>
+              <h3 style={{...styles.cardTitle, fontSize: "24px"}}>Optimisation des coûts</h3>
+              <p style={styles.cardDesc}>Algorithmes prédictifs réduisant vos dépenses de mobilité jusqu'à 30%.</p>
+            </div>
+            <div style={{ alignSelf: "flex-end", fontSize: "48px", fontWeight: "900", color: colors.primary, opacity: 0.15 }}>
+              -30%
+            </div>
+          </div>
+
+          {/* AUTOMATISATION - MEDIUM */}
+          <div className="bento-item" style={{...styles.card, ...styles.medium}}>
+            <div>
+              <span style={styles.cardLabel}>Ops</span>
+              <h3 style={styles.cardTitle}>Automatisation 360°</h3>
+              <p style={styles.cardDesc}>Facturation centralisée et export comptable automatique.</p>
+            </div>
+          </div>
+
+          {/* DATA - MEDIUM (DARK) */}
+          <div className="bento-item" style={{...styles.card, ...styles.medium, backgroundColor: colors.textMain}}>
+            <div>
+              <span style={{...styles.cardLabel, color: "#FFFFFF", opacity: 0.6}}>Intelligence</span>
+              <h3 style={{...styles.cardTitle, color: "#FFFFFF"}}>Gouvernance Data</h3>
+              <p style={{...styles.cardDesc, color: "rgba(255,255,255,0.7)"}}>Reporting analytique en temps réel.</p>
+            </div>
+          </div>
+
+          {/* SECURITY - SMALL */}
+          <div className="bento-item" style={{...styles.card, ...styles.small}}>
+             <h3 style={{...styles.cardTitle, fontSize: "16px"}}>Tracking 24/7</h3>
+             <p style={{...styles.cardDesc, fontSize: "12px"}}>Protocoles certifiés.</p>
+          </div>
+
+          {/* EXPERIENCE - SMALL */}
+          <div className="bento-item" style={{...styles.card, ...styles.small}}>
+             <h3 style={{...styles.cardTitle, fontSize: "16px"}}>Expérience VIP</h3>
+             <p style={{...styles.cardDesc, fontSize: "12px"}}>Standard Premium.</p>
+          </div>
+
+          {/* LOCAL - SMALL */}
+          <div className="bento-item" style={{...styles.card, ...styles.small}}>
+             <h3 style={{...styles.cardTitle, fontSize: "16px"}}>Support Local</h3>
+             <p style={{...styles.cardDesc, fontSize: "12px"}}>Expertise Inno Tunisie.</p>
+          </div>
         </div>
-        <h2 style={styles.title}>Pourquoi les leaders choisissent Inno Business</h2>
       </div>
 
       <style>
         {`
-          .stat-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(30, 58, 138, 0.1);
-            border-color: #cbd5e1;
+          .bento-item:hover {
+            transform: translateY(-4px);
+            border-color: ${colors.primary};
+            box-shadow: 0 12px 24px rgba(0,0,0,0.04);
           }
-          .stat-card::after {
-            content: '';
-            position: absolute;
-            bottom: 0; left: 0; width: 0; height: 4px;
-            background: #62a15b;
-            transition: width 0.3s ease;
-          }
-          .stat-card:hover::after {
-            width: 100%;
-          }
-
-          /* Responsive : On repasse à 1 colonne sur mobile et 2 sur tablette */
-          @media (max-width: 992px) {
-            .stats-grid {
-              grid-template-columns: repeat(2, 1fr) !important;
-            }
-          }
-          @media (max-width: 600px) {
-            .stats-grid {
-              grid-template-columns: 1fr !important;
-            }
+          
+          @media (max-width: 900px) {
+            .bento-grid { grid-template-columns: 1fr !important; grid-auto-rows: auto !important; }
+            .bento-item { grid-column: span 1 !important; grid-row: span 1 !important; }
           }
         `}
       </style>
-
-      <div className="stats-grid" style={styles.grid}>
-        {cards.map((card, i) => (
-          <div key={i} className="stat-card" style={styles.card}>
-            <div 
-              style={{ 
-                ...styles.iconWrapper, 
-                backgroundColor: `${card.color}10`,
-                color: card.color 
-              }}
-            >
-              {card.icon}
-            </div>
-            <h4 style={styles.cardTitle}>{card.title}</h4>
-            <p style={styles.cardDesc}>{card.desc}</p>
-          </div>
-        ))}
-      </div>
     </section>
   );
 };

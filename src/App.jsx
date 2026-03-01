@@ -18,6 +18,7 @@ import BusinessPlatform from "./components/BusinessPlatform";
 import BusinessContact from "./components/BusinessContact";
 import PrivacyPolicy from './components/PrivacyPolicy';
 import TermsOfService from './components/TermsOfService';
+import Navbar from './components/Navbar';
 
 const ScrollToSection = () => {
   const { pathname, hash } = useLocation();
@@ -101,7 +102,7 @@ function App() {
   return (
     <Router>
       <ScrollToSection />
-      <TestNavbar />
+      <Navbar />
       <Routes>
         <Route path="/privacy-policy/" element={<PrivacyPolicy />} />
         <Route path="/condition-of-use/" element={<TermsOfService />} />

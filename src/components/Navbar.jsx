@@ -12,6 +12,15 @@ const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
+  // Couleurs basées sur votre logo
+  const colors = {
+    logoBlue: "#0B31AF", 
+    logoGreen: "#62A15B",
+    darkDeep: "#030B21", // Fond quand on scroll
+    textDark: "#1E293B", // Texte si fond blanc
+    textLight: "#FFFFFF", // Texte si fond bleu
+  };
+
   useEffect(() => {
     const handleScroll = () => {
       const current = window.scrollY;
@@ -26,7 +35,7 @@ const Navbar = () => {
   const handleNavClick = (id) => {
     setIsMobileMenuOpen(false);
     setShowDropdown(false);
-    navigate(`/#${id}`); 
+    navigate(`/#${id}`);
   };
 
   const styles = {
@@ -34,64 +43,40 @@ const Navbar = () => {
       display: "flex", 
       justifyContent: "space-between", 
       alignItems: "center",
-      padding: scrolled ? "10px 5%" : "15px 5%",
-      backgroundColor: scrolled || isMobileMenuOpen ? "#031642" : "rgba(2, 0, 116, 0.85)", 
-      backdropFilter: "blur(12px)",
-      boxShadow: scrolled ? "0 10px 30px rgba(0,0,0,0.3)" : "none",
+      padding: scrolled ? "12px 6%" : "20px 6%",
+      // Correction ici : Si pas de scroll, on garde un fond très léger pour voir le texte
+      backgroundColor: scrolled || isMobileMenuOpen ? colors.darkDeep : "rgba(255, 255, 255, 0.7)", 
+      backdropFilter: "blur(15px)",
+      boxShadow: scrolled ? "0 10px 40px rgba(0,0,0,0.1)" : "none",
       position: "fixed", 
       top: visible ? "0" : "-100px",
       width: "100%", 
-      zIndex: 3000, 
-      transition: "all 0.4s ease",
+      zIndex: 5000, 
+      transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
       boxSizing: "border-box",
-    },
-    linksContainer: { 
-      display: "flex", 
-      alignItems: "center", 
-      gap: "35px",
-      listStyle: "none",
-      margin: 0,
-      padding: 0
+      borderBottom: scrolled ? "none" : "1px solid rgba(0,0,0,0.05)"
     },
     linkItem: { 
-        fontSize: "13px", 
-        fontWeight: "700", 
-        color: "#ffffff", 
-        cursor: "pointer", 
-        textTransform: "uppercase",
-        letterSpacing: "0.8px",
+      fontSize: "14px", 
+      fontWeight: "600", 
+      // Le texte devient blanc au scroll, sinon il est bleu foncé/noir
+      color: scrolled || isMobileMenuOpen ? colors.textLight : colors.textDark, 
+      cursor: "pointer", 
+      transition: "all 0.3s ease",
+      textDecoration: "none",
+      listStyle: "none"
     },
-    hamburger: {
-      display: "none", // Sera activé via media query
-      flexDirection: "column",
-      gap: "6px",
-      cursor: "pointer",
+    contactBtn: {
+      backgroundColor: colors.logoGreen,
+      color: "white",
+      padding: "10px 25px",
+      borderRadius: "100px",
       border: "none",
-      background: "none",
-      padding: "5px",
-      zIndex: 3001
-    },
-    bar: {
-      width: "28px",
-      height: "3px",
-      backgroundColor: "white",
-      borderRadius: "10px",
-      transition: "all 0.3s ease"
-    },
-    dropdownMenu: {
-      position: "absolute", 
-      top: "100%", 
-      left: "50%", 
-      transform: "translateX(-50%)",
-      backgroundColor: "#ffffff", 
-      minWidth: "200px", 
-      borderRadius: "12px", 
-      padding: "10px 0", 
-      visibility: showDropdown ? "visible" : "hidden",
-      opacity: showDropdown ? 1 : 0, 
-      transition: "all 0.3s ease", 
-      marginTop: "15px",
-      boxShadow: "0 10px 25px rgba(0,0,0,0.2)"
+      fontWeight: "700",
+      fontSize: "14px",
+      cursor: "pointer",
+      transition: "0.3s",
+      boxShadow: `0 4px 15px ${colors.logoGreen}40`
     }
   };
 
@@ -99,44 +84,21 @@ const Navbar = () => {
     <nav style={styles.nav}>
       <style>
         {`
+          .nav-link:hover { color: ${colors.logoGreen} !important; }
+          .nav-links-wrapper { display: flex; align-items: center; gap: 40px; list-style: none; margin: 0; padding: 0; }
+          
           @media (max-width: 992px) {
-            .hamburger-btn { display: flex !important; order: 3; }
-            .logo-img { order: 1; height: 35px !important; }
-            .nav-right-buttons { display: none !important; } /* Masque le bouton Télécharger sur mobile */
-            
             .nav-links-wrapper {
               position: absolute;
               top: 100%; left: 0; width: 100%;
-              background-color: #031642;
-              flex-direction: column !important;
+              background-color: ${colors.darkDeep};
+              flex-direction: column;
               padding: 40px 0;
-              gap: 25px !important;
-              transform: translateY(${isMobileMenuOpen ? "0" : "-150%"});
-              transition: transform 0.4s ease;
-              display: flex !important;
-              box-shadow: 0 20px 20px rgba(0,0,0,0.2);
+              gap: 25px;
+              display: ${isMobileMenuOpen ? "flex" : "none"};
             }
-            .dropdown-menu-custom {
-              position: static !important;
-              transform: none !important;
-              opacity: 1 !important;
-              visibility: visible !important;
-              display: ${showDropdown ? "block" : "none"};
-              background: rgba(255,255,255,0.05) !important;
-              box-shadow: none !important;
-              margin-top: 10px !important;
-            }
-            .dropdown-item { color: white !important; text-align: center; }
-            .mobile-download-btn { display: block !important; }
+            .desktop-btn { display: none; }
           }
-
-          @media (min-width: 993px) {
-            .mobile-download-btn { display: none !important; }
-          }
-
-          .open .bar1 { transform: rotate(45deg) translate(7px, 6px); }
-          .open .bar2 { opacity: 0; }
-          .open .bar3 { transform: rotate(-45deg) translate(7px, -6px); }
         `}
       </style>
 
@@ -144,75 +106,58 @@ const Navbar = () => {
       <img 
         src={innoLogo} 
         alt="Inno" 
-        className="logo-img"
-        style={{ height: scrolled ? "40px" : "50px", cursor: "pointer", transition: "0.3s" }} 
-        onClick={() => navigate("/")} 
+        style={{ height: scrolled ? "35px" : "45px", transition: "0.3s", cursor: "pointer" }}
+        onClick={() => navigate("/")}
       />
 
-      {/* HAMBURGER (Uniquement Mobile) */}
-      <button 
-        className={`hamburger-btn ${isMobileMenuOpen ? "open" : ""}`} 
-        style={styles.hamburger} 
-        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-      >
-        <div className="bar bar1" style={styles.bar}></div>
-        <div className="bar bar2" style={styles.bar}></div>
-        <div className="bar bar3" style={styles.bar}></div>
-      </button>
-
-      {/* LIENS */}
-      <ul className="nav-links-wrapper" style={styles.linksContainer}>
-        <li className="nav-link" onClick={() => handleNavClick("about")} style={styles.linkItem}>À Propos</li>
-
+      {/* NAVIGATION */}
+      <ul className="nav-links-wrapper">
+        <li className="nav-link" style={styles.linkItem} onClick={() => handleNavClick("about")}>À Propos</li>
+        
         <li 
-          onMouseEnter={() => window.innerWidth > 992 && setShowDropdown(true)} 
-          onMouseLeave={() => window.innerWidth > 992 && setShowDropdown(false)}
-          style={{ position: "relative", textAlign: "center" }}
+          style={{...styles.linkItem, position: "relative"}}
+          onMouseEnter={() => setShowDropdown(true)}
+          onMouseLeave={() => setShowDropdown(false)}
         >
-          <span 
-            className="nav-link" 
-            style={styles.linkItem}
-            onClick={() => setShowDropdown(!showDropdown)}
-          >
-            Application <small>▼</small>
-          </span>
-          <div className="dropdown-menu-custom" style={styles.dropdownMenu}>
-            <div className="dropdown-item" onClick={() => handleNavClick("user-version")} style={{padding: "12px", cursor: "pointer", color: "#1e3a8a", fontWeight: "600"}}>👤 Utilisateur</div>
-            <div className="dropdown-item" onClick={() => handleNavClick("driver-version")} style={{padding: "12px", cursor: "pointer", color: "#1e3a8a", fontWeight: "600"}}>🚕 Chauffeur</div>
-          </div>
+          Services <small>▼</small>
+          {showDropdown && (
+            <div style={{
+              position: "absolute", top: "100%", left: "0", backgroundColor: "white", 
+              padding: "15px", borderRadius: "12px", boxShadow: "0 10px 30px rgba(0,0,0,0.1)", minWidth: "180px"
+            }}>
+              <div onClick={() => handleNavClick("user-version")} style={{color: "#334155", padding: "8px 0", cursor: "pointer"}}>Passager</div>
+              <div onClick={() => handleNavClick("driver-version")} style={{color: "#334155", padding: "8px 0", cursor: "pointer"}}>Chauffeur</div>
+            </div>
+          )}
         </li>
 
-<li 
-  className="nav-link" 
-  onClick={() => { 
-    setIsMobileMenuOpen(false);
-    navigate("/business");
-    // On force le scroll juste après le changement de route
-    requestAnimationFrame(() => {
-      window.scrollTo(0, 0);
-    });
-  }} 
-  style={{
-    ...styles.linkItem, 
-    color: location.pathname === "/business" ? "#62a15b" : "#ffffff",
-    cursor: "pointer"
-  }}
->
-  Business
-</li>
-        {/* Bouton Télécharger (Visible UNIQUEMENT dans le menu mobile ouvert) */}
-        <li className="mobile-download-btn" style={{ padding: "0 20px" }}>
-           <button style={{ width: "100%", backgroundColor: "#62a15b", color: "white", padding: "12px", borderRadius: "10px", border: "none", fontWeight: "800"}}>
-             Télécharger l'app
-           </button>
+        <li 
+          className="nav-link" 
+          style={{...styles.linkItem, color: location.pathname === "/business" ? colors.logoGreen : (scrolled ? "white" : colors.textDark)}}
+          onClick={() => navigate("/business")}
+        >
+          Business
         </li>
       </ul>
 
-      {/* BOUTON DESKTOP (Masqué sur mobile) */}
-      <div className="nav-right-buttons" style={{ display: "flex", gap: "20px" }}>
-        <button style={{ backgroundColor: "#62a15b", color: "white", padding: "10px 20px", borderRadius: "10px", border: "none", fontWeight: "800", cursor: "pointer"}}>
-          Télécharger
+      {/* BOUTON CONTACT */}
+      <div className="desktop-btn">
+        <button 
+          style={styles.contactBtn}
+          onMouseEnter={(e) => e.target.style.transform = "scale(1.05)"}
+          onMouseLeave={(e) => e.target.style.transform = "scale(1)"}
+          onClick={() => handleNavClick("contact")}
+        >
+          Contact
         </button>
+      </div>
+
+      {/* HAMBURGER MOBILE */}
+      <div 
+        style={{ display: window.innerWidth < 992 ? "block" : "none", color: scrolled ? "white" : colors.textDark, fontSize: "24px", cursor: "pointer" }}
+        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+      >
+        {isMobileMenuOpen ? "✕" : "☰"}
       </div>
     </nav>
   );

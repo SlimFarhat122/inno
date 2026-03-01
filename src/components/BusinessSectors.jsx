@@ -6,12 +6,19 @@ const BusinessSectors = () => {
   const [startX, setStartX] = useState(0);
   const [scrollLeft, setScrollLeft] = useState(0);
 
+  const colors = {
+    primaryBlue: "#0B31AF",
+    darkNavy: "#020617",
+    slate: "#64748B",
+    softBlue: "#F1F5F9",
+  };
+
   const sectors = [
-    { name: "Centres d'appels", desc: "Synchronisez le transport de vos équipes avec leurs shifts 24/7.", tag: "24/7", icon: "🎧" },
-    { name: "Hôtellerie", desc: "Expérience premium pour vos clients VIP et trajets du personnel.", tag: "Premium", icon: "🏨" },
-    { name: "Services Financiers", desc: "Déplacements sécurisés et confidentiels pour vos cadres.", tag: "Confidentiel", icon: "💼" },
-    { name: "Santé", desc: "Mobilité prioritaire pour le personnel médical en urgence.", tag: "Priorité", icon: "🏥" },
-    { name: "Industrie", desc: "Navettes connectées pour gérer vos flux de production.", tag: "Logistique", icon: "🏭" }
+    { name: "Centres d'appels", desc: "Synchronisez le transport de vos équipes avec leurs shifts 24/7.", tag: "Flux Continu", icon: "⚡" },
+    { name: "Hôtellerie", desc: "Expérience premium pour vos clients VIP et trajets sécurisés du personnel.", tag: "Haut de Gamme", icon: "✨" },
+    { name: "Services Financiers", desc: "Déplacements confidentiels pour vos cadres et partenaires.", tag: "Sécurisé", icon: "🛡️" },
+    { name: "Santé", desc: "Mobilité prioritaire et logistique fluide pour le personnel médical.", tag: "Priorité Vitale", icon: "🩺" },
+    { name: "Industrie & Logistique", desc: "Optimisation des flux de production et navettes connectées.", tag: "Performance", icon: "⚙️" }
   ];
 
   const handleMouseDown = (e) => {
@@ -27,128 +34,180 @@ const BusinessSectors = () => {
     if (!isDown) return;
     e.preventDefault();
     const x = e.pageX - scrollRef.current.offsetLeft;
-    const walk = (x - startX) * 2;
+    const walk = (x - startX) * 2; 
     scrollRef.current.scrollLeft = scrollLeft - walk;
   };
 
   const styles = {
     section: {
-      padding: "60px 8%", // Réduit de 100px à 60px
-      backgroundColor: "#fcfdfe",
+      padding: "60px 0", // Réduit de 100px à 60px
+      backgroundColor: "#FFFFFF",
       textAlign: "center",
       overflow: "hidden",
-      fontFamily: "'Inter', sans-serif"
+      fontFamily: "'Inter', sans-serif",
+      position: "relative"
+    },
+    header: {
+      padding: "0 8%",
+      marginBottom: "35px" // Réduit de 60px à 35px
     },
     topLabel: {
-      color: "#62a15b",
-      fontWeight: "800",
-      fontSize: "12px",
+      color: colors.primaryBlue,
+      fontWeight: "900",
+      fontSize: "11px", // Plus petit
       textTransform: "uppercase",
-      letterSpacing: "1px",
+      letterSpacing: "1.5px",
       display: "block",
       marginBottom: "10px"
     },
     title: {
-      fontSize: "clamp(24px, 3vw, 32px)", // Plus compact
-      color: "#1e3a8a",
+      fontSize: "clamp(26px, 3.5vw, 36px)", // Réduit
+      color: colors.darkNavy,
       fontWeight: "900",
-      marginBottom: "40px",
-      lineHeight: "1.2"
+      lineHeight: "1.15",
+      letterSpacing: "-0.02em"
+    },
+    outerWrapper: {
+      position: "relative",
+      maskImage: "linear-gradient(to right, transparent, black 15%, black 85%, transparent)",
+      WebkitMaskImage: "linear-gradient(to right, transparent, black 15%, black 85%, transparent)",
+      padding: "10px 0"
     },
     scrollContainer: {
       display: "flex",
-      gap: "20px", // Réduit de 25px à 20px
+      gap: "18px", // Réduit de 25px à 18px
       overflowX: "auto",
-      padding: "10px 5px 30px",
+      padding: "25px 10%", 
       cursor: isDown ? "grabbing" : "grab",
       scrollbarWidth: "none",
       msOverflowStyle: "none",
       userSelect: "none",
+      scrollBehavior: isDown ? "auto" : "smooth"
     },
     card: {
-      minWidth: "280px", // Réduit de 320px à 280px
-      backgroundColor: "#ffffff",
-      padding: "30px 25px", // Plus compact
-      borderRadius: "20px",
+      minWidth: "270px", // Réduit de 320px à 270px
+      backgroundColor: "#FFFFFF",
+      padding: "30px 22px", // Réduit de 40px/30px à 30px/22px
+      borderRadius: "22px", // Légèrement plus petit
       textAlign: "left",
-      boxShadow: "0 10px 30px rgba(0,0,0,0.04)",
-      border: "1px solid #f1f5f9",
-      transition: "all 0.3s ease",
+      boxShadow: "0 4px 15px rgba(0,0,0,0.02)",
+      border: "1px solid #F1F5F9",
+      transition: "all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1)",
       display: "flex",
       flexDirection: "column",
-      justifyContent: "space-between"
+      position: "relative",
+      overflow: "hidden"
     },
-    icon: {
-      fontSize: "32px", // Réduit de 40px à 32px
-      marginBottom: "15px",
-      display: "block"
+    iconBox: {
+      width: "48px", // Réduit de 60px à 48px
+      height: "48px", // Réduit de 60px à 48px
+      backgroundColor: colors.softBlue,
+      borderRadius: "14px",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      fontSize: "22px", // Réduit
+      marginBottom: "20px",
+      transition: "0.3s"
     },
     tag: {
-      fontSize: "10px",
-      fontWeight: "700",
-      color: "#166534",
-      backgroundColor: "#f0fdf4",
+      fontSize: "10px", // Plus petit
+      fontWeight: "800",
+      color: colors.primaryBlue,
+      backgroundColor: "rgba(11, 49, 175, 0.06)",
       padding: "4px 10px",
       borderRadius: "100px",
-      alignSelf: "flex-start"
+      alignSelf: "flex-start",
+      textTransform: "uppercase"
     },
     cardTitle: {
-      fontSize: "18px",
+      fontSize: "19px", // Réduit de 22px à 19px
       fontWeight: "800",
-      color: "#1e3a8a",
-      margin: "15px 0 10px"
+      color: colors.darkNavy,
+      margin: "15px 0 10px",
+      letterSpacing: "-0.01em"
     },
     cardDesc: {
-      fontSize: "14px",
-      color: "#64748b",
+      fontSize: "13.5px", // Réduit de 15px à 13.5px
+      color: colors.slate,
       lineHeight: "1.5",
       margin: 0
     },
     hint: {
-      marginTop: "10px",
-      color: "#94a3b8",
-      fontSize: "12px",
-      fontWeight: "500"
+      marginTop: "20px",
+      color: colors.slate,
+      fontSize: "11px",
+      fontWeight: "600",
+      opacity: 0.5,
+      letterSpacing: "0.5px"
     }
   };
 
   return (
     <section style={styles.section}>
-      <span style={styles.topLabel}>Secteurs d'activité</span>
-      <h2 style={styles.title}>Une solution adaptée à<br/>chaque défi industriel</h2>
+      <div style={styles.header}>
+        <span style={styles.topLabel}>Expertise Sectorielle</span>
+        <h2 style={styles.title}>Une mobilité adaptée à<br/>votre écosystème</h2>
+      </div>
 
-      <div 
-        ref={scrollRef}
-        className="no-scrollbar"
-        style={styles.scrollContainer}
-        onMouseDown={handleMouseDown}
-        onMouseLeave={handleMouseLeave}
-        onMouseUp={handleMouseUp}
-        onMouseMove={handleMouseMove}
-      >
-        {sectors.map((s, i) => (
-          <div key={i} className="sector-card" style={styles.card}>
-            <div>
-              <span style={styles.icon}>{s.icon}</span>
+      <div style={styles.outerWrapper}>
+        <div 
+          ref={scrollRef}
+          className="no-scrollbar"
+          style={styles.scrollContainer}
+          onMouseDown={handleMouseDown}
+          onMouseLeave={handleMouseLeave}
+          onMouseUp={handleMouseUp}
+          onMouseMove={handleMouseMove}
+        >
+          {sectors.map((s, i) => (
+            <div key={i} className="sector-card" style={styles.card}>
+              <div style={styles.iconBox} className="icon-box">
+                {s.icon}
+              </div>
               <span style={styles.tag}>{s.tag}</span>
               <h4 style={styles.cardTitle}>{s.name}</h4>
               <p style={styles.cardDesc}>{s.desc}</p>
+              
+              <div className="card-number">{i + 1}</div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
 
       <p style={styles.hint}>
-        {isDown ? "Glissage actif" : "← Glissez pour explorer →"}
+        {isDown ? "NAVIGATION ACTIVE" : "GLISSEZ POUR EXPLORER"}
       </p>
 
       <style>
         {`
           .no-scrollbar::-webkit-scrollbar { display: none; }
+          
           .sector-card:hover { 
-            transform: translateY(-5px); 
-            border-color: #62a15b;
-            box-shadow: 0 15px 35px rgba(98, 161, 91, 0.1);
+            transform: translateY(-8px); 
+            border-color: ${colors.primaryBlue};
+            box-shadow: 0 20px 40px rgba(11, 49, 175, 0.06);
+          }
+
+          .sector-card:hover .icon-box {
+            background-color: ${colors.primaryBlue};
+            color: white;
+            transform: scale(1.05);
+          }
+
+          .card-number {
+            position: absolute;
+            bottom: -15px;
+            right: -8px;
+            font-size: 70px; /* Réduit de 100px à 70px */
+            font-weight: 900;
+            color: #F8FAFC;
+            z-index: -1;
+            transition: 0.4s;
+          }
+
+          .sector-card:hover .card-number {
+            color: rgba(11, 49, 175, 0.03);
           }
         `}
       </style>

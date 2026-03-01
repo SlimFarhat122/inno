@@ -1,201 +1,280 @@
 import React from "react";
 
 const BusinessContact = () => {
+  const colors = {
+    primaryBlue: "#0B31AF",
+    electricBlue: "#3B82F6",
+    slate900: "#0F172A",
+    slate800: "#1E293B",
+    glassBorder: "rgba(255, 255, 255, 0.08)",
+  };
+
   const styles = {
     section: {
-      padding: "80px 8%",
-      backgroundColor: "#1e293b", // Bleu nuit profond du thème
-      textAlign: "center",
+      padding: "100px 5%",
+      backgroundColor: colors.slate900,
       fontFamily: "'Inter', sans-serif",
+      position: "relative",
+      overflow: "hidden"
+    },
+    header: {
+      maxWidth: "800px",
+      margin: "0 auto 60px",
+      textAlign: "center",
     },
     title: {
-      fontSize: "clamp(24px, 4vw, 32px)",
+      fontSize: "clamp(32px, 5vw, 48px)",
       color: "#ffffff",
       fontWeight: "900",
-      marginBottom: "40px",
-      textTransform: "uppercase",
-      letterSpacing: "1px"
+      lineHeight: "1.1",
+      letterSpacing: "-0.03em",
+      marginBottom: "20px"
     },
-    topButtons: {
-      display: "flex",
-      justifyContent: "center",
-      gap: "15px",
-      flexWrap: "wrap",
-      marginBottom: "50px"
+    subtitle: {
+      color: "#94a3b8",
+      fontSize: "18px",
+      fontWeight: "400"
     },
-    serviceBtn: {
-      padding: "12px 24px",
-      borderRadius: "12px",
-      border: "none",
-      backgroundColor: "#ffffff",
-      color: "#1e3a8a",
-      fontSize: "14px",
-      fontWeight: "700",
-      display: "flex",
-      alignItems: "center",
-      gap: "10px",
+    tileGrid: {
+      display: "grid",
+      gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
+      gap: "20px",
+      maxWidth: "1100px",
+      margin: "0 auto 60px"
+    },
+    actionTile: {
+      padding: "24px",
+      borderRadius: "20px",
+      backgroundColor: "rgba(255, 255, 255, 0.03)",
+      border: `1px solid ${colors.glassBorder}`,
+      color: "#ffffff",
+      textAlign: "left",
       cursor: "pointer",
-      boxShadow: "0 4px 15px rgba(0,0,0,0.1)"
+      transition: "all 0.3s ease",
+      display: "flex",
+      flexDirection: "column",
+      gap: "10px"
     },
     mainGrid: {
       display: "grid",
-      gridTemplateColumns: "repeat(auto-fit, minmax(350px, 1fr))",
-      gap: "30px",
+      gridTemplateColumns: "1.5fr 1fr",
+      gap: "40px",
       maxWidth: "1100px",
       margin: "0 auto",
-      textAlign: "left"
+      position: "relative",
+      zIndex: 2
     },
-    formCard: {
-      backgroundColor: "#ffffff",
-      padding: "40px",
-      borderRadius: "30px",
-      boxShadow: "0 25px 50px -12px rgba(0,0,0,0.5)"
+    formContainer: {
+      backgroundColor: "rgba(255, 255, 255, 0.02)",
+      padding: "50px",
+      borderRadius: "32px",
+      border: `1px solid ${colors.glassBorder}`,
+      backdropFilter: "blur(10px)",
     },
     inputGroup: {
       display: "grid",
       gridTemplateColumns: "1fr 1fr",
-      gap: "20px",
-      marginBottom: "20px"
+      gap: "25px",
+      marginBottom: "25px"
     },
     label: {
-      display: "block",
-      fontSize: "13px",
+      fontSize: "12px",
       fontWeight: "700",
-      color: "#1e3a8a",
-      marginBottom: "8px"
+      color: "#64748b",
+      textTransform: "uppercase",
+      letterSpacing: "1px",
+      marginBottom: "10px",
+      display: "block"
     },
     input: {
       width: "100%",
-      padding: "12px 15px",
-      borderRadius: "10px",
-      border: "1px solid #e2e8f0",
-      backgroundColor: "#f8fafc",
-      fontSize: "14px",
+      padding: "14px 18px",
+      borderRadius: "12px",
+      border: `1px solid ${colors.glassBorder}`,
+      backgroundColor: "rgba(15, 23, 42, 0.5)",
+      color: "#ffffff",
+      fontSize: "15px",
+      transition: "0.3s",
       outline: "none"
     },
     textarea: {
       width: "100%",
-      padding: "12px 15px",
-      borderRadius: "10px",
-      border: "1px solid #e2e8f0",
-      backgroundColor: "#f8fafc",
-      fontSize: "14px",
-      minHeight: "100px",
+      padding: "14px 18px",
+      borderRadius: "12px",
+      border: `1px solid ${colors.glassBorder}`,
+      backgroundColor: "rgba(15, 23, 42, 0.5)",
+      color: "#ffffff",
+      fontSize: "15px",
+      minHeight: "120px",
       outline: "none",
       resize: "none"
     },
     submitBtn: {
       width: "100%",
-      marginTop: "25px",
-      padding: "15px",
-      borderRadius: "12px",
+      marginTop: "30px",
+      padding: "18px",
+      borderRadius: "14px",
       border: "none",
-      backgroundColor: "#5bc0de", // Bleu clair du bouton "Envoyer"
+      backgroundColor: colors.primaryBlue,
       color: "#ffffff",
       fontSize: "16px",
       fontWeight: "800",
       cursor: "pointer",
-      transition: "all 0.3s ease",
-      boxShadow: "0 10px 20px rgba(91, 192, 222, 0.3)"
+      transition: "all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)",
+      boxShadow: `0 10px 30px rgba(11, 49, 175, 0.3)`
     },
-    infoCard: {
-      backgroundColor: "rgba(255, 255, 255, 0.05)",
-      padding: "40px",
-      borderRadius: "30px",
-      border: "1px solid rgba(255, 255, 255, 0.1)",
-      color: "#ffffff",
+    infoSidebar: {
       display: "flex",
       flexDirection: "column",
-      justifyContent: "center"
+      justifyContent: "space-between",
+      padding: "20px"
     },
-    contactItem: {
+    contactLink: {
       display: "flex",
       alignItems: "center",
-      gap: "15px",
-      marginBottom: "25px",
-      fontSize: "15px"
+      gap: "20px",
+      color: "#ffffff",
+      textDecoration: "none",
+      fontSize: "16px",
+      marginBottom: "35px",
+      opacity: 0.8,
+      transition: "0.3s"
     },
-    iconBox: {
-      width: "40px",
-      height: "40px",
-      borderRadius: "10px",
-      backgroundColor: "rgba(255, 255, 255, 0.1)",
+    iconCircle: {
+      width: "45px",
+      height: "45px",
+      borderRadius: "50%",
+      backgroundColor: "rgba(255, 255, 255, 0.05)",
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
       fontSize: "18px"
     },
-    brandName: {
-      marginTop: "20px",
-      fontSize: "24px",
-      fontWeight: "900",
-      letterSpacing: "2px"
+    statusBadge: {
+      padding: "6px 12px",
+      borderRadius: "100px",
+      backgroundColor: "rgba(34, 197, 94, 0.1)",
+      color: "#22c55e",
+      fontSize: "12px",
+      fontWeight: "700",
+      display: "inline-flex",
+      alignItems: "center",
+      gap: "6px",
+      marginBottom: "20px"
     }
   };
 
   return (
     <section id="business-contact" style={styles.section}>
-      <h2 style={styles.title}>Prêt à transformer la mobilité <br/> de votre entreprise ?</h2>
+      {/* Background Glow */}
+      <div style={{ position: "absolute", top: "-10%", right: "-10%", width: "400px", height: "400px", backgroundColor: "rgba(11, 49, 175, 0.15)", filter: "blur(100px)", borderRadius: "50%" }}></div>
 
-      <div style={styles.topButtons} >
-        <button style={styles.serviceBtn}>💻 Demandez une démo personnalisée</button>
-        <button style={styles.serviceBtn}>📄 Obtenez un devis adapté</button>
-        <button style={styles.serviceBtn}>🚀 Démarrez votre essai gratuit</button>
+      <header style={styles.header}>
+        <h2 style={styles.title}>Passez à la vitesse supérieure</h2>
+        <p style={styles.subtitle}>Solutions de mobilité sur mesure pour entreprises ambitieuses.</p>
+      </header>
+
+      <div style={styles.tileGrid}>
+        <div className="action-tile" style={styles.actionTile}>
+          <span style={{ fontSize: "24px" }}></span>
+          <span style={{ fontWeight: "800" }}>Demo Live</span>
+          <span style={{ fontSize: "13px", opacity: 0.6 }}>Explorez l'interface avec un expert.</span>
+        </div>
+        <div className="action-tile" style={styles.actionTile}>
+          <span style={{ fontSize: "24px" }}></span>
+          <span style={{ fontWeight: "800" }}>Devis Express</span>
+          <span style={{ fontSize: "13px", opacity: 0.6 }}>Réponse personnalisée sous 24h.</span>
+        </div>
+        <div className="action-tile" style={styles.actionTile}>
+          <span style={{ fontSize: "24px" }}></span>
+          <span style={{ fontWeight: "800" }}>Essai Gratuit</span>
+          <span style={{ fontSize: "13px", opacity: 0.6 }}>Testez nos services sans engagement.</span>
+        </div>
       </div>
 
       <div style={styles.mainGrid}>
-        {/* Colonne Formulaire */}
-        <div style={styles.formCard}>
+        <div style={styles.formContainer}>
           <form onSubmit={(e) => e.preventDefault()}>
             <div style={styles.inputGroup}>
               <div>
-                <label style={styles.label}>Nom</label>
-                <input type="text" placeholder="Votre nom" style={styles.input} />
+                <label style={styles.label}>Nom complet</label>
+                <input type="text" placeholder="Jean Dupont" style={styles.input} className="custom-input" />
               </div>
               <div>
                 <label style={styles.label}>Entreprise</label>
-                <input type="text" placeholder="Nom de l'entreprise" style={styles.input} />
+                <input type="text" placeholder="Inno Corp" style={styles.input} className="custom-input" />
               </div>
             </div>
             <div style={styles.inputGroup}>
               <div>
-                <label style={styles.label}>Email</label>
-                <input type="email" placeholder="email@exemple.com" style={styles.input} />
+                <label style={styles.label}>Email Business</label>
+                <input type="email" placeholder="jean@entreprise.tn" style={styles.input} className="custom-input" />
               </div>
               <div>
                 <label style={styles.label}>Téléphone</label>
-                <input type="tel" placeholder="+216 -- --- ---" style={styles.input} />
+                <input type="tel" placeholder="+216 -- --- ---" style={styles.input} className="custom-input" />
               </div>
             </div>
             <div>
-              <label style={styles.label}>Message</label>
-              <textarea placeholder="Comment pouvons-nous vous aider ?" style={styles.textarea}></textarea>
+              <label style={styles.label}>Votre projet</label>
+              <textarea placeholder="Décrivez brièvement vos besoins de mobilité..." style={styles.textarea} className="custom-input"></textarea>
             </div>
-            <button style={styles.submitBtn}>Envoyer</button>
+            <button style={styles.submitBtn} className="btn-primary">Lancer la discussion</button>
           </form>
         </div>
 
-        {/* Colonne Infos */}
-        <div style={styles.infoCard}>
-          <div style={styles.contactItem}>
-            <div style={styles.iconBox}>✉️</div>
-            business@inno.tn
-          </div>
-          <div style={styles.contactItem}>
-            <div style={styles.iconBox}>📞</div>
-            +216 29 606 606
-          </div>
-          <div style={styles.contactItem}>
-            <div style={styles.iconBox}>🌐</div>
-            business.inno.tn
+        <div style={styles.infoSidebar}>
+          <div>
+            <div style={styles.statusBadge}>
+              <span style={{ width: "8px", height: "8px", borderRadius: "50%", backgroundColor: "#22c55e" }}></span>
+              Support Business disponible
+            </div>
+            <a href="mailto:business@inno.tn" style={styles.contactLink} className="sidebar-link">
+              <div style={styles.iconCircle}>✉️</div>
+              business@inno.tn
+            </a>
+            <a href="tel:+21629606606" style={styles.contactLink} className="sidebar-link">
+              <div style={styles.iconCircle}>📞</div>
+              +216 29 606 606
+            </a>
+            <a href="#" style={styles.contactLink} className="sidebar-link">
+              <div style={styles.iconCircle}>🌐</div>
+              Portail Entreprise
+            </a>
           </div>
 
-          <div style={{ marginTop: "40px" }}>
-            <div style={styles.brandName}>INNO</div>
-            <div style={{ fontSize: "12px", opacity: 0.6, letterSpacing: "3px" }}>BUSINESS</div>
+          <div style={{ borderTop: `1px solid ${colors.glassBorder}`, paddingTop: "30px" }}>
+            <div style={{ fontSize: "28px", fontWeight: "900", color: "#fff", letterSpacing: "2px" }}>INNO</div>
+            <div style={{ fontSize: "12px", color: colors.primaryBlue, fontWeight: "800", letterSpacing: "5px" }}>BUSINESS</div>
           </div>
         </div>
       </div>
+
+      <style>
+        {`
+          .action-tile:hover {
+            background-color: rgba(255, 255, 255, 0.08);
+            transform: translateY(-5px);
+            border-color: ${colors.primaryBlue};
+          }
+          .custom-input:focus {
+            border-color: ${colors.primaryBlue} !important;
+            box-shadow: 0 0 0 4px rgba(11, 49, 175, 0.1);
+          }
+          .btn-primary:hover {
+            transform: scale(1.02);
+            filter: brightness(1.1);
+          }
+          .sidebar-link:hover {
+            opacity: 1;
+            color: ${colors.electricBlue};
+          }
+          @media (max-width: 900px) {
+            #business-contact > div { grid-template-columns: 1fr !important; }
+            .sidebar-link { margin-bottom: 15px; }
+          }
+        `}
+      </style>
     </section>
   );
 };
