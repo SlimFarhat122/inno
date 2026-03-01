@@ -30,38 +30,21 @@ const UserVersion = () => {
     <section id="user-version" className="inno-pro-edition">
       <style>{`
         /* --- CORE SECTION STYLING (Matched to Chauffeur) --- */
-        .inno-pro-edition {
-          font-family: 'Inter', 'SF Pro Display', sans-serif;
-          background-color: #0B1120; /* Deep Midnight Slate */
-          background-image: 
-            radial-gradient(circle at 15% 0%, rgba(30, 58, 138, 0.15) 0%, transparent 40%),
-            radial-gradient(circle at 85% 100%, rgba(98, 161, 91, 0.12) 0%, transparent 40%),
-            linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
-          background-size: 100% 100%, 100% 100%, 64px 64px, 64px 64px;
-          color: #F8FAFC;
-          padding: 140px 5% 120px;
-          position: relative;
-          overflow: hidden;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-        }
+       .inno-pro-edition {
+  font-family: 'Inter', 'SF Pro Display', sans-serif;
+  background-color: transparent; /* Suppression du fond propre */
+  color: #F8FAFC;
+  padding: 60px 5% 60px; /* Padding réduit pour coller au scroll */
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
-        /* Ambient Center Glow */
-        .inno-pro-edition::after {
-          content: '';
-          position: absolute;
-          top: 30%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-          width: 800px;
-          height: 600px;
-          background: radial-gradient(circle, rgba(98, 161, 91, 0.08) 0%, rgba(30, 58, 138, 0.05) 40%, transparent 70%);
-          filter: blur(40px);
-          z-index: 0;
-          pointer-events: none;
-        }
+/* Supprimer aussi le pseudo-élément ::after qui crée un halo fixe */
+.inno-pro-edition::after {
+  display: none;
+}
 
         /* --- HEADER --- */
         .inno-pro-header {

@@ -2,14 +2,14 @@ import React, { useLayoutEffect } from 'react'; // Import indispensable
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import './App.css';
 
-import Navbar from "./components/Navbar";
+import TestNavbar from "./components/TestNavbar";
 import Footer from "./components/Footer";
 import Hero from "./components/Hero";
 import About from "./components/About";
 import Chauffeur from "./components/Chauffeur";
 import UserVersion from "./components/UserVersion";
 import ContactForm from './components/ContactForm';
-
+import InnoExperience from './components/InnoExperience';
 // Pages Business
 import BusinessHero from "./components/BusinessHero";
 import BusinessStats from "./components/BusinessStats";
@@ -51,17 +51,41 @@ const ScrollToSection = () => {
   return null;
 };
 
-// 2. Composants de structure de page
+// 2. Composants de structure de page (Optimisé sans espaces)
 const Home = () => (
   <>
     <Hero />
     <div id="about"><About /></div>
-    <div id="user-version"><UserVersion /></div>
-    <div id="driver-version"><Chauffeur /></div>
+    
+    {/* --- WRAPPER UNIFIÉ --- */}
+    <div style={{
+      backgroundColor: "#0B1120",
+      backgroundImage: `
+        radial-gradient(circle at 15% 10%, rgba(30, 58, 138, 0.15) 0%, transparent 40%),
+        radial-gradient(circle at 85% 90%, rgba(98, 161, 91, 0.12) 0%, transparent 40%),
+        linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px)
+      `,
+      backgroundSize: "100% 100%, 100% 100%, 64px 64px, 64px 64px",
+      position: "relative"
+    }}>
+      
+      <section id="user-version">
+        <UserVersion />
+      </section>
+
+      <InnoExperience /> 
+
+      <section id="driver-version">
+        <Chauffeur />
+      </section>
+
+    </div>
+    {/* --- FIN DU WRAPPER --- */}
+
     <div id="contact"><ContactForm /></div>
   </>
 );
-
 const BusinessPage = () => (
   <div style={{ paddingTop: "80px" }}>
     <BusinessHero />
@@ -77,7 +101,7 @@ function App() {
   return (
     <Router>
       <ScrollToSection />
-      <Navbar />
+      <TestNavbar />
       <Routes>
         <Route path="/privacy-policy/" element={<PrivacyPolicy />} />
         <Route path="/condition-of-use/" element={<TermsOfService />} />
