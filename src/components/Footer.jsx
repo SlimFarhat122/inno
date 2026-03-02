@@ -83,7 +83,7 @@ const Footer = () => {
     colTitle: {
       fontSize: "14px",
       fontWeight: "800",
-      color: activeColor, // DYNAMIQUE
+      color: activeColor,
       marginBottom: "30px",
       textTransform: "uppercase",
       letterSpacing: "1.5px",
@@ -112,6 +112,8 @@ const Footer = () => {
       gap: "20px",
       color: "#64748b",
       fontSize: "14px",
+      position: "relative", // Needed for zIndex
+      zIndex: 10,           // Forces links to be on top of decorations
     }
   };
 
@@ -123,19 +125,23 @@ const Footer = () => {
 
   return (
     <footer style={styles.footer}>
-      {/* Reflet de fond dynamique */}
+      {/* Reflet de fond dynamique 
+        FIX: Added pointerEvents: "none" so clicks pass through to the links 
+      */}
       <div style={{
         position: "absolute", bottom: "-100px", right: "-100px",
         width: "300px", height: "300px", background: `${activeColor}15`,
         filter: "blur(100px)", borderRadius: "50%",
-        transition: "background 0.4s ease"
+        transition: "background 0.4s ease",
+        pointerEvents: "none", 
+        zIndex: 1,
       }} />
 
       <div style={styles.container}>
         <div style={styles.brandCol}>
           <div style={styles.logoSection}>
             <div style={{ 
-              width: "30px", height: "30px", backgroundColor: activeColor, // DYNAMIQUE
+              width: "30px", height: "30px", backgroundColor: activeColor,
               borderRadius: "8px", display: "flex", alignItems: "center", justifyContent: "center",
               fontWeight: "900", color: "#ffffff", fontSize: "12px",
               transition: "background-color 0.4s ease"
@@ -188,8 +194,9 @@ const Footer = () => {
       <div style={styles.bottomBar}>
         <div>&copy; {new Date().getFullYear()} INNO. Tous droits réservés.</div>
         <div style={{ display: 'flex', gap: '25px' }}>
-          <Link to="/privacy-policy/" style={{ color: 'inherit', textDecoration: 'none' }} className="footer-link">Confidentialité</Link>
-          <Link to="/condition-of-use/" style={{ color: 'inherit', textDecoration: 'none' }} className="footer-link">Conditions</Link>
+          {/* These links are now clickable because they are higher than the glow blob */}
+          <Link to="/privacy-policy/" style={{ color: 'inherit', textDecoration: 'none' }} className="footer-link">politique de confidentialité</Link>
+          <Link to="/condition-of-use/" style={{ color: 'inherit', textDecoration: 'none' }} className="footer-link">condition d'utilisation</Link>
         </div>
       </div>
 
@@ -203,7 +210,10 @@ const Footer = () => {
           color: ${activeColor} !important;
           padding-left: 5px;
         }
-        .footer-link { transition: all 0.3s ease !important; }
+        .footer-link { 
+          transition: all 0.3s ease !important; 
+          cursor: pointer !important;
+        }
       `}</style>
     </footer>
   );

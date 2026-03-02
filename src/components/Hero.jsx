@@ -2,7 +2,7 @@ import React from 'react';
 import { MapPin, ArrowRight, ShieldCheck, Clock, Navigation, Car } from 'lucide-react';
 
 const stats = [
-  { value: '50K+', label: 'Utilisateurs actifs' },
+  { value: '5K+', label: 'Utilisateurs actifs' },
   { value: '4.9/5', label: 'Note moyenne' },
   { value: '24/7', label: 'Support client' },
 ];
