@@ -12,7 +12,7 @@ const BusinessStats = () => {
   const styles = {
     section: {
       padding: "60px 5%", // Réduit de 120px à 60px
-      backgroundColor: "#FFFFFF",
+      backgroundColor: "#transparent",
       fontFamily: "'Inter', sans-serif",
     },
     container: {
@@ -47,7 +47,7 @@ const BusinessStats = () => {
       gap: "16px", // Gap réduit de 24px à 16px
     },
     card: {
-      backgroundColor: "#FFFFFF",
+      backgroundColor: "#transparent",
       borderRadius: "24px", // Plus petit rayon pour cartes plus petites
       padding: "24px", // Padding réduit de 40px à 24px
       border: `1px solid ${colors.border}`,

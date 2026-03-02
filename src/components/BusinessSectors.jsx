@@ -41,7 +41,7 @@ const BusinessSectors = () => {
   const styles = {
     section: {
       padding: "60px 0", // Réduit de 100px à 60px
-      backgroundColor: "#FFFFFF",
+      backgroundColor: "#transparent",
       textAlign: "center",
       overflow: "hidden",
       fontFamily: "'Inter', sans-serif",
@@ -86,7 +86,7 @@ const BusinessSectors = () => {
     },
     card: {
       minWidth: "270px", // Réduit de 320px à 270px
-      backgroundColor: "#FFFFFF",
+      backgroundColor: "#transparent",
       padding: "30px 22px", // Réduit de 40px/30px à 30px/22px
       borderRadius: "22px", // Légèrement plus petit
       textAlign: "left",

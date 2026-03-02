@@ -43,7 +43,7 @@ const BusinessValues = () => {
   const styles = {
     section: {
       padding: "100px 8%",
-      backgroundColor: "#f8fafc",
+      backgroundColor: "#transparent",
       textAlign: "center",
     },
     badge: {
@@ -71,7 +71,7 @@ const BusinessValues = () => {
       gap: "30px",
     },
     card: {
-      backgroundColor: "#ffffff",
+      backgroundColor: "#transparent",
       padding: "40px 30px",
       borderRadius: "24px",
       textAlign: "left",

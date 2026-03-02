@@ -9,17 +9,23 @@ const Navbar = () => {
   const [showDropdown, setShowDropdown] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const prevScrollPos = useRef(window.scrollY);
-  const timeoutRef = useRef(null); // Référence pour le délai
+  const timeoutRef = useRef(null); 
   
   const navigate = useNavigate();
   const location = useLocation();
 
+  // Thème de couleurs centralisé
   const theme = {
     green: "#62A15B",
+    blue: "#0B31AF", // Bleu officiel Inno Business
     darkDeep: "#030B21",
     textDark: "#1E293B",
     textLight: "#FFFFFF",
   };
+
+  // Logique de couleur dynamique selon la route
+  const isBusinessPage = location.pathname === "/business";
+  const activeColor = isBusinessPage ? theme.blue : theme.green;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -32,7 +38,6 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [isMobileMenuOpen]);
 
-  // Fonctions pour gérer le délai
   const handleMouseEnter = () => {
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
     setShowDropdown(true);
@@ -41,7 +46,7 @@ const Navbar = () => {
   const handleMouseLeave = () => {
     timeoutRef.current = setTimeout(() => {
       setShowDropdown(false);
-    }, 300); // Délai de 300ms
+    }, 300);
   };
 
   const handleNavClick = (id) => {
@@ -92,7 +97,8 @@ const Navbar = () => {
             position: relative;
           }
 
-          .link-item:hover { color: ${theme.green} !important; }
+          /* Le survol s'adapte à la page */
+          .link-item:hover { color: ${activeColor} !important; }
 
           .dropdown-container {
             position: absolute;
@@ -116,7 +122,7 @@ const Navbar = () => {
             display: block;
           }
 
-          .dropdown-link:hover { color: ${theme.green}; }
+          .dropdown-link:hover { color: ${activeColor}; }
 
           @media (max-width: 992px) {
             .nav-links-wrapper {
@@ -151,7 +157,7 @@ const Navbar = () => {
             }
 
             .dropdown-link {
-              color: ${theme.green} !important;
+              color: ${activeColor} !important;
               font-size: 18px;
               padding: 5px 0;
             }
@@ -160,13 +166,14 @@ const Navbar = () => {
             
             .mobile-contact-btn {
               display: block !important;
-              background-color: ${theme.green};
+              background-color: ${activeColor};
               color: white;
               padding: 15px 40px;
               border-radius: 50px;
               text-decoration: none;
               font-weight: 700;
               margin-top: 10px;
+              transition: background-color 0.3s ease;
             }
           }
 
@@ -177,8 +184,9 @@ const Navbar = () => {
         `}
       </style>
 
+      {/* Image du logo adaptative */}
       <img 
-        src={location.pathname === "/business" ? innoLogo2 : innoLogo} 
+        src={isBusinessPage ? innoLogo2 : innoLogo} 
         alt="Inno" 
         style={{ 
           height: scrolled ? "35px" : "45px", 
@@ -215,18 +223,20 @@ const Navbar = () => {
         </li>
       </ul>
 
+      {/* Bouton Desktop avec couleur dynamique et ombre assortie */}
       <div className="desktop-btn">
         <button 
           onClick={() => handleNavClick("contact")}
           style={{
-            backgroundColor: theme.green,
+            backgroundColor: activeColor,
             color: "white",
             padding: "10px 25px",
             borderRadius: "100px",
             border: "none",
             fontWeight: "700",
             cursor: "pointer",
-            boxShadow: `0 4px 15px ${theme.green}40`
+            transition: "all 0.3s ease",
+            boxShadow: `0 4px 15px ${activeColor}40`
           }}
         >
           Contact

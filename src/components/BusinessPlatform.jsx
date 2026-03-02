@@ -16,7 +16,7 @@ const BusinessPlatform = () => {
   const styles = {
     section: {
       padding: "40px 5%", 
-      backgroundColor: "#ffffff",
+      backgroundColor: "#TRANSPARENT",
       fontFamily: "'Inter', sans-serif",
     },
     header: {

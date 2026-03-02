@@ -1,15 +1,24 @@
 import React from "react";
-import { Link } from 'react-router-dom';
-
-const theme = {
-  green: "#62A15B",
-  dark: "#0F172A", // On remplace le bleu par votre gris foncé
-  muted: "#94A3B8",
-  bg: "#FAFAF9",
-  border: "rgba(255, 255, 255, 0.1)",
-};
+import { Link, useLocation } from 'react-router-dom';
 
 const Footer = () => {
+  const location = useLocation();
+  
+  // 1. Détecter si nous sommes sur la page Business
+  const isBusinessPage = location.pathname === "/business";
+
+  const theme = {
+    green: "#62A15B",
+    blue: "#0B31AF", // Bleu Inno Business
+    dark: "#0F172A", 
+    muted: "#94A3B8",
+    bg: "#FAFAF9",
+    border: "rgba(255, 255, 255, 0.1)",
+  };
+
+  // 2. Définir la couleur active (Bleu ou Vert)
+  const activeColor = isBusinessPage ? theme.blue : theme.green;
+
   const styles = {
     footer: {
       backgroundColor: theme.dark,
@@ -74,10 +83,11 @@ const Footer = () => {
     colTitle: {
       fontSize: "14px",
       fontWeight: "800",
-      color: theme.green,
+      color: activeColor, // DYNAMIQUE
       marginBottom: "30px",
       textTransform: "uppercase",
       letterSpacing: "1.5px",
+      transition: "color 0.4s ease",
     },
     linkList: {
       listStyle: "none",
@@ -113,20 +123,22 @@ const Footer = () => {
 
   return (
     <footer style={styles.footer}>
-      {/* Petit reflet vert dans le coin pour le style */}
+      {/* Reflet de fond dynamique */}
       <div style={{
         position: "absolute", bottom: "-100px", right: "-100px",
-        width: "300px", height: "300px", background: `${theme.green}15`,
-        filter: "blur(100px)", borderRadius: "50%"
+        width: "300px", height: "300px", background: `${activeColor}15`,
+        filter: "blur(100px)", borderRadius: "50%",
+        transition: "background 0.4s ease"
       }} />
 
       <div style={styles.container}>
         <div style={styles.brandCol}>
           <div style={styles.logoSection}>
             <div style={{ 
-              width: "30px", height: "30px", backgroundColor: theme.green, 
+              width: "30px", height: "30px", backgroundColor: activeColor, // DYNAMIQUE
               borderRadius: "8px", display: "flex", alignItems: "center", justifyContent: "center",
-              fontWeight: "900", color: theme.dark, fontSize: "12px"
+              fontWeight: "900", color: "#ffffff", fontSize: "12px",
+              transition: "background-color 0.4s ease"
             }}>IN</div>
             <span style={styles.logoText}>INNO</span>
           </div>
@@ -153,8 +165,8 @@ const Footer = () => {
           <h4 style={styles.colTitle}>Navigation</h4>
           <ul style={styles.linkList}>
             <li style={styles.linkItem}><a href="#about" style={styles.link} className="footer-link">À Propos</a></li>
-            <li style={styles.linkItem}><a href="#user" style={styles.link} className="footer-link">Passager</a></li>
-            <li style={styles.linkItem}><a href="#driver" style={styles.link} className="footer-link">Chauffeur</a></li>
+            <li style={styles.linkItem}><a href="#user-version" style={styles.link} className="footer-link">Passager</a></li>
+            <li style={styles.linkItem}><a href="#driver-version" style={styles.link} className="footer-link">Chauffeur</a></li>
             <li style={styles.linkItem}><a href="#contact" style={styles.link} className="footer-link">Contact</a></li>
           </ul>
         </div>
@@ -162,13 +174,13 @@ const Footer = () => {
         <div style={styles.linkCol}>
           <h4 style={styles.colTitle}>Contact</h4>
           <div style={{ marginBottom: "15px", display: "flex", gap: "10px", color: theme.muted, fontSize: "15px" }}>
-            <span style={{ color: theme.green }}>📍</span> Tunis, Sfax & Gabès
+            <span style={{ color: activeColor, transition: "color 0.4s ease" }}>📍</span> Tunis, Sfax & Gabès
           </div>
           <div style={{ marginBottom: "15px", display: "flex", gap: "10px", color: theme.muted, fontSize: "15px" }}>
-            <span style={{ color: theme.green }}>📞</span> +216 58 000 800
+            <span style={{ color: activeColor, transition: "color 0.4s ease" }}>📞</span> +216 58 000 800
           </div>
           <div style={{ display: "flex", gap: "10px", color: theme.muted, fontSize: "15px" }}>
-            <span style={{ color: theme.green }}>✉️</span> contact@inno.tn
+            <span style={{ color: activeColor, transition: "color 0.4s ease" }}>✉️</span> contact@inno.tn
           </div>
         </div>
       </div>
@@ -183,12 +195,12 @@ const Footer = () => {
 
       <style>{`
         .social-hover:hover {
-          background-color: ${theme.green} !important;
+          background-color: ${activeColor} !important;
           transform: translateY(-5px);
-          border-color: ${theme.green} !important;
+          border-color: ${activeColor} !important;
         }
         .footer-link:hover {
-          color: ${theme.green} !important;
+          color: ${activeColor} !important;
           padding-left: 5px;
         }
         .footer-link { transition: all 0.3s ease !important; }
