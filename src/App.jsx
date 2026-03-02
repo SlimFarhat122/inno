@@ -52,7 +52,7 @@ const ScrollToSection = () => {
   return null;
 };
 
-// 2. Composants de structure de page (Optimisé sans espaces)
+
 const Home = () => (
   <>
     <Hero />
@@ -87,6 +87,7 @@ const Home = () => (
     <div id="contact"><ContactForm /></div>
   </>
 );
+
 const BusinessPage = () => (
   <div style={{ paddingTop: "80px" }}>
     <BusinessHero />

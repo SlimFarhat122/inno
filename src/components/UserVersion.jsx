@@ -2,7 +2,7 @@ import React from "react";
 // Importez vos images ici
 import imgApp1 from "../assets/3.png"; // La carte / Home (Au centre)
 import imgApp2 from "../assets/4.png"; // Le paiement (À gauche)
-import imgApp3 from "../assets/23.png"; // Le suivi chauffeur (À droite)
+import imgApp3 from "../assets/8.png"; // Le suivi chauffeur (À droite)
 
 const UserVersion = () => {
   const steps = [
@@ -10,19 +10,19 @@ const UserVersion = () => {
       id: "01",
       title: "Télécharger l'app", 
       desc: "Installez l'application INNO et créez votre compte en un clin d'œil.", 
-      icon: "📱" 
+      icon: "" 
     },
     { 
       id: "02",
       title: "Réserver un taxi", 
       desc: "Saisissez votre destination, l'algorithme trouve votre chauffeur.", 
-      icon: "🎯" 
+      icon: "" 
     },
     { 
       id: "03",
       title: "Payer en sécurité", 
       desc: "Réglez en espèces ou via votre solde Inno en toute sérénité.", 
-      icon: "🛡️" 
+      icon: "" 
     }
   ];
 

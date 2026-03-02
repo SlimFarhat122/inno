@@ -1,5 +1,4 @@
 import React from "react";
-// Assurez-vous que le chemin est correct
 import taxiBusiness from "../assets/taxi.png"; 
 
 const BusinessHero = () => {
@@ -14,9 +13,9 @@ const BusinessHero = () => {
   };
 
   const colors = {
-    primaryBlue: "#0B31AF",   // Le bleu de votre logo
-    electricBlue: "#2563EB",  // Un bleu plus vif pour le dynamisme
-    darkNavy: "#020617",      // Pour le texte et les contrastes profonds
+    primaryBlue: "#0B31AF",
+    electricBlue: "#2563EB",
+    darkNavy: "#020617",
     glassWhite: "rgba(255, 255, 255, 0.8)",
     borderLight: "rgba(11, 49, 175, 0.1)"
   };
@@ -28,13 +27,24 @@ const BusinessHero = () => {
       justifyContent: "space-between",
       padding: "180px 10% 120px",
       gap: "40px",
-      background: "#FFFFFF",
+      // CHANGEMENT : Fond avec dégradé vers le bas pour la continuité
+      background: "linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 100%)",
       minHeight: "100vh",
       overflow: "hidden",
       position: "relative",
       fontFamily: "'Inter', sans-serif",
     },
-    // Dégradé de fond subtil pour la profondeur
+    // BROUILLARD BLEU (FOG)
+    fogLeft: {
+      position: "absolute",
+      top: "10%",
+      left: "-10%",
+      width: "600px",
+      height: "600px",
+      background: "radial-gradient(circle, rgba(11, 49, 175, 0.08) 0%, transparent 70%)",
+      filter: "blur(100px)",
+      zIndex: 1, // Devant le fond, derrière le contenu
+    },
     bgGradient: {
       position: "absolute",
       top: "-20%",
@@ -111,7 +121,7 @@ const BusinessHero = () => {
     imageWrapper: {
       position: "relative",
       width: "100%",
-      perspective: "1000px" // Pour un effet 3D léger
+      perspective: "1000px" 
     },
     img: { 
       width: "100%", 
@@ -120,22 +130,20 @@ const BusinessHero = () => {
       filter: "drop-shadow(50px 80px 100px rgba(11, 49, 175, 0.15))",
       transition: "transform 0.5s ease"
     },
-dataCard: {
-    position: "absolute",
-    // --- POSITION PLUS HAUTE ET DÉCALÉE ---
-    top: "-10%",      // Remonte le cadre au-dessus du niveau du capot
-    left: "1%",      // Décale vers la droite pour libérer totalement le texte
-    // --------------------------------------
-    background: "rgba(255, 255, 255, 0.98)",
-    backdropFilter: "blur(20px)",
-    padding: "12px 30px",
-    borderRadius: "24px",
-    border: "1px solid rgba(255, 255, 255, 0.5)",
-    boxShadow: "0 30px 60px rgba(0,0,0,0.08)",
-    zIndex: 10, // Assure qu'il passe au-dessus de tout
-    minWidth: "170px",
-    transition: "all 0.5s ease" // Pour une interaction fluide
-  }
+    dataCard: {
+      position: "absolute",
+      top: "-10%",
+      left: "1%",
+      background: "rgba(255, 255, 255, 0.98)",
+      backdropFilter: "blur(20px)",
+      padding: "12px 30px",
+      borderRadius: "24px",
+      border: "1px solid rgba(255, 255, 255, 0.5)",
+      boxShadow: "0 30px 60px rgba(0,0,0,0.08)",
+      zIndex: 10,
+      minWidth: "170px",
+      transition: "all 0.5s ease"
+    }
   };
 
   return (
@@ -145,10 +153,6 @@ dataCard: {
           @keyframes slideUp {
             from { opacity: 0; transform: translateY(40px); }
             to { opacity: 1; transform: translateY(0); }
-          }
-          @keyframes shimmer {
-            0% { background-position: -200% 0; }
-            100% { background-position: 200% 0; }
           }
           .hero-anim { animation: slideUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
           
@@ -181,13 +185,14 @@ dataCard: {
 
           @media (max-width: 1024px) {
             .hero-flex { flex-direction: column; text-align: center; padding-top: 140px; }
-            .hero-content { display: flex; flex-direction: column; align-items: center; }
             .hero-img { display: none; }
           }
         `}
       </style>
 
       <section style={styles.section} className="hero-flex">
+        {/* LES BROUILLARDS DE FOND */}
+        <div style={styles.fogLeft} />
         <div style={styles.bgGradient} />
 
         <div style={styles.content} className="hero-anim">
@@ -215,10 +220,8 @@ dataCard: {
 
         <div style={styles.imageSide} className="hero-img">
           <div style={styles.imageWrapper}>
-            {/* Effet Scanner Laser Bleu */}
             <div className="scan-line" />
             
-            {/* Analytics Card */}
             <div style={styles.dataCard} className="hero-anim">
               <p style={{fontSize: "11px", fontWeight: "700", color: "#94A3B8", marginBottom: "8px", textTransform: "uppercase"}}>Réduction des coûts</p>
               <div style={{display: "flex", alignItems: "baseline", gap: "5px"}}>

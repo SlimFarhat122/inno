@@ -10,19 +10,19 @@ const Chauffeur = () => {
       id: "01",
       title: "Devenir Chauffeur", 
       desc: "Inscrivez-vous en ligne, soumettez vos documents et commencez à rouler rapidement.", 
-      icon: "📩" 
+      icon: "" 
     },
     { 
       id: "02",
       title: "Gérez vos revenus", 
       desc: "Suivez vos gains en temps réel et optimisez votre emploi du temps avec précision.", 
-      icon: "📊" 
+      icon: "" 
     },
     { 
       id: "03",
       title: "Assistance 24/7", 
       desc: "Profitez d'un support dédié et réactif pour vous accompagner à chaque course.", 
-      icon: "🛡️" 
+      icon: "" 
     }
   ];
 
