@@ -639,7 +639,7 @@ const BusinessContact = () => {
                   lineHeight: "1.7",
                   margin: 0,
                 }}>
-                  Inno Business accompagne plus de 500 entreprises tunisiennes dans leur gestion quotidienne de la mobilité corporate.
+                  Inno Business accompagne plus les entreprises tunisiennes dans leur gestion quotidienne de la mobilité corporate.
                 </p>
               </div>
             </div>
