@@ -40,8 +40,11 @@ body {
 html, body, #root {
   width: 100%;
   height: 100%;
+  
 }
-
+#root {
+  overflow-y: auto;
+}
 body {
   margin: 0;
 }

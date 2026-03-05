@@ -25,11 +25,12 @@ const BusinessHero = () => {
 
 const scrollToContact = () => {
   const el = document.getElementById("business-contact");
-  if (!el) return;
-  const top = el.getBoundingClientRect().top + window.pageYOffset - 80;
-  window.scrollTo({ top, behavior: "smooth" });
-};
+  const root = document.getElementById("root");
+  if (!el || !root) return;
 
+  const top = el.getBoundingClientRect().top + root.scrollTop - 80;
+  root.scrollTo({ top, behavior: "smooth" });
+};
   const C = {
     marine:     "#003DA7",
     cyan:       "#008BD3",
