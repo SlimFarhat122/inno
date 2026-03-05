@@ -1,217 +1,557 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 
 const BusinessSectors = () => {
   const scrollRef = useRef(null);
+  const sectionRef = useRef(null);
   const [isDown, setIsDown] = useState(false);
   const [startX, setStartX] = useState(0);
-  const [scrollLeft, setScrollLeft] = useState(0);
+  const [scrollLeftPos, setScrollLeftPos] = useState(0);
+  const [isVisible, setIsVisible] = useState(false);
+  const [activeCard, setActiveCard] = useState(null);
+  const [scrollProgress, setScrollProgress] = useState(0);
 
-  const colors = {
-    primaryBlue: "#0B31AF",
-    darkNavy: "#020617",
-    slate: "#64748B",
-    softBlue: "#F1F5F9",
+  // ── PALETTE OFFICIELLE INNO BUSINESS 2026 ──────────────────────
+  const C = {
+    marine:     "#003DA7",   // Bleu Marine        — Couleur Primaire
+    cyan:       "#008BD3",   // Cyan Dynamique     — Couleur Primaire
+    anthracite: "#374151",   // Gris Anthracite    — Textes corps, éléments secondaires
+    lightGray:  "#F3F4F6",   // Gris Clair         — Fonds, séparateurs
+    sky:        "#38BDF8",   // Bleu Ciel          — Éléments interactifs, liens
+    white:      "#FFFFFF",
   };
 
-  const sectors = [
-    { name: "Centres d'appels", desc: "Synchronisez le transport de vos équipes avec leurs shifts 24/7.", tag: "Flux Continu", icon: "⚡" },
-    { name: "Hôtellerie", desc: "Expérience premium pour vos clients VIP et trajets sécurisés du personnel.", tag: "Haut de Gamme", icon: "✨" },
-    { name: "Services Financiers", desc: "Déplacements confidentiels pour vos cadres et partenaires.", tag: "Sécurisé", icon: "🛡️" },
-    { name: "Santé", desc: "Mobilité prioritaire et logistique fluide pour le personnel médical.", tag: "Priorité Vitale", icon: "🩺" },
-    { name: "Industrie & Logistique", desc: "Optimisation des flux de production et navettes connectées.", tag: "Performance", icon: "⚙️" }
-  ];
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) setIsVisible(true); },
+      { threshold: 0.15 }
+    );
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => observer.disconnect();
+  }, []);
+
+  const handleScroll = () => {
+    if (!scrollRef.current) return;
+    const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
+    setScrollProgress(scrollLeft / (scrollWidth - clientWidth));
+  };
+
+  const handleTouchStart = (e) => {
+    setIsDown(true);
+    setStartX(e.touches[0].pageX - scrollRef.current.offsetLeft);
+    setScrollLeftPos(scrollRef.current.scrollLeft);
+  };
+  const handleTouchMove = (e) => {
+    if (!isDown) return;
+    const x = e.touches[0].pageX - scrollRef.current.offsetLeft;
+    scrollRef.current.scrollLeft = scrollLeftPos - (x - startX) * 1.2;
+  };
+  const handleTouchEnd = () => setIsDown(false);
 
   const handleMouseDown = (e) => {
     setIsDown(true);
     setStartX(e.pageX - scrollRef.current.offsetLeft);
-    setScrollLeft(scrollRef.current.scrollLeft);
+    setScrollLeftPos(scrollRef.current.scrollLeft);
   };
-
   const handleMouseLeave = () => setIsDown(false);
   const handleMouseUp = () => setIsDown(false);
-
   const handleMouseMove = (e) => {
     if (!isDown) return;
     e.preventDefault();
     const x = e.pageX - scrollRef.current.offsetLeft;
-    const walk = (x - startX) * 2; 
-    scrollRef.current.scrollLeft = scrollLeft - walk;
+    scrollRef.current.scrollLeft = scrollLeftPos - (x - startX) * 1.6;
   };
 
-  const styles = {
-    section: {
-      padding: "60px 0", // Réduit de 100px à 60px
-      backgroundColor: "#transparent",
-      textAlign: "center",
-      overflow: "hidden",
-      fontFamily: "'Inter', sans-serif",
-      position: "relative"
+  const sectors = [
+    {
+      name: "Centres d'Appels",
+      desc: "Synchronisez le transport de vos équipes avec leurs shifts 24/7. Zéro retard, productivité maximale.",
+      tag: "Flux Continu",
+      stat: "24/7",
+      statLabel: "Couverture",
+      icon: (
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.72A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z"/>
+        </svg>
+      ),
+      accentColor: C.marine,
     },
-    header: {
-      padding: "0 8%",
-      marginBottom: "35px" // Réduit de 60px à 35px
+    {
+      name: "Hôtellerie & Tourisme",
+      desc: "Expérience premium pour vos clients VIP. Transferts aéroport, trajets événementiels, conciergerie mobilité.",
+      tag: "Premium",
+      stat: "5★",
+      statLabel: "Expérience",
+      icon: (
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+        </svg>
+      ),
+      accentColor: C.cyan,
     },
-    topLabel: {
-      color: colors.primaryBlue,
-      fontWeight: "900",
-      fontSize: "11px", // Plus petit
-      textTransform: "uppercase",
-      letterSpacing: "1.5px",
-      display: "block",
-      marginBottom: "10px"
+    {
+      name: "Services Financiers",
+      desc: "Déplacements sécurisés et confidentiels pour vos cadres dirigeants, auditeurs et partenaires stratégiques.",
+      tag: "Sécurisé",
+      stat: "100%",
+      statLabel: "Traçabilité",
+      icon: (
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        </svg>
+      ),
+      accentColor: C.sky,
     },
-    title: {
-      fontSize: "clamp(26px, 3.5vw, 36px)", // Réduit
-      color: colors.darkNavy,
-      fontWeight: "900",
-      lineHeight: "1.15",
-      letterSpacing: "-0.02em"
+    {
+      name: "Santé & Médical",
+      desc: "Mobilité prioritaire pour le personnel médical. Logistique fluide, ponctualité critique, disponibilité absolue.",
+      tag: "Priorité Vitale",
+      stat: "<5min",
+      statLabel: "Temps de réponse",
+      icon: (
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+        </svg>
+      ),
+      accentColor: C.marine,
     },
-    outerWrapper: {
-      position: "relative",
-      maskImage: "linear-gradient(to right, transparent, black 15%, black 85%, transparent)",
-      WebkitMaskImage: "linear-gradient(to right, transparent, black 15%, black 85%, transparent)",
-      padding: "10px 0"
+    {
+      name: "Industrie & Logistique",
+      desc: "Optimisation des navettes de production, synchronisation des équipes terrain et pilotage des flux industriels.",
+      tag: "Performance",
+      stat: "-24%",
+      statLabel: "Coûts transport",
+      icon: (
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+          <circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 010 14.14M4.93 4.93a10 10 0 000 14.14"/>
+          <path d="M22 12a10 10 0 01-10 10M2 12a10 10 0 0110-10"/>
+        </svg>
+      ),
+      accentColor: C.cyan,
     },
-    scrollContainer: {
-      display: "flex",
-      gap: "18px", // Réduit de 25px à 18px
-      overflowX: "auto",
-      padding: "25px 10%", 
-      cursor: isDown ? "grabbing" : "grab",
-      scrollbarWidth: "none",
-      msOverflowStyle: "none",
-      userSelect: "none",
-      scrollBehavior: isDown ? "auto" : "smooth"
-    },
-    card: {
-      minWidth: "270px", // Réduit de 320px à 270px
-      backgroundColor: "#transparent",
-      padding: "30px 22px", // Réduit de 40px/30px à 30px/22px
-      borderRadius: "22px", // Légèrement plus petit
-      textAlign: "left",
-      boxShadow: "0 4px 15px rgba(0,0,0,0.02)",
-      border: "1px solid #F1F5F9",
-      transition: "all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1)",
-      display: "flex",
-      flexDirection: "column",
-      position: "relative",
-      overflow: "hidden"
-    },
-    iconBox: {
-      width: "48px", // Réduit de 60px à 48px
-      height: "48px", // Réduit de 60px à 48px
-      backgroundColor: colors.softBlue,
-      borderRadius: "14px",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      fontSize: "22px", // Réduit
-      marginBottom: "20px",
-      transition: "0.3s"
-    },
-    tag: {
-      fontSize: "10px", // Plus petit
-      fontWeight: "800",
-      color: colors.primaryBlue,
-      backgroundColor: "rgba(11, 49, 175, 0.06)",
-      padding: "4px 10px",
-      borderRadius: "100px",
-      alignSelf: "flex-start",
-      textTransform: "uppercase"
-    },
-    cardTitle: {
-      fontSize: "19px", // Réduit de 22px à 19px
-      fontWeight: "800",
-      color: colors.darkNavy,
-      margin: "15px 0 10px",
-      letterSpacing: "-0.01em"
-    },
-    cardDesc: {
-      fontSize: "13.5px", // Réduit de 15px à 13.5px
-      color: colors.slate,
-      lineHeight: "1.5",
-      margin: 0
-    },
-    hint: {
-      marginTop: "20px",
-      color: colors.slate,
-      fontSize: "11px",
-      fontWeight: "600",
-      opacity: 0.5,
-      letterSpacing: "0.5px"
-    }
-  };
+  ];
 
   return (
-    <section style={styles.section}>
-      <div style={styles.header}>
-        <span style={styles.topLabel}>Expertise Sectorielle</span>
-        <h2 style={styles.title}>Une mobilité adaptée à<br/>votre écosystème</h2>
-      </div>
+    <>
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@400;600;700&family=Cairo:wght@400;600;700&display=swap');
 
-      <div style={styles.outerWrapper}>
-        <div 
-          ref={scrollRef}
-          className="no-scrollbar"
-          style={styles.scrollContainer}
-          onMouseDown={handleMouseDown}
-          onMouseLeave={handleMouseLeave}
-          onMouseUp={handleMouseUp}
-          onMouseMove={handleMouseMove}
-        >
-          {sectors.map((s, i) => (
-            <div key={i} className="sector-card" style={styles.card}>
-              <div style={styles.iconBox} className="icon-box">
-                {s.icon}
-              </div>
-              <span style={styles.tag}>{s.tag}</span>
-              <h4 style={styles.cardTitle}>{s.name}</h4>
-              <p style={styles.cardDesc}>{s.desc}</p>
-              
-              <div className="card-number">{i + 1}</div>
-            </div>
-          ))}
+        /* ── Section entrance ── */
+        .bs-section {
+          opacity: 0;
+          transform: translateY(32px);
+          transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1);
+        }
+        .bs-section.visible { opacity: 1; transform: translateY(0); }
+
+        /* ── Header stagger ── */
+        .bs-header > * {
+          opacity: 0;
+          transform: translateY(20px);
+          transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1);
+        }
+        .bs-section.visible .bs-header > *:nth-child(1) { opacity:1; transform:none; transition-delay:0.1s; }
+        .bs-section.visible .bs-header > *:nth-child(2) { opacity:1; transform:none; transition-delay:0.22s; }
+        .bs-section.visible .bs-header > *:nth-child(3) { opacity:1; transform:none; transition-delay:0.34s; }
+
+        /* ── Scrollbar hidden ── */
+        .bs-scroll::-webkit-scrollbar { display: none; }
+        .bs-scroll { -ms-overflow-style: none; scrollbar-width: none; }
+
+        /* ── Card base ── */
+        .bs-card {
+          transition: transform 0.4s cubic-bezier(0.16,1,0.3,1),
+                      box-shadow 0.4s cubic-bezier(0.16,1,0.3,1),
+                      border-color 0.3s ease;
+          position: relative;
+          cursor: pointer;
+        }
+
+        /* ── Card hover ── */
+        .bs-card:hover {
+          transform: translateY(-10px) scale(1.01);
+          box-shadow: 0 28px 60px rgba(0,61,167,0.13) !important;
+        }
+
+        /* ── Icon box ── */
+        .bs-icon-box {
+          transition: background 0.3s ease, transform 0.3s ease, color 0.3s ease;
+        }
+        .bs-card:hover .bs-icon-box {
+          transform: rotate(-8deg) scale(1.08);
+        }
+
+        /* ── Shine sweep on hover ── */
+        .bs-card::before {
+          content: '';
+          position: absolute;
+          top: 0; left: -75%;
+          width: 50%; height: 100%;
+          background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.18) 50%, transparent 100%);
+          transform: skewX(-20deg);
+          transition: left 0.55s ease;
+          pointer-events: none;
+          z-index: 2;
+        }
+        .bs-card:hover::before { left: 130%; }
+
+        /* ── Stat pill ── */
+        .bs-stat-pill {
+          transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        /* ── Progress track ── */
+        .bs-progress-track {
+          width: 120px;
+          height: 3px;
+          background: rgba(0,61,167,0.1);
+          border-radius: 2px;
+          overflow: hidden;
+        }
+        .bs-progress-fill {
+          height: 100%;
+          background: linear-gradient(90deg, ${C.marine}, ${C.cyan});
+          border-radius: 2px;
+          transition: width 0.15s linear;
+        }
+
+        /* ── Tag ── */
+        .bs-tag {
+          transition: background 0.3s ease, color 0.3s ease;
+        }
+        .bs-card:hover .bs-tag {
+          background: ${C.marine} !important;
+          color: ${C.white} !important;
+        }
+
+        /* ── Touch support for mobile swipe ── */
+        .bs-scroll { -webkit-overflow-scrolling: touch; }
+
+        @media (max-width: 1024px) {
+          .bs-card { min-width: 120px !important; padding: 12px 10px !important; }
+        }
+        @media (max-width: 768px) {
+          .bs-h2 { font-size: 24px !important; }
+          .bs-card { min-width: 110px !important; padding: 10px 9px !important; }
+          .bs-icon-box-el { width: 22px !important; height: 22px !important; border-radius: 6px !important; }
+          .bs-stat-val { font-size: 10px !important; }
+        }
+        @media (max-width: 480px) {
+          .bs-header { padding: 0 5% !important; }
+          .bs-scroll-track { padding: 12px 4% 20px !important; }
+          .bs-card { min-width: 100px !important; padding: 10px 8px !important; }
+          .bs-h2 { font-size: 22px !important; }
+          .bs-watermark { font-size: 30px !important; }
+        }
+      `}</style>
+
+      <section
+        ref={sectionRef}
+        className={`bs-section ${isVisible ? "visible" : ""}`}
+        style={{
+          fontFamily: "'Open Sans', sans-serif",  /* Body — Open Sans */
+          fontSize: "18px",
+          padding: "100px 0 80px",
+          background: C.white,
+          overflow: "hidden",
+          position: "relative",
+        }}
+      >
+
+        {/* ── Background decoration ── */}
+        <div style={{
+          position: "absolute",
+          bottom: "-100px", left: "-100px",
+          width: "500px", height: "500px",
+          borderRadius: "50%",
+          background: `radial-gradient(circle, ${C.sky}0A, transparent 70%)`,
+          filter: "blur(60px)",
+          pointerEvents: "none",
+          zIndex: 0,
+        }} />
+        <div style={{
+          position: "absolute",
+          top: "0", right: "0",
+          width: "100%", height: "3px",
+          background: `linear-gradient(90deg, transparent, ${C.cyan}30, transparent)`,
+          zIndex: 0,
+        }} />
+
+        {/* ─────── HEADER ─────── */}
+        <div className="bs-header" style={{
+          padding: "0 8%",
+          marginBottom: "60px",
+          textAlign: "center",
+          position: "relative",
+          zIndex: 1,
+        }}>
+
+          {/* Badge */}
+          <div style={{ marginBottom: "20px" }}>
+            <span style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "8px",
+              padding: "6px 16px 6px 12px",
+              background: `${C.marine}0D`,
+              border: `1px solid ${C.marine}1A`,
+              borderLeft: `3px solid ${C.cyan}`,
+              borderRadius: "4px",
+              /* Montserrat 700 — brand UI label */
+              fontFamily: "'Montserrat', sans-serif",
+              fontSize: "11px",
+              fontWeight: "700",
+              letterSpacing: "1.5px",
+              textTransform: "uppercase",
+              color: C.marine,
+            }}>
+              <span style={{
+                width: "6px", height: "6px",
+                borderRadius: "50%",
+                background: C.cyan,
+                display: "inline-block",
+                animation: "none",
+              }} />
+              Expertise Sectorielle
+            </span>
+          </div>
+
+          {/* H2 — Montserrat SemiBold 32px (Headline 2 — charte) */}
+          <h2 className="bs-h2" style={{
+            fontFamily: "'Montserrat', sans-serif",
+            fontSize: "32px",        /* Headline 2: 32px SemiBold */
+            fontWeight: "600",       /* SemiBold */
+            color: C.marine,
+            lineHeight: "1.2",
+            letterSpacing: "-0.02em",
+            margin: "0 auto 16px",
+            maxWidth: "600px",
+          }}>
+            Une mobilité adaptée à{" "}
+            <span style={{ color: C.cyan }}>votre écosystème</span>
+          </h2>
+
+          {/* Body text — Open Sans Regular 18px (charte) */}
+          <p style={{
+            fontFamily: "'Open Sans', sans-serif",
+            fontSize: "18px",        /* Body Text: 18px Regular */
+            fontWeight: "400",       /* Regular */
+            color: C.anthracite,     /* Gris Anthracite — textes corps */
+            lineHeight: "1.7",
+            maxWidth: "500px",
+            margin: "0 auto",
+          }}>
+            Chaque secteur a ses contraintes. Inno Business s'y adapte avec des solutions de mobilité sur mesure.
+          </p>
         </div>
-      </div>
 
-      <p style={styles.hint}>
-        {isDown ? "NAVIGATION ACTIVE" : "GLISSEZ POUR EXPLORER"}
-      </p>
+        {/* ─────── SCROLL TRACK ─────── */}
+        <div style={{
+          position: "relative",
+          maskImage: "linear-gradient(to right, transparent, black 6%, black 94%, transparent)",
+          WebkitMaskImage: "linear-gradient(to right, transparent, black 6%, black 94%, transparent)",
+          zIndex: 1,
+        }}>
+          <div
+            ref={scrollRef}
+            className="bs-scroll bs-scroll-track"
+            onMouseDown={handleMouseDown}
+            onMouseLeave={handleMouseLeave}
+            onMouseUp={handleMouseUp}
+            onMouseMove={handleMouseMove}
+            onScroll={handleScroll}
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+            style={{
+              display: "flex",
+              gap: "16px",
+              overflowX: "auto",
+              padding: "20px 5% 28px",
+              cursor: isDown ? "grabbing" : "grab",
+              userSelect: "none",
+            }}
+          >
+            {sectors.map((s, i) => (
+              <div
+                key={i}
+                className="bs-card"
+                onMouseEnter={() => setActiveCard(i)}
+                onMouseLeave={() => setActiveCard(null)}
+                style={{
+                  minWidth: "130px",
+                  background: C.white,
+                  borderRadius: "12px",
+                  padding: "18px 14px 16px",
+                  border: `1.5px solid ${activeCard === i ? s.accentColor + "50" : C.lightGray}`,
+                  boxShadow: activeCard === i
+                    ? `0 10px 24px ${s.accentColor}18`
+                    : `0 2px 10px rgba(0,61,167,0.05)`,
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "0",
+                  overflow: "hidden",
+                  flexShrink: 0,
+                }}
+              >
+                {/* Top row: icon + stat */}
+                <div style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "flex-start",
+                  marginBottom: "14px",
+                }}>
+                  {/* Icon box */}
+                  <div
+                    className="bs-icon-box bs-icon-box-el"
+                    style={{
+                      width: "32px", height: "32px",
+                      background: activeCard === i ? s.accentColor : `${s.accentColor}12`,
+                      color: activeCard === i ? C.white : s.accentColor,
+                      borderRadius: "8px",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      border: `1px solid ${s.accentColor}25`,
+                      flexShrink: 0,
+                    }}
+                  >
+                    {React.cloneElement(s.icon, { width: 14, height: 14 })}
+                  </div>
 
-      <style>
-        {`
-          .no-scrollbar::-webkit-scrollbar { display: none; }
-          
-          .sector-card:hover { 
-            transform: translateY(-8px); 
-            border-color: ${colors.primaryBlue};
-            box-shadow: 0 20px 40px rgba(11, 49, 175, 0.06);
-          }
+                  {/* Stat pill */}
+                  <div className="bs-stat-pill" style={{ textAlign: "right" }}>
+                    <div className="bs-stat-val" style={{
+                      fontFamily: "'Montserrat', sans-serif",
+                      fontSize: "13px",
+                      fontWeight: "700",
+                      color: s.accentColor,
+                      lineHeight: "1",
+                    }}>{s.stat}</div>
+                    <div style={{
+                      fontFamily: "'Open Sans', sans-serif",
+                      fontSize: "9px",
+                      fontWeight: "600",
+                      color: C.anthracite + "80",
+                      textTransform: "uppercase",
+                      letterSpacing: "0.3px",
+                      marginTop: "3px",
+                    }}>{s.statLabel}</div>
+                  </div>
+                </div>
 
-          .sector-card:hover .icon-box {
-            background-color: ${colors.primaryBlue};
-            color: white;
-            transform: scale(1.05);
-          }
+                {/* Tag */}
+                <span className="bs-tag" style={{
+                  display: "inline-block",
+                  alignSelf: "flex-start",
+                  fontFamily: "'Montserrat', sans-serif",
+                  fontSize: "8px",
+                  fontWeight: "700",
+                  color: C.marine,
+                  background: `${C.marine}0F`,
+                  padding: "3px 7px",
+                  borderRadius: "3px",
+                  textTransform: "uppercase",
+                  letterSpacing: "0.5px",
+                  marginBottom: "10px",
+                }}>
+                  {s.tag}
+                </span>
 
-          .card-number {
-            position: absolute;
-            bottom: -15px;
-            right: -8px;
-            font-size: 70px; /* Réduit de 100px à 70px */
-            font-weight: 900;
-            color: #F8FAFC;
-            z-index: -1;
-            transition: 0.4s;
-          }
+                {/* Card title */}
+                <h3 style={{
+                  fontFamily: "'Montserrat', sans-serif",
+                  fontSize: "13px",
+                  fontWeight: "700",
+                  color: C.marine,
+                  lineHeight: "1.3",
+                  margin: "0 0 8px",
+                }}>
+                  {s.name}
+                </h3>
 
-          .sector-card:hover .card-number {
-            color: rgba(11, 49, 175, 0.03);
-          }
-        `}
-      </style>
-    </section>
+                {/* Card desc */}
+                <p style={{
+                  fontFamily: "'Open Sans', sans-serif",
+                  fontSize: "11px",
+                  fontWeight: "400",
+                  color: C.anthracite,
+                  lineHeight: "1.65",
+                  margin: "0 0 14px",
+                  flexGrow: 1,
+                }}>
+                  {s.desc}
+                </p>
+
+                {/* CTA link */}
+                <div style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "4px",
+                  fontFamily: "'Montserrat', sans-serif",
+                  fontSize: "10px",
+                  fontWeight: "600",
+                  color: activeCard === i ? s.accentColor : C.sky,
+                  transition: "color 0.3s ease",
+                }}>
+                  En savoir plus
+                  <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
+                    style={{ transform: activeCard === i ? "translateX(3px)" : "none", transition: "transform 0.3s ease" }}>
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                  </svg>
+                </div>
+
+                {/* Watermark */}
+                <div className="bs-watermark" style={{
+                  position: "absolute",
+                  bottom: "-6px", right: "4px",
+                  fontFamily: "'Montserrat', sans-serif",
+                  fontSize: "44px",
+                  fontWeight: "800",
+                  color: activeCard === i ? s.accentColor : C.lightGray,
+                  opacity: activeCard === i ? 0.08 : 0.6,
+                  lineHeight: "1",
+                  userSelect: "none",
+                  pointerEvents: "none",
+                  transition: "color 0.4s ease, opacity 0.4s ease",
+                  zIndex: 0,
+                }}>
+                  {String(i + 1).padStart(2, "0")}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* ─────── FOOTER CONTROLS ─────── */}
+        <div style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          gap: "16px",
+          marginTop: "12px",
+          position: "relative",
+          zIndex: 1,
+        }}>
+          {/* Progress bar */}
+          <div className="bs-progress-track">
+            <div className="bs-progress-fill" style={{ width: `${scrollProgress * 100}%` }} />
+          </div>
+
+          {/* Hint text — Open Sans secondary */}
+          <p style={{
+            fontFamily: "'Open Sans', sans-serif",
+            fontSize: "11px",
+            fontWeight: "600",
+            color: C.anthracite + "60",    /* Gris Anthracite — secondaire atténué */
+            textTransform: "uppercase",
+            letterSpacing: "1.2px",
+            margin: 0,
+          }}>
+            {isDown ? "Navigation active" : "Glissez pour explorer"}
+          </p>
+        </div>
+      </section>
+    </>
   );
 };
 

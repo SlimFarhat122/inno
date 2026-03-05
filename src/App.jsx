@@ -52,7 +52,23 @@ const ScrollToSection = () => {
   return null;
 };
 
+const scrollToContact = () => {
+  const el = document.getElementById("business-contact");
+  if (!el) return;
 
+  // scrollIntoView ignore quel container scroll — toujours fonctionnel
+  el.scrollIntoView({ behavior: "smooth", block: "start" });
+};
+// Trouve le vrai container scrollable
+const findScrollParent = (el) => {
+  let parent = el.parentElement;
+  while (parent) {
+    const { overflow, overflowY } = window.getComputedStyle(parent);
+    if (/(auto|scroll)/.test(overflow + overflowY)) return parent;
+    parent = parent.parentElement;
+  }
+  return window;
+};
 const Home = () => (
   <>
     <Hero />

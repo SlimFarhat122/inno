@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import innoLogo from "../assets/logo.png"; 
-import innoLogo2 from "../assets/logo 2.png";
+import innoLogo2 from "../assets/INNO Business.png";
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -16,7 +16,7 @@ const Navbar = () => {
 
   // Thème de couleurs centralisé
   const theme = {
-    green: "#62A15B",
+    green: "#39B54A",
     blue: "#0B31AF", // Bleu officiel Inno Business
     darkDeep: "#030B21",
     textDark: "#1E293B",

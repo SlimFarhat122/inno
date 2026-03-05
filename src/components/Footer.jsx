@@ -4,27 +4,30 @@ import { Link, useLocation } from 'react-router-dom';
 const Footer = () => {
   const location = useLocation();
   
-  // 1. Détecter si nous sommes sur la page Business
+  // Détection de la page Business
   const isBusinessPage = location.pathname === "/business";
 
+  // CHARTE GRAPHIQUE INNO 2026
   const theme = {
-    green: "#62A15B",
-    blue: "#0B31AF", // Bleu Inno Business
-    dark: "#0F172A", 
+    primaryMarine: "#003DA7",    // Bleu Marine Business
+    dynamicCyan: "#008BD3",     // Cyan Dynamique
+    primaryGreen: "#39B54A",    // Vert Principal INNO
+    anthracite: "#374151",      // Gris Anthracite
+    dark: "#0F172A",            // Fond Footer
     muted: "#94A3B8",
-    bg: "#FAFAF9",
-    border: "rgba(255, 255, 255, 0.1)",
+    white: "#FFFFFF",
+    border: "rgba(255, 255, 255, 0.08)",
   };
 
-  // 2. Définir la couleur active (Bleu ou Vert)
-  const activeColor = isBusinessPage ? theme.blue : theme.green;
+  // Couleur d'accentuation dynamique
+  const activeColor = isBusinessPage ? theme.dynamicCyan : theme.primaryGreen;
 
   const styles = {
     footer: {
       backgroundColor: theme.dark,
-      color: "#ffffff",
-      padding: "100px 8% 40px 8%",
-      fontFamily: "'Inter', sans-serif",
+      color: theme.white,
+      padding: "80px 8% 40px 8%",
+      fontFamily: "'Cairo', 'Open Sans', sans-serif",
       position: "relative",
       overflow: "hidden",
     },
@@ -33,7 +36,7 @@ const Footer = () => {
       justifyContent: "space-between",
       flexWrap: "wrap",
       gap: "60px",
-      marginBottom: "80px",
+      marginBottom: "60px",
       position: "relative",
       zIndex: 2,
     },
@@ -47,61 +50,74 @@ const Footer = () => {
       gap: "12px",
       marginBottom: "25px",
     },
+    logoIn: {
+      width: "35px",
+      height: "35px",
+      backgroundColor: isBusinessPage ? theme.primaryMarine : theme.primaryGreen,
+      borderRadius: "6px",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      fontWeight: "800",
+      color: "#ffffff",
+      fontSize: "14px",
+      fontFamily: "'Montserrat', sans-serif",
+      transition: "all 0.4s ease",
+      border: isBusinessPage ? `1px solid ${theme.dynamicCyan}` : "none"
+    },
     logoText: {
-      fontSize: "28px",
-      fontWeight: "900",
-      letterSpacing: "-0.03em",
+      fontSize: "26px",          // Headline 2 range
+      fontWeight: "700",         // Bold — Montserrat
+      fontFamily: "'Montserrat', sans-serif",
+      letterSpacing: "1px",
     },
     brandDesc: {
       color: theme.muted,
-      lineHeight: "1.7",
-      fontSize: "15px",
-      maxWidth: "340px",
+      lineHeight: "1.8",
+      fontSize: "18px",          // Body Text — 18px Regular
+      fontFamily: "'Cairo', sans-serif",
+      fontWeight: "400",         // Regular
+      maxWidth: "360px",
       marginBottom: "30px",
     },
-    socialLinks: {
-      display: "flex",
-      gap: "12px",
-    },
     socialIcon: {
-      width: "48px",
-      height: "48px",
-      borderRadius: "16px",
-      backgroundColor: "rgba(255, 255, 255, 0.05)",
+      width: "44px",
+      height: "44px",
+      borderRadius: "10px",
+      backgroundColor: "rgba(255, 255, 255, 0.03)",
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
       cursor: "pointer",
-      transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+      transition: "all 0.3s ease",
       textDecoration: "none",
-      border: "1px solid rgba(255, 255, 255, 0.1)",
-    },
-    linkCol: {
-      flex: "1",
-      minWidth: "180px",
+      border: `1px solid ${theme.border}`,
     },
     colTitle: {
-      fontSize: "14px",
-      fontWeight: "800",
+      fontSize: "13px",
+      fontWeight: "700",         // Bold — Montserrat
+      fontFamily: "'Montserrat', sans-serif",
       color: activeColor,
       marginBottom: "30px",
       textTransform: "uppercase",
-      letterSpacing: "1.5px",
-      transition: "color 0.4s ease",
-    },
-    linkList: {
-      listStyle: "none",
-      padding: 0,
-      margin: 0,
+      letterSpacing: "2px",
     },
     linkItem: {
-      marginBottom: "15px",
+      marginBottom: "14px",
+      listStyle: "none",
     },
     link: {
       color: theme.muted,
       textDecoration: "none",
-      fontSize: "15px",
-      transition: "all 0.3s ease",
+      fontSize: "18px",          // Body Text — 18px Regular
+      fontFamily: "'Cairo', sans-serif",
+      fontWeight: "400",
+      transition: "0.3s ease",
+    },
+    contactText: {
+      fontSize: "18px",          // Body Text — 18px Regular
+      fontFamily: "'Cairo', sans-serif",
+      fontWeight: "400",
     },
     bottomBar: {
       borderTop: `1px solid ${theme.border}`,
@@ -111,9 +127,11 @@ const Footer = () => {
       flexWrap: "wrap",
       gap: "20px",
       color: "#64748b",
-      fontSize: "14px",
-      position: "relative", // Needed for zIndex
-      zIndex: 10,           // Forces links to be on top of decorations
+      fontSize: "13px",
+      fontFamily: "'Cairo', sans-serif",
+      fontWeight: "400",
+      position: "relative",
+      zIndex: 10,
     }
   };
 
@@ -125,41 +143,37 @@ const Footer = () => {
 
   return (
     <footer style={styles.footer}>
-      {/* Reflet de fond dynamique 
-        FIX: Added pointerEvents: "none" so clicks pass through to the links 
-      */}
+      {/* Halo lumineux dynamique */}
       <div style={{
-        position: "absolute", bottom: "-100px", right: "-100px",
-        width: "300px", height: "300px", background: `${activeColor}15`,
-        filter: "blur(100px)", borderRadius: "50%",
-        transition: "background 0.4s ease",
-        pointerEvents: "none", 
-        zIndex: 1,
+        position: "absolute", top: "-50px", left: "-50px",
+        width: "250px", height: "250px", 
+        background: isBusinessPage ? `${theme.dynamicCyan}10` : `${theme.primaryGreen}15`,
+        filter: "blur(80px)", borderRadius: "50%",
+        pointerEvents: "none", zIndex: 1,
       }} />
 
       <div style={styles.container}>
+        {/* Brand Column */}
         <div style={styles.brandCol}>
           <div style={styles.logoSection}>
-            <div style={{ 
-              width: "30px", height: "30px", backgroundColor: activeColor,
-              borderRadius: "8px", display: "flex", alignItems: "center", justifyContent: "center",
-              fontWeight: "900", color: "#ffffff", fontSize: "12px",
-              transition: "background-color 0.4s ease"
-            }}>IN</div>
+            <div style={styles.logoIn}>IN</div>
             <span style={styles.logoText}>INNO</span>
           </div>
           <p style={styles.brandDesc}>
-            L'application qui révolutionne vos déplacements en taxi. Sécurisé, rapide et disponible à Tunis, Sfax et Gabès.
+            {isBusinessPage 
+              ? "Solutions de mobilité intelligentes pour les entreprises tunisiennes. Optimisez vos coûts et simplifiez vos déplacements corporate."
+              : "L'application qui révolutionne vos déplacements en taxi. Sécurisé, rapide et disponible à Tunis, Sfax et Gabès."
+            }
           </p>
           
-          <div style={styles.socialLinks}>
+          <div style={{ display: "flex", gap: "12px" }}>
             {socials.map((social, index) => (
               <a 
                 key={index} href={social.url} target="_blank" rel="noopener noreferrer" 
                 style={styles.socialIcon}
                 className="social-hover"
               >
-                <svg viewBox="0 0 24 24" style={{ width: "20px", height: "20px", fill: "white" }}>
+                <svg viewBox="0 0 24 24" style={{ width: "18px", height: "18px", fill: "white" }}>
                   <path d={social.svg} />
                 </svg>
               </a>
@@ -167,52 +181,56 @@ const Footer = () => {
           </div>
         </div>
 
-        <div style={styles.linkCol}>
-          <h4 style={styles.colTitle}>Navigation</h4>
-          <ul style={styles.linkList}>
-            <li style={styles.linkItem}><a href="#about" style={styles.link} className="footer-link">À Propos</a></li>
-            <li style={styles.linkItem}><a href="#user-version" style={styles.link} className="footer-link">Passager</a></li>
-            <li style={styles.linkItem}><a href="#driver-version" style={styles.link} className="footer-link">Chauffeur</a></li>
-            <li style={styles.linkItem}><a href="#contact" style={styles.link} className="footer-link">Contact</a></li>
+        {/* Solutions Column */}
+        <div>
+          <h4 style={styles.colTitle}>Solutions</h4>
+          <ul style={{ padding: 0, margin: 0 }}>
+            <li style={styles.linkItem}><a href="#business-platform" style={styles.link} className="footer-link">Plateforme B2B</a></li>
+            <li style={styles.linkItem}><a href="#business-sectors" style={styles.link} className="footer-link">Secteurs d'activité</a></li>
+            <li style={styles.linkItem}><a href="#business-stats" style={styles.link} className="footer-link">Indicateurs clés</a></li>
+            <li style={styles.linkItem}><a href="#business-contact" style={styles.link} className="footer-link">Demande de Démo</a></li>
           </ul>
         </div>
 
-        <div style={styles.linkCol}>
-          <h4 style={styles.colTitle}>Contact</h4>
-          <div style={{ marginBottom: "15px", display: "flex", gap: "10px", color: theme.muted, fontSize: "15px" }}>
-            <span style={{ color: activeColor, transition: "color 0.4s ease" }}>📍</span> Tunis, Sfax & Gabès
+        {/* Contact Column */}
+        <div>
+          <h4 style={styles.colTitle}>Contact Direct</h4>
+          <div style={{ marginBottom: "18px", display: "flex", gap: "12px", color: theme.muted, alignItems: "center", ...styles.contactText }}>
+            <span style={{ color: activeColor }}>📍</span> Tunis, Sfax & Gabès
           </div>
-          <div style={{ marginBottom: "15px", display: "flex", gap: "10px", color: theme.muted, fontSize: "15px" }}>
-            <span style={{ color: activeColor, transition: "color 0.4s ease" }}>📞</span> +216 58 000 800
+          <div style={{ marginBottom: "18px", display: "flex", gap: "12px", color: theme.muted, alignItems: "center", ...styles.contactText }}>
+            <span style={{ color: activeColor }}>📞</span> +216 58 000 800
           </div>
-          <div style={{ display: "flex", gap: "10px", color: theme.muted, fontSize: "15px" }}>
-            <span style={{ color: activeColor, transition: "color 0.4s ease" }}>✉️</span> contact@inno.tn
+          <div style={{ display: "flex", gap: "12px", color: theme.muted, alignItems: "center", ...styles.contactText }}>
+            <span style={{ color: activeColor }}>✉️</span> business@inno.tn
           </div>
         </div>
       </div>
 
+      {/* Bottom Bar */}
       <div style={styles.bottomBar}>
-        <div>&copy; {new Date().getFullYear()} INNO. Tous droits réservés.</div>
-        <div style={{ display: 'flex', gap: '25px' }}>
-          {/* These links are now clickable because they are higher than the glow blob */}
-          <Link to="/privacy-policy/" style={{ color: 'inherit', textDecoration: 'none' }} className="footer-link">politique de confidentialité</Link>
-          <Link to="/condition-of-use/" style={{ color: 'inherit', textDecoration: 'none' }} className="footer-link">condition d'utilisation</Link>
+        <div>&copy; {new Date().getFullYear()} INNO BUSINESS. All Rights Reserved.</div>
+        <div style={{ display: 'flex', gap: '30px' }}>
+          <Link to="/privacy-policy/" style={{ color: 'inherit', textDecoration: 'none', fontFamily: "'Cairo', sans-serif" }} className="footer-link">Confidentialité</Link>
+          <Link to="/condition-of-use/" style={{ color: 'inherit', textDecoration: 'none', fontFamily: "'Cairo', sans-serif" }} className="footer-link">Mentions Légales</Link>
         </div>
       </div>
 
       <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Cairo:wght@400;600;700&display=swap');
+
         .social-hover:hover {
           background-color: ${activeColor} !important;
-          transform: translateY(-5px);
           border-color: ${activeColor} !important;
+          transform: translateY(-3px);
         }
         .footer-link:hover {
           color: ${activeColor} !important;
-          padding-left: 5px;
+          transform: translateX(5px);
         }
         .footer-link { 
+          display: inline-block;
           transition: all 0.3s ease !important; 
-          cursor: pointer !important;
         }
       `}</style>
     </footer>
