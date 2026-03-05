@@ -597,9 +597,8 @@ const BusinessContact = () => {
                 gap: "12px",
               }}>
                 {[
-                  { value: "500+", label: "Entreprises", accent: C.cyan },
+                 
                   { value: "24h", label: "Réponse max", accent: C.sky },
-                  { value: "14j", label: "Essai gratuit", accent: C.cyan },
                   { value: "100%", label: "Satisfaction", accent: C.sky },
                 ].map((stat) => (
                   <div key={stat.label} style={{

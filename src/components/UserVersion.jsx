@@ -232,9 +232,7 @@ const UserVersion = () => {
       <div className="inno-pro-grid">
         {steps.map((step, index) => (
           <div key={index} className="pro-card">
-            <div className="pro-icon-wrapper">
-              {step.icon}
-            </div>
+
             <h3 className="pro-card-title">{step.title}</h3>
             <p className="pro-card-desc">{step.desc}</p>
           </div>

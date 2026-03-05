@@ -211,8 +211,8 @@ const Footer = () => {
       <div style={styles.bottomBar}>
         <div>&copy; {new Date().getFullYear()} INNO BUSINESS. All Rights Reserved.</div>
         <div style={{ display: 'flex', gap: '30px' }}>
-          <Link to="/privacy-policy/" style={{ color: 'inherit', textDecoration: 'none', fontFamily: "'Cairo', sans-serif" }} className="footer-link">Confidentialité</Link>
-          <Link to="/condition-of-use/" style={{ color: 'inherit', textDecoration: 'none', fontFamily: "'Cairo', sans-serif" }} className="footer-link">Mentions Légales</Link>
+          <Link to="/privacy-policy/" style={{ color: 'inherit', textDecoration: 'none', fontFamily: "'Cairo', sans-serif" }} className="footer-link">politique de confidentialité</Link>
+          <Link to="/condition-of-use/" style={{ color: 'inherit', textDecoration: 'none', fontFamily: "'Cairo', sans-serif" }} className="footer-link">condition d'utilisation</Link>
         </div>
       </div>
 
