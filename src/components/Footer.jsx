@@ -4,22 +4,19 @@ import { Link, useLocation } from 'react-router-dom';
 const Footer = () => {
   const location = useLocation();
   
-  // Détection de la page Business
   const isBusinessPage = location.pathname === "/business";
 
-  // CHARTE GRAPHIQUE INNO 2026
   const theme = {
-    primaryMarine: "#003DA7",    // Bleu Marine Business
-    dynamicCyan: "#008BD3",     // Cyan Dynamique
-    primaryGreen: "#39B54A",    // Vert Principal INNO
-    anthracite: "#374151",      // Gris Anthracite
-    dark: "#0F172A",            // Fond Footer
+    primaryMarine: "#003DA7",
+    dynamicCyan: "#008BD3",
+    primaryGreen: "#49ce54",
+    anthracite: "#374151",
+    dark: "#0F172A",
     muted: "#94A3B8",
     white: "#FFFFFF",
     border: "rgba(255, 255, 255, 0.08)",
   };
 
-  // Couleur d'accentuation dynamique
   const activeColor = isBusinessPage ? theme.dynamicCyan : theme.primaryGreen;
 
   const styles = {
@@ -66,17 +63,17 @@ const Footer = () => {
       border: isBusinessPage ? `1px solid ${theme.dynamicCyan}` : "none"
     },
     logoText: {
-      fontSize: "26px",          // Headline 2 range
-      fontWeight: "700",         // Bold — Montserrat
+      fontSize: "26px",
+      fontWeight: "700",
       fontFamily: "'Montserrat', sans-serif",
       letterSpacing: "1px",
     },
     brandDesc: {
       color: theme.muted,
       lineHeight: "1.8",
-      fontSize: "18px",          // Body Text — 18px Regular
+      fontSize: "18px",
       fontFamily: "'Cairo', sans-serif",
-      fontWeight: "400",         // Regular
+      fontWeight: "400",
       maxWidth: "360px",
       marginBottom: "30px",
     },
@@ -95,7 +92,7 @@ const Footer = () => {
     },
     colTitle: {
       fontSize: "13px",
-      fontWeight: "700",         // Bold — Montserrat
+      fontWeight: "700",
       fontFamily: "'Montserrat', sans-serif",
       color: activeColor,
       marginBottom: "30px",
@@ -109,13 +106,13 @@ const Footer = () => {
     link: {
       color: theme.muted,
       textDecoration: "none",
-      fontSize: "18px",          // Body Text — 18px Regular
+      fontSize: "18px",
       fontFamily: "'Cairo', sans-serif",
       fontWeight: "400",
       transition: "0.3s ease",
     },
     contactText: {
-      fontSize: "18px",          // Body Text — 18px Regular
+      fontSize: "18px",
       fontFamily: "'Cairo', sans-serif",
       fontWeight: "400",
     },
@@ -143,17 +140,15 @@ const Footer = () => {
 
   return (
     <footer style={styles.footer}>
-      {/* Halo lumineux dynamique */}
       <div style={{
         position: "absolute", top: "-50px", left: "-50px",
         width: "250px", height: "250px", 
-        background: isBusinessPage ? `${theme.dynamicCyan}10` : `${theme.primaryGreen}15`,
+        background: isBusinessPage ? `${theme.dynamicCyan}10` : `#49ce5415`,
         filter: "blur(80px)", borderRadius: "50%",
         pointerEvents: "none", zIndex: 1,
       }} />
 
       <div style={styles.container}>
-        {/* Brand Column */}
         <div style={styles.brandCol}>
           <div style={styles.logoSection}>
             <div style={styles.logoIn}>IN</div>
@@ -181,7 +176,6 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Solutions Column */}
         <div>
           <h4 style={styles.colTitle}>Solutions</h4>
           <ul style={{ padding: 0, margin: 0 }}>
@@ -192,7 +186,6 @@ const Footer = () => {
           </ul>
         </div>
 
-        {/* Contact Column */}
         <div>
           <h4 style={styles.colTitle}>Contact Direct</h4>
           <div style={{ marginBottom: "18px", display: "flex", gap: "12px", color: theme.muted, alignItems: "center", ...styles.contactText }}>
@@ -207,7 +200,6 @@ const Footer = () => {
         </div>
       </div>
 
-      {/* Bottom Bar */}
       <div style={styles.bottomBar}>
         <div>&copy; {new Date().getFullYear()} INNO BUSINESS. All Rights Reserved.</div>
         <div style={{ display: 'flex', gap: '30px' }}>

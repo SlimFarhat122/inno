@@ -15,7 +15,7 @@ const Navbar = () => {
   const location = useLocation();
 
   const theme = {
-    green: "#49ce54",
+    green: "#39B54A",
     blue: "#0B31AF",
     darkDeep: "#030B21",
     textDark: "#1E293B",
@@ -50,13 +50,29 @@ const Navbar = () => {
   const handleNavClick = (id) => {
     setIsMobileMenuOpen(false);
     setShowDropdown(false);
+
     if (id === "business") {
       navigate("/business");
-    } else {
-      navigate(`/#${id}`);
-      const element = document.getElementById(id);
-      if (element) element.scrollIntoView({ behavior: "smooth" });
+      setTimeout(() => {
+        document.getElementById("root")?.scrollTo({ top: 0, behavior: "smooth" });
+      }, 50);
+      return;
     }
+
+    if (id === "contact" && isBusinessPage) {
+      // ── Sur /business → scroll vers le formulaire B2B ──
+      const el = document.getElementById("business-contact");
+      const root = document.getElementById("root");
+      if (el && root) {
+        const top = el.getBoundingClientRect().top + root.scrollTop - 80;
+        root.scrollTo({ top, behavior: "smooth" });
+      }
+      return;
+    }
+
+    navigate(`/#${id}`);
+    const element = document.getElementById(id);
+    if (element) element.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
@@ -212,7 +228,7 @@ const Navbar = () => {
           )}
         </li>
 
-        <li className="link-item" onClick={() => navigate("/business")}>Business</li>
+        <li className="link-item" onClick={() => handleNavClick("business")}>Business</li>
 
         <li className="mobile-contact-btn" onClick={() => handleNavClick("contact")}>
           Contactez-nous
