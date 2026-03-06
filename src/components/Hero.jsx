@@ -10,7 +10,7 @@ const stats = [
 const Hero = () => {
   // ── PALETTE INNO ─────────────────────────────────────────────
   const C = {
-    green:      "#39B54A",   // Vert Inno — logo, accents
+    green:      "#49ce54",   // Vert Inno — logo, accents
     dark:       "#0f172a",   // Fond sombre, titres
     slate:      "#475569",   // Textes secondaires
     light:      "#f8fafc",   // Fond section
@@ -56,7 +56,7 @@ const Hero = () => {
       right: "-5%",
       width: "600px",
       height: "600px",
-      backgroundColor: `${C.green}20`,   // #39B54A at 12% opacity
+      backgroundColor: `#49ce5420`,
       filter: "blur(90px)",
       borderRadius: "50%",
       zIndex: 0,
@@ -109,7 +109,7 @@ const Hero = () => {
     badgeDot: {
       width: "8px",
       height: "8px",
-      backgroundColor: C.green,          // #39B54A
+      backgroundColor: C.green,
       borderRadius: "50%",
       boxShadow: `0 0 12px ${C.green}CC`,
     },
@@ -124,7 +124,7 @@ const Hero = () => {
       letterSpacing: "-1px",
     },
     highlight: {
-      background: `linear-gradient(135deg, ${C.green} 0%, #2da03e 100%)`, // #39B54A gradient
+      background: `#49ce54`,
       WebkitBackgroundClip: "text",
       WebkitTextFillColor: "transparent",
       display: "inline-block",
@@ -248,8 +248,8 @@ const Hero = () => {
           display: flex;
           align-items: center;
           justify-content: center;
-          color: ${C.green};
-          filter: drop-shadow(0 0 15px ${C.green}99);
+          color: #49ce54;
+          filter: drop-shadow(0 0 15px #49ce5499);
         }
         .moving-car svg { transform: rotate(90deg); }
 
@@ -275,9 +275,9 @@ const Hero = () => {
           50%       { transform: translateY(-15px); }
         }
         @keyframes pulse {
-          0%   { box-shadow: 0 0 0 0 ${C.green}66; }
-          70%  { box-shadow: 0 0 0 10px ${C.green}00; }
-          100% { box-shadow: 0 0 0 0 ${C.green}00; }
+          0%   { box-shadow: 0 0 0 0 #49ce5466; }
+          70%  { box-shadow: 0 0 0 10px #49ce5400; }
+          100% { box-shadow: 0 0 0 0 #49ce5400; }
         }
         .badge-dot-animated { animation: pulse 2s infinite; }
 
@@ -308,7 +308,6 @@ const Hero = () => {
           z-index: 5;
           width: max-content;
           border: 1px solid rgba(255,255,255,0.6);
-          /* Open Sans for card labels */
           fontFamily: "'Open Sans', sans-serif";
         }
         .top-left    { top: 12%;    left: -60px;  animation: float 7s ease-in-out infinite; }
@@ -322,16 +321,14 @@ const Hero = () => {
           border-top: 1px solid rgba(226,232,240,0.6);
         }
         .stat-value {
-          /* Montserrat Bold — numerical highlight */
           font-family: 'Montserrat', sans-serif;
           font-size: 28px;
           font-weight: 700;
-          color: ${C.dark};
+          color: #0f172a;
           margin: 0 0 4px;
           letter-spacing: -0.5px;
         }
         .stat-label {
-          /* Open Sans Regular — secondary label */
           font-family: 'Open Sans', sans-serif;
           font-size: 14px;
           font-weight: 400;
@@ -362,14 +359,14 @@ const Hero = () => {
           <path
             className="grid-line-path"
             d={gridPath}
-            stroke={C.green}           // #39B54A
+            stroke="#49ce54"
             strokeWidth="1.5"
             fill="none"
             strokeOpacity="0.15"
           />
         </svg>
         <div className="moving-car">
-          <Car size={22} fill={C.green} />
+          <Car size={22} fill="#49ce54" />
         </div>
       </div>
 
@@ -378,26 +375,26 @@ const Hero = () => {
         {/* ── LEFT: Text ── */}
         <div className="hero-content" style={styles.content}>
 
-          {/* Badge — Open Sans SemiBold */}
+          {/* Badge */}
           <div style={styles.badge}>
             <div style={styles.badgeDot} className="badge-dot-animated" />
             <span>Le standard de la mobilité premium en Tunisie</span>
           </div>
 
-          {/* Headline 1 — Montserrat Bold 48px (charte) */}
+          {/* Headline 1 */}
           <h1 style={styles.title}>
             <span style={styles.highlight}>L'excellence</span><br />
             pour chacun de<br />
             vos trajets.
           </h1>
 
-          {/* Body Text — Open Sans Regular 18px (charte) */}
+          {/* Body Text */}
           <p style={styles.description}>
             Réservez votre chauffeur privé en quelques secondes. Une expérience
             fluide, sécurisée et disponible 24h/24 pour répondre à vos plus hautes exigences.
           </p>
 
-          {/* CTAs — Montserrat Bold/SemiBold */}
+          {/* CTAs */}
           <div className="hero-btn-container" style={styles.btnContainer}>
             <a href="#app" className="btn-primary" style={styles.btnPrimary}>
               Réserver un trajet
@@ -408,7 +405,7 @@ const Hero = () => {
             </a>
           </div>
 
-          {/* Stats — Montserrat Bold values, Open Sans labels */}
+          {/* Stats */}
           <div className="hero-stats">
             {stats.map((stat, i) => (
               <React.Fragment key={stat.label}>
@@ -439,7 +436,6 @@ const Hero = () => {
                       <div style={{ background: C.dark, padding: "6px", borderRadius: "8px" }}>
                         <Navigation size={13} color="white" fill="white" />
                       </div>
-                      {/* Montserrat Bold — app name */}
                       <span style={{ fontFamily: "'Montserrat', sans-serif", fontWeight: "800", color: C.dark, fontSize: "14px" }}>INNO</span>
                     </div>
                     <div style={{ width: "28px", height: "28px", borderRadius: "50%", background: "#f1f5f9", display: "flex", alignItems: "center", justifyContent: "center" }}>
@@ -447,9 +443,8 @@ const Hero = () => {
                     </div>
                   </div>
 
-                  {/* Greeting — Open Sans */}
+                  {/* Greeting */}
                   <p style={{ fontFamily: "'Open Sans', sans-serif", color: "#64748b", fontSize: "12px", margin: "0 0 2px" }}>Bonjour, Ahmed</p>
-                  {/* Headline 2 equivalent in phone — Montserrat SemiBold */}
                   <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "18px", fontWeight: "700", color: C.dark, margin: "0 0 18px" }}>Où allons-nous ?</p>
 
                   {/* Route input */}

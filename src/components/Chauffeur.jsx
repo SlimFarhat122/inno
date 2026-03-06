@@ -29,24 +29,21 @@ const Chauffeur = () => {
   return (
     <section id="driver-version" className="inno-pro-edition">
       <style>{`
-        /* --- CORE SECTION STYLING --- */
         .inno-pro-edition {
-  font-family: 'Inter', 'SF Pro Display', sans-serif;
-  background-color: transparent; /* Suppression du fond propre */
-  color: #F8FAFC;
-  padding: 60px 5% 60px; /* Padding réduit pour coller au scroll */
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
+          font-family: 'Inter', 'SF Pro Display', sans-serif;
+          background-color: transparent;
+          color: #F8FAFC;
+          padding: 60px 5% 60px;
+          position: relative;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
 
-/* Supprimer aussi le pseudo-élément ::after qui crée un halo fixe */
-.inno-pro-edition::after {
-  display: none;
-}
+        .inno-pro-edition::after {
+          display: none;
+        }
 
-        /* --- HEADER --- */
         .inno-pro-header {
           text-align: center;
           position: relative;
@@ -61,7 +58,7 @@ const Chauffeur = () => {
           gap: 8px;
           background: rgba(255, 255, 255, 0.03);
           border: 1px solid rgba(255, 255, 255, 0.1);
-          color: #A7F3D0; /* Very soft premium green */
+          color: #b8f5bb;
           padding: 8px 20px;
           border-radius: 100px;
           font-size: 13px;
@@ -77,9 +74,9 @@ const Chauffeur = () => {
           content: '';
           width: 6px;
           height: 6px;
-          background: #62A15B;
+          background: #49ce54;
           border-radius: 50%;
-          box-shadow: 0 0 10px #62A15B;
+          box-shadow: 0 0 10px #49ce54;
         }
 
         .inno-pro-headline {
@@ -93,7 +90,6 @@ const Chauffeur = () => {
           -webkit-text-fill-color: transparent;
         }
 
-        /* --- 3D SHOWCASE STAGE --- */
         .inno-pro-stage {
           position: relative;
           width: 100%;
@@ -118,7 +114,7 @@ const Chauffeur = () => {
         .pro-center {
           width: 280px;
           z-index: 3;
-          border: 4px solid #1E3A8A; /* Brand Blue */
+          border: 4px solid #1E3A8A;
           box-shadow: 0 30px 60px rgba(30, 58, 138, 0.3);
         }
 
@@ -136,12 +132,10 @@ const Chauffeur = () => {
           filter: brightness(0.5) blur(2px);
         }
 
-        /* Elegant Hover Interaction on the entire stage */
         .inno-pro-stage:hover .pro-center { transform: translateY(-15px) scale(1.02); }
         .inno-pro-stage:hover .pro-left { transform: translateX(-260px) rotate(-4deg) scale(0.9) translateZ(0); filter: brightness(0.9) blur(0); }
         .inno-pro-stage:hover .pro-right { transform: translateX(260px) rotate(4deg) scale(0.9) translateZ(0); filter: brightness(0.9) blur(0); }
 
-        /* --- PREMIUM FEATURE CARDS --- */
         .inno-pro-grid {
           display: grid;
           grid-template-columns: repeat(3, 1fr);
@@ -164,8 +158,8 @@ const Chauffeur = () => {
 
         .pro-card:hover {
           transform: translateY(-8px);
-          border-color: rgba(98, 161, 91, 0.4);
-          box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 20px 40px rgba(98, 161, 91, 0.15);
+          border-color: rgba(73, 206, 84, 0.4);
+          box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 20px 40px rgba(73, 206, 84, 0.15);
           background: linear-gradient(145deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.8) 100%);
         }
 
@@ -184,8 +178,8 @@ const Chauffeur = () => {
         }
 
         .pro-card:hover .pro-icon-wrapper {
-          background: rgba(98, 161, 91, 0.15);
-          border-color: rgba(98, 161, 91, 0.3);
+          background: rgba(73, 206, 84, 0.15);
+          border-color: rgba(73, 206, 84, 0.3);
           transform: scale(1.1);
         }
 
@@ -204,7 +198,6 @@ const Chauffeur = () => {
           margin: 0;
         }
 
-        /* --- FOOTER CTA --- */
         .inno-pro-footer {
           margin-top: 80px;
           display: flex;
@@ -219,7 +212,7 @@ const Chauffeur = () => {
 
         .pro-store-btn img {
           height: 48px;
-          border-radius: 8px; /* Smooth edges */
+          border-radius: 8px;
         }
 
         .pro-store-btn:hover {
@@ -227,7 +220,6 @@ const Chauffeur = () => {
           filter: drop-shadow(0 10px 20px rgba(255, 255, 255, 0.1));
         }
 
-        /* --- RESPONSIVE --- */
         @media (max-width: 992px) {
           .inno-pro-grid { grid-template-columns: 1fr; gap: 16px; }
           .pro-left, .pro-right { display: none; }
@@ -236,31 +228,26 @@ const Chauffeur = () => {
         }
       `}</style>
 
-      {/* HEADER */}
       <div className="inno-pro-header">
         <div className="inno-pro-chip">Espace Partenaire</div>
         <h2 className="inno-pro-headline">Prenez le volant de votre succès.</h2>
       </div>
 
-      {/* 3D SHOWCASE */}
       <div className="inno-pro-stage">
         <img src={imgProfile} alt="Profil Chauffeur" className="inno-pro-mockup pro-left" />
         <img src={imgStats} alt="Statistiques" className="inno-pro-mockup pro-right" />
         <img src={imgDash} alt="Tableau de bord" className="inno-pro-mockup pro-center" />
       </div>
 
-      {/* FEATURE CARDS */}
       <div className="inno-pro-grid">
         {steps.map((step, index) => (
           <div key={index} className="pro-card">
-
             <h3 className="pro-card-title">{step.title}</h3>
             <p className="pro-card-desc">{step.desc}</p>
           </div>
         ))}
       </div>
 
-      {/* CTA BUTTONS */}
       <div className="inno-pro-footer">
         <a href="https://play.google.com/store/apps/details?id=tn.innocustomer.android" target="_blank" rel="noopener noreferrer" className="pro-store-btn">
           <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Télécharger sur Google Play" />

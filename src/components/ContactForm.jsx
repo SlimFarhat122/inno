@@ -4,11 +4,11 @@ import taxiLogo from "../assets/logo.png";
 
 // ── PALETTE INNO ───────────────────────────────────────────────
 const C = {
-  green:  "#39B54A",   // Vert Inno — logo exact
+  green:  "#49ce54",
   dark:   "#0F172A",
   muted:  "#475569",
   bg:     "#FAFAF9",
-  border: "#39B54A25",
+  border: "#49ce5425",
   white:  "#FFFFFF",
   radius: "32px",
 };
@@ -49,13 +49,12 @@ const ContactForm = () => {
     padding: "18px 20px",
     borderRadius: "18px",
     border: "2px solid",
-    borderColor: focused === id ? C.green : "transparent",   // #39B54A on focus
+    borderColor: focused === id ? C.green : "transparent",
     backgroundColor: focused === id ? C.white : "#F1F5F9",
     color: C.dark,
-    /* Body Text — Open Sans Regular 18px (charte) */
     fontFamily: "'Open Sans', sans-serif",
     fontSize: "15px",
-    fontWeight: "400",   /* Regular */
+    fontWeight: "400",
     outline: "none",
     width: "100%",
     transition: "all 0.4s cubic-bezier(0.19,1,0.22,1)",
@@ -74,13 +73,12 @@ const ContactForm = () => {
         .btn-submit:hover {
           background-color: #1e293b !important;
           transform: translateY(-3px);
-          box-shadow: 0 20px 40px -10px ${C.green}50 !important;
+          box-shadow: 0 20px 40px -10px #49ce5450 !important;
         }
         .btn-submit:active { transform: scale(0.97); }
 
         input::placeholder,
         textarea::placeholder {
-          /* Open Sans Regular — placeholder */
           font-family: 'Open Sans', sans-serif;
           color: #94A3B8;
           font-weight: 400;
@@ -94,7 +92,6 @@ const ContactForm = () => {
       `}</style>
 
       <section id="contact" style={{
-        /* Body Text — Open Sans Regular 18px (charte) */
         fontFamily: "'Open Sans', sans-serif",
         fontSize: "18px",
         padding: "120px 8%",
@@ -118,7 +115,6 @@ const ContactForm = () => {
 
           {/* ── LEFT: Text ── */}
           <div>
-            {/* Badge — Montserrat Bold 700, uppercase UI label */}
             <div style={{
               display: "inline-flex",
               alignItems: "center",
@@ -130,7 +126,7 @@ const ContactForm = () => {
               color: C.green,
               fontFamily: "'Montserrat', sans-serif",
               fontSize: "12px",
-              fontWeight: "700",      /* Bold */
+              fontWeight: "700",
               letterSpacing: "1px",
               textTransform: "uppercase",
               marginBottom: "30px",
@@ -139,11 +135,10 @@ const ContactForm = () => {
               Support Inno
             </div>
 
-            {/* Headline 1 — Montserrat Bold 48px (charte) */}
             <h2 style={{
               fontFamily: "'Montserrat', sans-serif",
-              fontSize: "clamp(38px, 5vw, 56px)", /* Headline 1: 48px Bold */
-              fontWeight: "700",                   /* Bold */
+              fontSize: "clamp(38px, 5vw, 56px)",
+              fontWeight: "700",
               color: C.dark,
               lineHeight: 1.05,
               marginBottom: "25px",
@@ -153,11 +148,10 @@ const ContactForm = () => {
               <span style={{ color: C.green }}>Écrivez-nous.</span>
             </h2>
 
-            {/* Body Text — Open Sans Regular 18px (charte) */}
             <p style={{
               fontFamily: "'Open Sans', sans-serif",
-              fontSize: "18px",    /* Body Text: 18px Regular */
-              fontWeight: "400",   /* Regular */
+              fontSize: "18px",
+              fontWeight: "400",
               color: C.muted,
               lineHeight: "1.7",
               maxWidth: "450px",
@@ -183,16 +177,8 @@ const ContactForm = () => {
           }}>
             <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
 
-              {/* Name */}
               <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-                {/* Label — Montserrat SemiBold */}
-                <label style={{
-                  fontFamily: "'Montserrat', sans-serif",
-                  fontSize: "14px",
-                  fontWeight: "600",   /* SemiBold */
-                  color: C.dark,
-                  marginLeft: "4px",
-                }}>Nom Complet</label>
+                <label style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "14px", fontWeight: "600", color: C.dark, marginLeft: "4px" }}>Nom Complet</label>
                 <input
                   name="user_name"
                   type="text"
@@ -204,15 +190,8 @@ const ContactForm = () => {
                 />
               </div>
 
-              {/* Email */}
               <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-                <label style={{
-                  fontFamily: "'Montserrat', sans-serif",
-                  fontSize: "14px",
-                  fontWeight: "600",
-                  color: C.dark,
-                  marginLeft: "4px",
-                }}>Email professionnel</label>
+                <label style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "14px", fontWeight: "600", color: C.dark, marginLeft: "4px" }}>Email professionnel</label>
                 <input
                   name="user_email"
                   type="email"
@@ -224,15 +203,8 @@ const ContactForm = () => {
                 />
               </div>
 
-              {/* Message */}
               <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-                <label style={{
-                  fontFamily: "'Montserrat', sans-serif",
-                  fontSize: "14px",
-                  fontWeight: "600",
-                  color: C.dark,
-                  marginLeft: "4px",
-                }}>Votre Message</label>
+                <label style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "14px", fontWeight: "600", color: C.dark, marginLeft: "4px" }}>Votre Message</label>
                 <textarea
                   name="message"
                   placeholder="Comment pouvons-nous vous aider ?"
@@ -243,7 +215,6 @@ const ContactForm = () => {
                 />
               </div>
 
-              {/* Submit — Montserrat Bold CTA */}
               <button
                 type="submit"
                 disabled={status === "sending"}
@@ -255,10 +226,9 @@ const ContactForm = () => {
                   border: "none",
                   backgroundColor: status === "success" ? C.green : C.dark,
                   color: C.white,
-                  /* Montserrat Bold — CTA button */
                   fontFamily: "'Montserrat', sans-serif",
                   fontSize: "16px",
-                  fontWeight: "700",   /* Bold */
+                  fontWeight: "700",
                   cursor: status === "sending" ? "not-allowed" : "pointer",
                   boxShadow: `0 15px 30px -5px ${C.dark}40`,
                   opacity: status === "sending" ? 0.75 : 1,

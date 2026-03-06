@@ -14,16 +14,14 @@ const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Thème de couleurs centralisé
   const theme = {
-    green: "#39B54A",
-    blue: "#0B31AF", // Bleu officiel Inno Business
+    green: "#49ce54",
+    blue: "#0B31AF",
     darkDeep: "#030B21",
     textDark: "#1E293B",
     textLight: "#FFFFFF",
   };
 
-  // Logique de couleur dynamique selon la route
   const isBusinessPage = location.pathname === "/business";
   const activeColor = isBusinessPage ? theme.blue : theme.green;
 
@@ -97,7 +95,6 @@ const Navbar = () => {
             position: relative;
           }
 
-          /* Le survol s'adapte à la page */
           .link-item:hover { color: ${activeColor} !important; }
 
           .dropdown-container {
@@ -184,7 +181,6 @@ const Navbar = () => {
         `}
       </style>
 
-      {/* Image du logo adaptative */}
       <img 
         src={isBusinessPage ? innoLogo2 : innoLogo} 
         alt="Inno" 
@@ -223,7 +219,6 @@ const Navbar = () => {
         </li>
       </ul>
 
-      {/* Bouton Desktop avec couleur dynamique et ombre assortie */}
       <div className="desktop-btn">
         <button 
           onClick={() => handleNavClick("contact")}

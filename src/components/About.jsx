@@ -4,14 +4,13 @@ import innoLogo from "../assets/logo.png";
 const About = () => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
 
-  // ── PALETTE INNO ─────────────────────────────────────────────
   const C = {
-    green:    "#39B54A",   // Vert Inno — logo exact
-    blue:     "#0B31AF",   // Bleu logo
+    green:    "#49ce54",
+    blue:     "#0B31AF",
     bg:       "#FAFAF9",
     textMain: "#0F172A",
     textMuted:"#475569",
-    border:   "#39B54A25",
+    border:   "#49ce5425",
     white:    "#FFFFFF",
   };
 
@@ -48,15 +47,15 @@ const About = () => {
         }
         .about-card:hover {
           transform: translateY(-10px) scale(1.02) !important;
-          border-color: ${C.green} !important;
-          background: ${C.white} !important;
-          box-shadow: 0 40px 80px -20px ${C.green}33 !important;
+          border-color: #49ce54 !important;
+          background: #FFFFFF !important;
+          box-shadow: 0 40px 80px -20px #49ce5433 !important;
         }
         .about-card-icon { transition: all 0.4s ease; }
         .about-card:hover .about-card-icon {
-          background: ${C.green} !important;
-          color: ${C.white} !important;
-          box-shadow: 0 15px 30px ${C.green}4D !important;
+          background: #49ce54 !important;
+          color: #FFFFFF !important;
+          box-shadow: 0 15px 30px #49ce544D !important;
         }
         .about-card-glow { opacity: 0; transition: opacity 0.5s ease; }
         .about-card:hover .about-card-glow { opacity: 1; }
@@ -69,15 +68,15 @@ const About = () => {
       `}</style>
 
       <section style={{
-        fontFamily: "'Open Sans', sans-serif",  /* Body Text — Open Sans Regular */
-        fontSize: "18px",                        /* Body Text: 18px Regular (charte) */
+        fontFamily: "'Open Sans', sans-serif",
+        fontSize: "18px",
         padding: "140px 8%",
         backgroundColor: C.bg,
         backgroundImage: `
-          radial-gradient(circle at 10% 20%, ${C.green}15 0%, transparent 40%),
-          radial-gradient(circle at 90% 80%, ${C.green}10 0%, transparent 40%),
+          radial-gradient(circle at 10% 20%, #49ce5415 0%, transparent 40%),
+          radial-gradient(circle at 90% 80%, #49ce5410 0%, transparent 40%),
           linear-gradient(rgba(255,255,255,0.8), rgba(255,255,255,0.8)),
-          url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2339B54A' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")
+          url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2349ce54' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")
         `,
         position: "relative",
         overflow: "hidden",
@@ -94,7 +93,6 @@ const About = () => {
         }}>
           <div style={{ flex: "1", minWidth: "300px" }}>
 
-            {/* Badge — Montserrat Bold 700, uppercase UI label */}
             <div style={{
               display: "inline-flex",
               alignItems: "center",
@@ -106,7 +104,7 @@ const About = () => {
               color: C.green,
               fontFamily: "'Montserrat', sans-serif",
               fontSize: "12px",
-              fontWeight: "700",       /* Bold */
+              fontWeight: "700",
               letterSpacing: "1px",
               textTransform: "uppercase",
               marginBottom: "20px",
@@ -116,11 +114,10 @@ const About = () => {
               L'Expérience Inno
             </div>
 
-            {/* Headline 1 — Montserrat Bold 48px (charte) */}
             <h2 style={{
               fontFamily: "'Montserrat', sans-serif",
-              fontSize: "clamp(38px, 5vw, 64px)", /* scales toward Headline 1: 48px */
-              fontWeight: "700",                   /* Bold */
+              fontSize: "clamp(38px, 5vw, 64px)",
+              fontWeight: "700",
               color: C.textMain,
               lineHeight: "1.05",
               letterSpacing: "-0.03em",
@@ -128,15 +125,12 @@ const About = () => {
             }}>
               Redéfinir votre{" "}<br />
               <span style={{
-                background: `linear-gradient(135deg, ${C.green} 0%, #5dd46b 100%)`,
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
+                color: C.green,
+                WebkitTextFillColor: C.green,
               }}>mobilité.</span>
             </h2>
           </div>
 
-          {/* Logo */}
           <div className="about-logo-wrap" style={{ flex: "0.4", display: "flex", justifyContent: "flex-end" }}>
             <img
               src={innoLogo}
@@ -145,7 +139,7 @@ const About = () => {
               style={{
                 width: "180px",
                 height: "auto",
-                filter: `drop-shadow(0 25px 50px ${C.green}26)`,
+                filter: `drop-shadow(0 25px 50px #49ce5426)`,
               }}
             />
           </div>
@@ -170,16 +164,14 @@ const About = () => {
                 boxShadow: "0 10px 30px -10px rgba(0,0,0,0.05)",
               }}
             >
-              {/* Corner glow on hover */}
               <div className="about-card-glow" style={{
                 position: "absolute",
                 top: 0, right: 0,
                 width: "120px", height: "120px",
-                background: `radial-gradient(circle at top right, ${C.green}18, transparent 70%)`,
+                background: `radial-gradient(circle at top right, #49ce5418, transparent 70%)`,
                 pointerEvents: "none",
               }} />
 
-              {/* Icon box */}
               <div className="about-card-icon" style={{
                 width: "60px",
                 height: "60px",
@@ -188,18 +180,17 @@ const About = () => {
                 alignItems: "center",
                 justifyContent: "center",
                 backgroundColor: C.white,
-                color: C.green,           /* #39B54A */
+                color: C.green,
                 marginBottom: "32px",
                 boxShadow: "0 5px 15px rgba(0,0,0,0.05)",
               }}>
                 {icons[index]}
               </div>
 
-              {/* Card title — Montserrat SemiBold (Headline 2 weight — charte) */}
               <h3 style={{
                 fontFamily: "'Montserrat', sans-serif",
                 fontSize: "22px",
-                fontWeight: "600",   /* SemiBold */
+                fontWeight: "600",
                 color: C.textMain,
                 letterSpacing: "-0.01em",
                 margin: "0 0 16px",
@@ -207,11 +198,10 @@ const About = () => {
                 {item.title}
               </h3>
 
-              {/* Body Text — Open Sans Regular 18px (charte) */}
               <p style={{
                 fontFamily: "'Open Sans', sans-serif",
-                fontSize: "16px",    /* Body Text scaled for card */
-                fontWeight: "400",   /* Regular */
+                fontSize: "16px",
+                fontWeight: "400",
                 color: C.textMuted,
                 lineHeight: "1.7",
                 margin: 0,

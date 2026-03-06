@@ -28,20 +28,20 @@ const InnoExperience = () => {
     }
   };
 
-  const themeColor = activeMode === "user" ? "#1E3A8A" : "#62A15B";
+  const themeColor = activeMode === "user" ? "#1E3A8A" : "#49ce54";
 
   return (
-<div style={{
-  backgroundColor: "transparent", // On laisse le parent gérer le fond
-  margin: 0,
-  padding: "20px 0", 
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
-  position: "relative",
-  width: "100%",
-  zIndex: 50
-}}>
+    <div style={{
+      backgroundColor: "transparent",
+      margin: 0,
+      padding: "20px 0", 
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      position: "relative",
+      width: "100%",
+      zIndex: 50
+    }}>
       {/* 1. Ligne décorative horizontale fine */}
       <div style={{
         position: "absolute",
@@ -94,7 +94,7 @@ const InnoExperience = () => {
             letterSpacing: "1px",
             transition: "all 0.4s ease",
             backgroundColor: activeMode === "driver" ? "#FFFFFF" : "transparent",
-            color: activeMode === "driver" ? "#62A15B" : "#94A3B8",
+            color: activeMode === "driver" ? "#49ce54" : "#94A3B8",
           }}>
           CHAUFFEUR
         </button>

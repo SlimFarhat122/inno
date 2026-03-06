@@ -29,24 +29,21 @@ const UserVersion = () => {
   return (
     <section id="user-version" className="inno-pro-edition">
       <style>{`
-        /* --- CORE SECTION STYLING (Matched to Chauffeur) --- */
-       .inno-pro-edition {
-  font-family: 'Inter', 'SF Pro Display', sans-serif;
-  background-color: transparent; /* Suppression du fond propre */
-  color: #F8FAFC;
-  padding: 60px 5% 60px; /* Padding réduit pour coller au scroll */
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
+        .inno-pro-edition {
+          font-family: 'Inter', 'SF Pro Display', sans-serif;
+          background-color: transparent;
+          color: #F8FAFC;
+          padding: 60px 5% 60px;
+          position: relative;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
 
-/* Supprimer aussi le pseudo-élément ::after qui crée un halo fixe */
-.inno-pro-edition::after {
-  display: none;
-}
+        .inno-pro-edition::after {
+          display: none;
+        }
 
-        /* --- HEADER --- */
         .inno-pro-header {
           text-align: center;
           position: relative;
@@ -61,7 +58,7 @@ const UserVersion = () => {
           gap: 8px;
           background: rgba(255, 255, 255, 0.03);
           border: 1px solid rgba(255, 255, 255, 0.1);
-          color: #A7F3D0; 
+          color: #b8f5bb;
           padding: 8px 20px;
           border-radius: 100px;
           font-size: 13px;
@@ -76,9 +73,9 @@ const UserVersion = () => {
           content: '';
           width: 6px;
           height: 6px;
-          background: #62A15B;
+          background: #49ce54;
           border-radius: 50%;
-          box-shadow: 0 0 10px #62A15B;
+          box-shadow: 0 0 10px #49ce54;
         }
 
         .inno-pro-headline {
@@ -92,7 +89,6 @@ const UserVersion = () => {
           -webkit-text-fill-color: transparent;
         }
 
-        /* --- 3D SHOWCASE STAGE --- */
         .inno-pro-stage {
           position: relative;
           width: 100%;
@@ -138,7 +134,6 @@ const UserVersion = () => {
         .inno-pro-stage:hover .pro-left { transform: translateX(-260px) rotate(-4deg) scale(0.9) translateZ(0); filter: brightness(0.9) blur(0); }
         .inno-pro-stage:hover .pro-right { transform: translateX(260px) rotate(4deg) scale(0.9) translateZ(0); filter: brightness(0.9) blur(0); }
 
-        /* --- PREMIUM FEATURE CARDS --- */
         .inno-pro-grid {
           display: grid;
           grid-template-columns: repeat(3, 1fr);
@@ -161,8 +156,8 @@ const UserVersion = () => {
 
         .pro-card:hover {
           transform: translateY(-8px);
-          border-color: rgba(98, 161, 91, 0.4);
-          box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 20px 40px rgba(98, 161, 91, 0.15);
+          border-color: rgba(73, 206, 84, 0.4);
+          box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 20px 40px rgba(73, 206, 84, 0.15);
         }
 
         .pro-icon-wrapper {
@@ -192,7 +187,6 @@ const UserVersion = () => {
           margin: 0;
         }
 
-        /* --- FOOTER CTA --- */
         .inno-pro-footer {
           margin-top: 80px;
           display: flex;
@@ -232,7 +226,6 @@ const UserVersion = () => {
       <div className="inno-pro-grid">
         {steps.map((step, index) => (
           <div key={index} className="pro-card">
-
             <h3 className="pro-card-title">{step.title}</h3>
             <p className="pro-card-desc">{step.desc}</p>
           </div>
