@@ -36,7 +36,7 @@ const services = [
   },
   {
     id: "02",
-    name: "Go+",
+    name: "+GO",
     tagline: "Partagez les frais, pas les plans.",
     accent: C.mid,
     description:
