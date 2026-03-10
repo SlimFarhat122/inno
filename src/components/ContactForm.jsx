@@ -282,7 +282,7 @@ const ContactForm = () => {
 
             {/* Card header stripe */}
             <div style={{
-              height:"4px", borderRadius:"4px",
+              height:"4px",
               background:`linear-gradient(90deg, ${INNO.bleuFonce}, ${INNO.bleuClair}, ${INNO.vert})`,
               marginBottom:"36px",
               marginLeft:"-44px", marginRight:"-44px", marginTop:"-48px",
