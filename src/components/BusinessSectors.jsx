@@ -226,21 +226,58 @@ const BusinessSectors = () => {
         /* ── Touch support for mobile swipe ── */
         .bs-scroll { -webkit-overflow-scrolling: touch; }
 
-        @media (max-width: 1024px) {
-          .bs-card { min-width: 120px !important; padding: 12px 10px !important; }
+        /* ── DESKTOP: grid layout, no scroll ── */
+        @media (min-width: 769px) {
+          .bs-scroll-wrapper {
+            mask-image: none !important;
+            -webkit-mask-image: none !important;
+          }
+          .bs-scroll {
+            display: grid !important;
+            grid-template-columns: repeat(5, 1fr) !important;
+            overflow-x: visible !important;
+            padding: 20px 8% 28px !important;
+            cursor: default !important;
+            gap: 20px !important;
+          }
+          .bs-card {
+            min-width: unset !important;
+            max-width: unset !important;
+            width: 100% !important;
+            min-height: 360px !important;
+            padding: 28px 22px 22px !important;
+          }
+          .bs-icon-box-el {
+            width: 44px !important;
+            height: 44px !important;
+            border-radius: 12px !important;
+          }
+          .bs-stat-val { font-size: 16px !important; }
+          .bs-card h3  { font-size: 15px !important; }
+          .bs-card p   { font-size: 13px !important; }
+          .bs-tag      { font-size: 9px !important; padding: 4px 9px !important; }
+          .bs-progress-row { display: none !important; }
         }
+
+        /* ── MOBILE: horizontal scroll ── */
         @media (max-width: 768px) {
           .bs-h2 { font-size: 24px !important; }
-          .bs-card { min-width: 110px !important; padding: 10px 9px !important; }
-          .bs-icon-box-el { width: 22px !important; height: 22px !important; border-radius: 6px !important; }
-          .bs-stat-val { font-size: 10px !important; }
+          .bs-card {
+            min-width: 200px !important;
+            max-width: 200px !important;
+            padding: 20px 16px !important;
+          }
         }
         @media (max-width: 480px) {
           .bs-header { padding: 0 5% !important; }
           .bs-scroll-track { padding: 12px 4% 20px !important; }
-          .bs-card { min-width: 100px !important; padding: 10px 8px !important; }
+          .bs-card {
+            min-width: 180px !important;
+            max-width: 180px !important;
+            padding: 18px 14px !important;
+          }
           .bs-h2 { font-size: 22px !important; }
-          .bs-watermark { font-size: 30px !important; }
+          .bs-watermark { font-size: 36px !important; }
         }
       `}</style>
 
@@ -345,7 +382,7 @@ const BusinessSectors = () => {
         </div>
 
         {/* ─────── SCROLL TRACK ─────── */}
-        <div style={{
+        <div className="bs-scroll-wrapper" style={{
           position: "relative",
           maskImage: "linear-gradient(to right, transparent, black 6%, black 94%, transparent)",
           WebkitMaskImage: "linear-gradient(to right, transparent, black 6%, black 94%, transparent)",
@@ -378,10 +415,12 @@ const BusinessSectors = () => {
                 onMouseEnter={() => setActiveCard(i)}
                 onMouseLeave={() => setActiveCard(null)}
                 style={{
-                  minWidth: "130px",
+                  minWidth: "200px",
+                  maxWidth: "200px",
                   background: C.white,
                   borderRadius: "12px",
-                  padding: "18px 14px 16px",
+                  padding: "22px 20px 18px",
+                  minHeight: "340px",
                   border: `1.5px solid ${activeCard === i ? s.accentColor + "50" : C.lightGray}`,
                   boxShadow: activeCard === i
                     ? `0 10px 24px ${s.accentColor}18`
@@ -415,7 +454,7 @@ const BusinessSectors = () => {
                       flexShrink: 0,
                     }}
                   >
-                    {React.cloneElement(s.icon, { width: 14, height: 14 })}
+                    {React.cloneElement(s.icon, { width: 18, height: 18 })}
                   </div>
 
                   {/* Stat pill */}
@@ -460,7 +499,7 @@ const BusinessSectors = () => {
                 {/* Card title */}
                 <h3 style={{
                   fontFamily: "'Montserrat', sans-serif",
-                  fontSize: "13px",
+                  fontSize: "14px",
                   fontWeight: "700",
                   color: C.marine,
                   lineHeight: "1.3",
@@ -472,7 +511,7 @@ const BusinessSectors = () => {
                 {/* Card desc */}
                 <p style={{
                   fontFamily: "'Open Sans', sans-serif",
-                  fontSize: "11px",
+                  fontSize: "12px",
                   fontWeight: "400",
                   color: C.anthracite,
                   lineHeight: "1.65",
@@ -488,7 +527,7 @@ const BusinessSectors = () => {
                   alignItems: "center",
                   gap: "4px",
                   fontFamily: "'Montserrat', sans-serif",
-                  fontSize: "10px",
+                  fontSize: "11px",
                   fontWeight: "600",
                   color: activeCard === i ? s.accentColor : C.sky,
                   transition: "color 0.3s ease",

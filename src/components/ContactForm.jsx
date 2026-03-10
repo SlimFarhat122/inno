@@ -248,7 +248,7 @@ const ContactForm = () => {
                 </div>
                 <div>
                   <p style={{ fontFamily:"'Montserrat', sans-serif", fontSize:"11px", fontWeight:"600", color:"#94a3b8", margin:"0 0 2px", textTransform:"uppercase", letterSpacing:"0.8px" }}>Téléphone</p>
-                  <p style={{ fontFamily:"'Open Sans', sans-serif", fontSize:"14px", fontWeight:"500", color: INNO.bleuClair, margin:0 }}>+216 58 000 800</p>
+                  <p style={{ fontFamily:"'Open Sans', sans-serif", fontSize:"14px", fontWeight:"500", color: INNO.bleuClair, margin:0 }}>+216 58 000 888</p>
                 </div>
               </div>
 

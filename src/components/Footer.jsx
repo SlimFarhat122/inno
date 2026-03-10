@@ -233,7 +233,7 @@ const Footer = () => {
             <span style={{ color:activeColor }}>📍</span> Tunis, Sfax &amp; Gabès
           </div>
           <div style={{ marginBottom:"18px", display:"flex", gap:"12px", color:theme.muted, alignItems:"center", ...styles.contactText }}>
-            <span style={{ color:activeColor }}>📞</span> +216 58 000 800
+            <span style={{ color:activeColor }}>📞</span> +216 58 000 888
           </div>
           <div style={{ display:"flex", gap:"12px", color:theme.muted, alignItems:"center", ...styles.contactText }}>
             <span style={{ color:activeColor }}>✉️</span> {isBusinessPage ? "business@inno.tn" : "contact@inno.tn"}
