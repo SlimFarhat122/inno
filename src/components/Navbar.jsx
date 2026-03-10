@@ -15,15 +15,16 @@ const Navbar = () => {
   const location = useLocation();
 
   const theme = {
-    green: "#39B54A",
-    blue: "#0B31AF",
-    darkDeep: "#030B21",
-    textDark: "#1E293B",
-    textLight: "#FFFFFF",
+    green:     "#49ce54",   // vert officiel INNO
+    blue:      "#003da6",   // bleu foncé officiel INNO
+    blueMid:   "#0084cc",   // bleu clair officiel INNO
+    darkDeep:  "#060d1f",   // noir INNO (remplace #030B21)
+    textDark:  "#0a0e1a",   // texte sombre sur fond blanc
+    textLight: "#ffffff",
   };
 
   const isBusinessPage = location.pathname === "/business";
-  const activeColor = isBusinessPage ? theme.blue : theme.green;
+  const activeColor = isBusinessPage ? theme.blueMid : theme.green;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -60,7 +61,6 @@ const Navbar = () => {
     }
 
     if (id === "contact" && isBusinessPage) {
-      // ── Sur /business → scroll vers le formulaire B2B ──
       const el = document.getElementById("business-contact");
       const root = document.getElementById("root");
       if (el && root) {
@@ -81,7 +81,7 @@ const Navbar = () => {
       justifyContent: "space-between", 
       alignItems: "center",
       padding: scrolled ? "12px 6%" : "20px 6%",
-      backgroundColor: scrolled || isMobileMenuOpen ? theme.darkDeep : "rgba(255, 255, 255, 0.9)", 
+      backgroundColor: scrolled || isMobileMenuOpen ? theme.darkDeep : "rgba(255,255,255,0.92)", 
       backdropFilter: "blur(15px)",
       position: "fixed", 
       top: visible ? "0" : "-100px",
@@ -89,7 +89,7 @@ const Navbar = () => {
       zIndex: 9999, 
       transition: "all 0.4s ease",
       boxSizing: "border-box",
-      borderBottom: scrolled || isMobileMenuOpen ? "none" : "1px solid rgba(0,0,0,0.05)"
+      borderBottom: scrolled || isMobileMenuOpen ? "none" : "1px solid rgba(0,61,166,0.07)",
     }}>
       <style>
         {`
@@ -117,10 +117,11 @@ const Navbar = () => {
             position: absolute;
             top: 100%;
             left: 0;
-            background-color: white;
+            background-color: #ffffff;
+            border: 1px solid rgba(0,61,166,0.08);
             padding: 15px;
             border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 30px rgba(0,61,166,0.1);
             min-width: 180px;
             display: flex;
             flex-direction: column;
@@ -129,7 +130,7 @@ const Navbar = () => {
           }
 
           .dropdown-link {
-            color: #334155;
+            color: #475569;
             font-size: 14px;
             transition: 0.2s;
             display: block;
@@ -163,6 +164,7 @@ const Navbar = () => {
             .dropdown-container {
               position: static;
               background-color: transparent;
+              border: none;
               box-shadow: none;
               padding: 10px 0;
               align-items: center;
@@ -205,7 +207,7 @@ const Navbar = () => {
           transition: "0.3s", 
           cursor: "pointer",
           position: "relative",
-          zIndex: 10001
+          zIndex: 10001,
         }}
         onClick={() => { navigate("/"); setIsMobileMenuOpen(false); }}
       />
@@ -219,7 +221,7 @@ const Navbar = () => {
           onMouseLeave={handleMouseLeave}
           onClick={() => window.innerWidth <= 992 && setShowDropdown(!showDropdown)}
         >
-          Services <small style={{ fontSize: '10px' }}>{showDropdown ? "▲" : "▼"}</small>
+          Services <small style={{ fontSize:"10px" }}>{showDropdown ? "▲" : "▼"}</small>
           {showDropdown && (
             <div className="dropdown-container">
               <div className="dropdown-link" onClick={() => handleNavClick("user-version")}>Passager</div>
@@ -240,14 +242,16 @@ const Navbar = () => {
           onClick={() => handleNavClick("contact")}
           style={{
             backgroundColor: activeColor,
-            color: "white",
+            color: "#ffffff",
             padding: "10px 25px",
             borderRadius: "100px",
             border: "none",
+            fontFamily: "'Montserrat', sans-serif",
             fontWeight: "700",
+            fontSize: "14px",
             cursor: "pointer",
             transition: "all 0.3s ease",
-            boxShadow: `0 4px 15px ${activeColor}40`
+            boxShadow: `0 4px 15px ${activeColor}40`,
           }}
         >
           Contact
@@ -257,11 +261,11 @@ const Navbar = () => {
       <div 
         className="hamburger"
         style={{ 
-          color: scrolled || isMobileMenuOpen ? "white" : theme.textDark, 
+          color: scrolled || isMobileMenuOpen ? theme.textLight : theme.textDark, 
           fontSize: "30px", 
           cursor: "pointer",
           zIndex: 10001,
-          padding: "5px"
+          padding: "5px",
         }}
         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
       >

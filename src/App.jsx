@@ -19,6 +19,7 @@ import BusinessContact from "./components/BusinessContact";
 import PrivacyPolicy from './components/PrivacyPolicy';
 import TermsOfService from './components/TermsOfService';
 import Navbar from './components/Navbar';
+import Services from './components/Services';
 
 const ScrollToSection = () => {
   const { pathname, hash } = useLocation();
@@ -74,30 +75,18 @@ const Home = () => (
     <Hero />
     <div id="about"><About /></div>
     
-    {/* --- WRAPPER UNIFIÉ --- */}
-    <div style={{
-      backgroundColor: "#0B1120",
-      backgroundImage: `
-        radial-gradient(circle at 15% 10%, rgba(30, 58, 138, 0.15) 0%, transparent 40%),
-        radial-gradient(circle at 85% 90%, rgba(98, 161, 91, 0.12) 0%, transparent 40%),
-        linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px)
-      `,
-      backgroundSize: "100% 100%, 100% 100%, 64px 64px, 64px 64px",
-      position: "relative"
-    }}>
+ <Services />
       
       <section id="user-version">
         <UserVersion />
       </section>
 
-      <InnoExperience /> 
 
       <section id="driver-version">
         <Chauffeur />
       </section>
 
-    </div>
+    
     {/* --- FIN DU WRAPPER --- */}
 
     <div id="contact"><ContactForm /></div>
