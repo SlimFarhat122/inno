@@ -2,8 +2,6 @@ import React, { useState, useEffect, useRef } from "react";
 import innoLogo from "../assets/logo.png";
 
 // ── PALETTE OFFICIELLE INNO (stricte) ────────────────────────
-// #003da6 → Bleu Foncé   |   #0084cc → Bleu Clair   |   #49ce54 → Vert
-
 const INNO = {
   bleuFonce: "#003da6",
   bleuClair: "#0084cc",
@@ -11,11 +9,11 @@ const INNO = {
   noir:      "#080f1e",
   blanc:     "#ffffff",
   gris:      "#f4f7fc",
-  texte:     "#374151",
+  texte:     "#1a2236",   // ← darkened from #374151 for readability
   muted:     "#6b7280",
 };
 
-// ── Features avec couleur d'accent officielle ──
+// ── Features ──
 const features = [
   {
     n: "01",
@@ -105,10 +103,10 @@ const About = () => {
   const c4 = useCounter(24,  1000, inView);
 
   const kpis = [
-    { val: c1, suffix: "+", label: "Chauffeurs certifiés", accent: INNO.vert      },
-    { val: c2, suffix: "%", label: "Taux de satisfaction",  accent: INNO.bleuClair },
-    { val: c3, suffix: "",  label: "Villes couvertes",      accent: INNO.bleuFonce },
-    { val: c4, suffix: "/7", label: "Disponibilité totale", accent: INNO.vert      },
+    { val: c1, suffix: "+",  label: "Chauffeurs certifiés", accent: INNO.vert      },
+    { val: c2, suffix: "%",  label: "Taux de satisfaction",  accent: INNO.bleuClair },
+    { val: c3, suffix: "",   label: "Villes couvertes",      accent: INNO.bleuFonce },
+    { val: c4, suffix: "/7", label: "Disponibilité totale",  accent: INNO.vert      },
   ];
 
   return (
@@ -127,12 +125,16 @@ const About = () => {
         .rv-3 { animation-delay: 0.25s; }
         .rv-4 { animation-delay: 0.35s; }
 
-        /* ── Logo ── */
-        @keyframes logoSpin {
-          0%,100%{ transform: translateY(0) rotate(-2deg) scale(1); }
-          50%    { transform: translateY(-16px) rotate(2deg) scale(1.04); }
+        /* ── FIX 3: Logo animation — faster & snappier (3s cycle instead of 10s) ── */
+        @keyframes logoFloat {
+          0%,100%{ transform: translateY(0) scale(1); }
+          50%    { transform: translateY(-10px) scale(1.03); }
         }
-        .inno-logo { animation: logoSpin 10s ease-in-out infinite; }
+        .inno-logo {
+          /* FIX: overflow visible so top of logo is never clipped */
+          overflow: visible;
+          animation: logoFloat 3s ease-in-out infinite;
+        }
 
         /* ── KPI counter ── */
         @keyframes kpiIn {
@@ -153,9 +155,7 @@ const About = () => {
           transition: transform 0.4s cubic-bezier(0.22,1,0.36,1),
                       box-shadow 0.4s cubic-bezier(0.22,1,0.36,1);
         }
-        .feat-card:hover {
-          transform: translateY(-8px) !important;
-        }
+        .feat-card:hover { transform: translateY(-8px) !important; }
         .feat-card-bar {
           position: absolute;
           bottom: 0; left: 0;
@@ -175,7 +175,7 @@ const About = () => {
           pointer-events: none;
           user-select: none;
         }
-        .feat-card:hover .feat-card-num { opacity: 0.07; transform: scale(1.05); }
+        .feat-card:hover .feat-card-num { opacity: 0.09; transform: scale(1.05); }
 
         /* ── Marquee trust bar ── */
         @keyframes marquee {
@@ -211,7 +211,8 @@ const About = () => {
             BLOCK 1 — Header + KPI strip
         ══════════════════════════════════════ */}
         <div style={{
-          padding: "100px 8% 80px",
+          /* FIX 1&2: Reduced horizontal padding from 8% → 4% to remove dead space */
+          padding: "80px 4% 64px",
           background: INNO.blanc,
           position: "relative",
         }}>
@@ -234,8 +235,8 @@ const About = () => {
           <div className="about-top-grid" style={{
             display: "grid",
             gridTemplateColumns: "1fr auto",
-            gap: "60px",
-            alignItems: "flex-end",
+            gap: "40px",
+            alignItems: "center",   /* vertically centered */
             position: "relative", zIndex: 1,
           }}>
             <div>
@@ -246,30 +247,31 @@ const About = () => {
                 padding: "6px 14px 6px 10px",
                 background: `${INNO.bleuFonce}0e`,
                 border: `1px solid ${INNO.bleuFonce}20`,
-                borderRadius: "100px", marginBottom: "24px",
+                borderRadius: "100px", marginBottom: "20px",
               }}>
                 <div style={{
-                  width: "6px", height: "6px", borderRadius: "50%",
+                  width: "7px", height: "7px", borderRadius: "50%",
                   background: INNO.vert,
                   boxShadow: `0 0 8px ${INNO.vert}`,
                 }}/>
+                {/* FIX 1: larger eyebrow font */}
                 <span style={{
                   fontFamily: "'Montserrat', sans-serif",
-                  fontSize: "11.5px", fontWeight: "700",
+                  fontSize: "13px", fontWeight: "700",
                   color: INNO.bleuFonce, letterSpacing: "1.2px",
                   textTransform: "uppercase",
                 }}>Pourquoi Inno ?</span>
               </div>
 
-              {/* H2 */}
+              {/* H2 — already good size */}
               <h2 className={inView ? "rv rv-2" : ""} style={{
                 fontFamily: "'Montserrat', sans-serif",
-                fontSize: "clamp(36px, 5vw, 60px)",
+                fontSize: "clamp(38px, 5vw, 62px)",
                 fontWeight: "800",
                 lineHeight: "1.06",
                 letterSpacing: "-0.04em",
                 color: INNO.noir,
-                margin: "0 0 20px",
+                margin: "0 0 18px",
               }}>
                 Le standard qui
                 <br />
@@ -283,57 +285,69 @@ const About = () => {
 
               {/* Accent rules */}
               <div className={inView ? "rv rv-2" : ""} style={{
-                display: "flex", alignItems: "center", gap: "8px", marginBottom: "22px",
+                display: "flex", alignItems: "center", gap: "8px", marginBottom: "20px",
               }}>
                 <div style={{ width: "48px", height: "3px", borderRadius: "3px", background: INNO.vert }}/>
                 <div style={{ width: "16px", height: "3px", borderRadius: "3px", background: `${INNO.vert}66` }}/>
                 <div style={{ width: "6px", height: "3px", borderRadius: "3px", background: `${INNO.vert}33` }}/>
               </div>
 
+              {/* FIX 4: Larger font, darker color, bolder weight, better font */}
               <p className={inView ? "rv rv-3" : ""} style={{
-                fontFamily: "'Open Sans', sans-serif",
-                fontSize: "17px", fontWeight: "400",
-                color: INNO.texte, lineHeight: "1.8",
-                maxWidth: "520px", margin: 0,
+                fontFamily: "'Montserrat', sans-serif",
+                fontSize: "18px",
+                fontWeight: "600",
+                color: INNO.texte,      /* #1a2236 — very readable dark navy */
+                lineHeight: "1.75",
+                maxWidth: "540px",
+                margin: 0,
               }}>
-Né en Tunisie, conçu pour les Tunisiens. Chaque trajet reflète
-notre engagement : fiabilité, sécurité et service d'exception. 
+                Né en Tunisie, conçu pour les Tunisiens. Chaque trajet reflète
+                notre engagement : fiabilité, sécurité et service d'exception.
               </p>
             </div>
 
-            {/* Logo flottant */}
-            <div className="inno-logo" style={{ flexShrink: 0 }}>
-              <img src={innoLogo} alt="INNO"
+            {/* FIX 3: Logo — faster animation + overflow: visible so it's never cut at top */}
+            <div className="inno-logo" style={{
+              flexShrink: 0,
+              paddingTop: "12px",   /* small buffer so top of image isn't clipped */
+            }}>
+              <img
+                src={innoLogo}
+                alt="INNO"
                 style={{
-                  width: "160px", height: "auto",
-                  filter: `drop-shadow(0 20px 40px ${INNO.bleuClair}33)`,
+                  /* FIX 1: enlarged logo */
+                  width: "200px",
+                  height: "auto",
+                  display: "block",
+                  filter: `drop-shadow(0 16px 32px ${INNO.bleuClair}44)`,
                 }}
               />
             </div>
           </div>
 
-          {/* KPI STRIP */}
+          {/* FIX 5: KPI STRIP — reduced padding, larger numbers, tighter layout */}
           <div className="kpi-strip" style={{
             display: "grid",
             gridTemplateColumns: "repeat(4, 1fr)",
             gap: "1px",
-            marginTop: "64px",
+            marginTop: "52px",
             background: `${INNO.bleuFonce}10`,
-            borderRadius: "20px",
+            borderRadius: "16px",
             overflow: "hidden",
-            border: `1px solid ${INNO.bleuFonce}10`,
+            border: `1px solid ${INNO.bleuFonce}15`,
           }}>
             {kpis.map((k, i) => (
               <div key={i} className={inView ? `kpi-in kpi-${i+1}` : ""} style={{
                 background: INNO.blanc,
-                padding: "32px 28px",
+                padding: "28px 20px",  /* tighter padding */
                 position: "relative",
                 overflow: "hidden",
               }}>
                 {/* Top accent */}
                 <div style={{
                   position: "absolute", top: 0, left: 0, right: 0,
-                  height: "3px", background: k.accent,
+                  height: "4px", background: k.accent,
                 }}/>
                 {/* Bg glow */}
                 <div style={{
@@ -342,21 +356,22 @@ notre engagement : fiabilité, sécurité et service d'exception.
                   background: `radial-gradient(circle, ${k.accent}12, transparent 70%)`,
                   filter: "blur(20px)", pointerEvents: "none",
                 }}/>
+                {/* FIX 5: Bigger number (was clamped 32–48, now 40–60) */}
                 <div style={{
                   fontFamily: "'Montserrat', sans-serif",
-                  fontSize: "clamp(32px, 4vw, 48px)",
+                  fontSize: "clamp(40px, 4.5vw, 60px)",
                   fontWeight: "800",
                   color: k.accent,
                   lineHeight: 1, marginBottom: "8px",
                   display: "flex", alignItems: "baseline", gap: "2px",
                 }}>
                   <span>{k.val}</span>
-                  <span style={{ fontSize: "0.55em" }}>{k.suffix}</span>
+                  <span style={{ fontSize: "0.5em" }}>{k.suffix}</span>
                 </div>
                 <p style={{
-                  fontFamily: "'Open Sans', sans-serif",
-                  fontSize: "13px", fontWeight: "500",
-                  color: INNO.muted, margin: 0, lineHeight: "1.4",
+                  fontFamily: "'Montserrat', sans-serif",
+                  fontSize: "13px", fontWeight: "600",
+                  color: INNO.texte, margin: 0, lineHeight: "1.4",
                 }}>{k.label}</p>
               </div>
             ))}
@@ -364,53 +379,54 @@ notre engagement : fiabilité, sécurité et service d'exception.
         </div>
 
         {/* ══════════════════════════════════════
-            BLOCK 2 — Feature cards (dark bg)
+            BLOCK 2 — Feature cards
+            FIX: Replaced the unattractive gradient with a clean white bg + subtle border
         ══════════════════════════════════════ */}
-<div style={{
-  background: `linear-gradient(135deg, #eef3fc 0%, #f0f8ff 50%, #edfbee 100%)`,
-  padding: "90px 8%",
-  position: "relative",
-  isolation: "isolate",
-}}>
+        <div style={{
+          background: INNO.blanc,
+          borderTop: `1px solid ${INNO.bleuFonce}10`,
+          padding: "80px 4%",   /* also reduced horizontal padding */
+          position: "relative",
+          isolation: "isolate",
+        }}>
 
-          {/* Dark bg texture */}
+          {/* Clean geometric accent — top-left corner dot cluster */}
           <div style={{
-            position: "absolute", inset: 0, pointerEvents: "none", zIndex: 0,
-            backgroundImage: `
-              radial-gradient(circle at 15% 50%, #003da622 0%, transparent 45%),
-              radial-gradient(circle at 85% 30%, #49ce5412 0%, transparent 40%)
-            `,
+            position: "absolute", top: "40px", left: "4%",
+            width: "120px", height: "120px", pointerEvents: "none", zIndex: 0,
+            backgroundImage: `radial-gradient(circle, ${INNO.bleuFonce}18 1.5px, transparent 1.5px)`,
+            backgroundSize: "14px 14px",
+            opacity: 0.5,
           }}/>
+          {/* Bottom-right dot cluster */}
           <div style={{
-            position: "absolute", inset: 0, pointerEvents: "none", zIndex: 0,
-            backgroundImage: `linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px)`,
-            backgroundSize: "40px 40px",
+            position: "absolute", bottom: "40px", right: "4%",
+            width: "100px", height: "100px", pointerEvents: "none", zIndex: 0,
+            backgroundImage: `radial-gradient(circle, ${INNO.vert}22 1.5px, transparent 1.5px)`,
+            backgroundSize: "14px 14px",
+            opacity: 0.5,
           }}/>
 
           {/* Section label */}
           <div style={{
             display: "flex", alignItems: "center",
-            justifyContent: "space-between", marginBottom: "56px",
+            justifyContent: "space-between", marginBottom: "48px",
             position: "relative", zIndex: 1,
           }}>
             <h3 style={{
               fontFamily: "'Montserrat', sans-serif",
-              fontSize: "clamp(22px, 3vw, 32px)",
-              fontWeight: "700", color: INNO.noir,
+              fontSize: "clamp(24px, 3vw, 34px)",
+              fontWeight: "800", color: INNO.noir,
               letterSpacing: "-0.03em", margin: 0,
             }}>
               Ce qui nous distingue
             </h3>
-            <div style={{
-              display: "flex", gap: "6px", alignItems: "center",
-            }}>
+            <div style={{ display: "flex", gap: "6px", alignItems: "center" }}>
               {[INNO.bleuFonce, INNO.bleuClair, INNO.vert].map((c, i) => (
                 <div key={i} style={{
                   width: i === 2 ? "24px" : "8px",
                   height: "8px", borderRadius: "4px",
-                  background: c, opacity: 0.8,
-                  transition: "width 0.3s",
+                  background: c, opacity: 0.85,
                 }}/>
               ))}
             </div>
@@ -431,28 +447,28 @@ notre engagement : fiabilité, sécurité et service d'exception.
                 onMouseLeave={() => setHovered(null)}
                 style={{
                   background: hovered === i
-                    ? `linear-gradient(145deg, ${f.accent}28, rgba(255,255,255,0.05))`
-                    : "rgba(255,255,255,0.05)",
-                  border: `1.5px solid ${hovered === i ? f.accent : "rgba(255,255,255,0.10)"}`,
+                    ? `linear-gradient(145deg, ${f.accent}10, ${f.accent}05)`
+                    : INNO.gris,
+                  border: `1.5px solid ${hovered === i ? f.accent : `${INNO.bleuFonce}10`}`,
                   borderRadius: "20px",
                   padding: "36px 28px 40px",
                   boxShadow: hovered === i
-                    ? `0 24px 60px -12px ${f.accent}33`
-                    : "none",
+                    ? `0 20px 48px -12px ${f.accent}28`
+                    : "0 2px 8px rgba(0,0,0,0.04)",
                 }}
               >
                 {/* Number watermark */}
-                <div className="feat-card-num" style={{ color: INNO.noir }}>{f.n}</div>
+                <div className="feat-card-num" style={{ color: INNO.bleuFonce }}>{f.n}</div>
 
                 {/* Icon */}
                 <div style={{
                   width: "52px", height: "52px", borderRadius: "14px",
-                  background: hovered === i ? f.accent : `${f.accent}18`,
-                  color: hovered === i ? INNO.noir : f.accent,
+                  background: hovered === i ? f.accent : `${f.accent}15`,
+                  color: hovered === i ? INNO.blanc : f.accent,
                   display: "flex", alignItems: "center", justifyContent: "center",
-                  marginBottom: "28px",
+                  marginBottom: "24px",
                   transition: "all 0.35s ease",
-                  boxShadow: hovered === i ? `0 8px 24px ${f.accent}55` : "none",
+                  boxShadow: hovered === i ? `0 8px 24px ${f.accent}44` : "none",
                 }}>
                   {f.icon}
                 </div>
@@ -462,7 +478,7 @@ notre engagement : fiabilité, sécurité et service d'exception.
                   fontFamily: "'Montserrat', sans-serif",
                   fontSize: "18px", fontWeight: "700",
                   color: INNO.noir,
-                  margin: "0 0 14px",
+                  margin: "0 0 12px",
                   lineHeight: "1.3",
                   letterSpacing: "-0.02em",
                   whiteSpace: "pre-line",
@@ -472,7 +488,7 @@ notre engagement : fiabilité, sécurité et service d'exception.
                 <p style={{
                   fontFamily: "'Open Sans', sans-serif",
                   fontSize: "14px", fontWeight: "400",
-  color: INNO.muted,       /* ✅ was rgba(255,255,255,0.55) */
+                  color: INNO.muted,
                   lineHeight: "1.7", margin: 0,
                 }}>{f.text}</p>
 
@@ -488,9 +504,9 @@ notre engagement : fiabilité, sécurité et service d'exception.
         ══════════════════════════════════════ */}
         <div style={{
           background: INNO.gris,
-          padding: "32px 0",
-          borderTop: `1px solid ${INNO.bleuFonce}0c`,
-          borderBottom: `1px solid ${INNO.bleuFonce}0c`,
+          padding: "28px 0",
+          borderTop: `1px solid ${INNO.bleuFonce}10`,
+          borderBottom: `1px solid ${INNO.bleuFonce}10`,
           overflow: "hidden",
           position: "relative",
         }}>
@@ -534,7 +550,6 @@ notre engagement : fiabilité, sécurité et service d'exception.
           </div>
         </div>
 
-        
       </section>
     </>
   );

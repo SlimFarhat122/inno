@@ -17,30 +17,53 @@ const C = {
 
 const stepImages = [imgApp2, imgApp1, imgApp3, imgApp4];
 
+/* ── FIX 4: Bigger, bolder icons (32px, strokeWidth 1.5, distinctive shapes) ── */
 const steps = [
   {
     n: "01", accent: C.dark, detail: "App Store · Google Play",
     title: "Téléchargez l'app",
     body:  "Disponible sur iOS et Android. Inscription en 60 secondes, sans paperasse.",
-    icon: <svg width="28" height="28" fill="none" stroke="currentColor" strokeWidth="1.7" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><circle cx="12" cy="17" r="1" fill="currentColor" stroke="none"/><line x1="9" y1="6" x2="15" y2="6"/></svg>,
+    icon: (
+      <svg width="32" height="32" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
+        <rect x="5" y="2" width="14" height="20" rx="3"/>
+        <line x1="8" y1="6" x2="16" y2="6"/>
+        <circle cx="12" cy="17" r="1.5" fill="currentColor" stroke="none"/>
+        <path d="M9 10 L12 13 L15 10" strokeWidth="1.8"/>
+        <line x1="12" y1="7" x2="12" y2="13"/>
+      </svg>
+    ),
   },
   {
     n: "02", accent: C.mid, detail: "Prix affiché avant confirmation",
     title: "Entrez votre destination",
     body:  "Tapez ou choisissez sur la carte. Prix fixe calculé instantanément — aucune surprise.",
-    icon: <svg width="28" height="28" fill="none" stroke="currentColor" strokeWidth="1.7" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>,
+    icon: (
+      <svg width="32" height="32" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
+        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
+        <circle cx="12" cy="9" r="2.5"/>
+        <path d="M7 20.5 Q12 23 17 20.5" strokeWidth="1.2" strokeDasharray="2 1.5"/>
+      </svg>
+    ),
   },
   {
     n: "03", accent: C.green, detail: "< 5 min en moyenne",
     title: "Votre chauffeur arrive",
     body:  "Suivi GPS en direct, plaque et photo du chauffeur. En moins de 5 minutes.",
-    icon: <svg width="28" height="28" fill="none" stroke="currentColor" strokeWidth="1.7" viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="m16 8 5 2v5h-5V8Z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>,
+    icon: (
+      <svg width="32" height="32" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
+        <path d="M3 11l19-9-9 19-2-8-8-2z"/>
+      </svg>
+    ),
   },
   {
     n: "04", accent: C.dark, detail: "Note moyenne : 4.9 / 5",
     title: "Voyagez & évaluez",
     body:  "Trajet confortable, facture automatique. Notez votre chauffeur pour améliorer le service.",
-    icon: <svg width="28" height="28" fill="none" stroke="currentColor" strokeWidth="1.7" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>,
+    icon: (
+      <svg width="32" height="32" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
+        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+      </svg>
+    ),
   },
 ];
 
@@ -87,7 +110,7 @@ const UserExperience = () => {
   return (
     <>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@400;500;600&family=Cairo:wght@600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@400;500;600&display=swap');
 
         @keyframes ue-up {
           from { opacity:0; transform:translateY(26px); }
@@ -108,16 +131,40 @@ const UserExperience = () => {
         }
         .ue-photo-visible { animation: ue-photo-in 0.55s cubic-bezier(0.22,1,0.36,1) both; }
 
-        @keyframes ue-float {
-          0%,100%{ transform:translateY(0) rotate(-1deg); }
-          50%    { transform:translateY(-14px) rotate(1deg); }
+        /* FIX 4: Richer step hover + icon pulse on active */
+        .ue-step {
+          cursor: pointer;
+          transition: all 0.38s cubic-bezier(0.22,1,0.36,1);
         }
-        .ue-phone-float { animation: ue-float 8s ease-in-out infinite; }
+        .ue-step:hover { transform: translateX(6px) !important; }
 
-        .ue-step { cursor:pointer; transition:all 0.38s cubic-bezier(0.22,1,0.36,1); }
-        .ue-step:hover { transform:translateY(-4px); }
+        @keyframes ue-icon-pop {
+          0%   { transform: scale(1); }
+          40%  { transform: scale(1.18) rotate(-5deg); }
+          70%  { transform: scale(0.96) rotate(3deg); }
+          100% { transform: scale(1); }
+        }
+        .ue-icon-active { animation: ue-icon-pop 0.55s cubic-bezier(0.22,1,0.36,1); }
 
-        /* ── Download section phone ── */
+        @keyframes ue-shimmer {
+          0%   { background-position: -200% center; }
+          100% { background-position: 200% center; }
+        }
+        .ue-step-active-title {
+          background: linear-gradient(90deg, #003da6 20%, #0084cc 50%, #003da6 80%);
+          background-size: 200% auto;
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          animation: ue-shimmer 2.5s linear infinite;
+        }
+
+        @keyframes ue-float {
+          0%,100%{ transform:translateY(0) rotate(-0.5deg); }
+          50%    { transform:translateY(-12px) rotate(0.5deg); }
+        }
+        .ue-phone-float { animation: ue-float 6s ease-in-out infinite; }
+
+        /* ── Download section ── */
         @keyframes phoneRise {
           from { opacity:0; transform:translateY(80px) scale(0.95); }
           to   { opacity:1; transform:translateY(0) scale(1); }
@@ -155,7 +202,7 @@ const UserExperience = () => {
           0%   { transform:scale(1);   opacity:0.6; }
           100% { transform:scale(1.6); opacity:0; }
         }
-        .pulse-ring { animation: pulse-ring 2s ease-out infinite; }
+        .pulse-ring   { animation: pulse-ring 2s ease-out infinite; }
         .pulse-ring-2 { animation: pulse-ring 2s ease-out 0.6s infinite; }
 
         @keyframes stat-in {
@@ -178,76 +225,105 @@ const UserExperience = () => {
         .store-secondary:hover { background:rgba(255,255,255,0.18); border-color:rgba(255,255,255,0.35); }
 
         @media (max-width:960px) {
-          .ue-hiw-row  { flex-direction:column !important; }
+          .ue-hiw-row   { flex-direction:column !important; }
           .ue-hiw-phone { display:none !important; }
-          .app-layout  { flex-direction:column !important; }
-          .app-phone-col { display:none !important; }
+          .app-layout   { flex-direction:column !important; }
+          .app-phone-col{ display:none !important; }
         }
       `}</style>
 
       {/* ══════════════════════════════════════════════════════
           BLOC 1 — HOW IT WORKS
+          FIX: padding 8% → 4% | steps wider | phone stays right | no empty center gap
       ══════════════════════════════════════════════════════ */}
       <section ref={ref} style={{
         background: C.blanc,
-        padding: "100px 8% 80px",
+        /* FIX 1&2: reduced horizontal padding */
+        padding: "80px 4% 80px",
         position: "relative", overflow: "hidden",
         fontFamily: "'Open Sans', sans-serif",
       }}>
         <div style={{ position:"absolute", top:"-180px", right:"-180px", width:"560px", height:"560px", borderRadius:"50%", background:`radial-gradient(circle,${C.dark}06,transparent 65%)`, pointerEvents:"none" }}/>
         <div style={{ position:"absolute", bottom:"-120px", left:"-80px",  width:"380px", height:"380px", borderRadius:"50%", background:`radial-gradient(circle,${C.green}08,transparent 65%)`, pointerEvents:"none" }}/>
 
-        <div className={inView?"ue-in ue-d1":""} style={{ marginBottom:"56px", position:"relative", zIndex:1 }}>
-          <div style={{ display:"inline-flex", alignItems:"center", gap:"8px", padding:"6px 14px 6px 10px", background:`${C.mid}10`, border:`1px solid ${C.mid}22`, borderRadius:"100px", marginBottom:"20px" }}>
-            <div style={{ width:"6px", height:"6px", borderRadius:"50%", background:C.green, boxShadow:`0 0 8px ${C.green}` }}/>
-            <span style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"11.5px", fontWeight:"700", color:C.dark, letterSpacing:"1.2px", textTransform:"uppercase" }}>Simple comme bonjour</span>
+        {/* Header */}
+        <div className={inView?"ue-in ue-d1":""} style={{ marginBottom:"48px", position:"relative", zIndex:1 }}>
+          <div style={{ display:"inline-flex", alignItems:"center", gap:"8px", padding:"6px 14px 6px 10px", background:`${C.mid}10`, border:`1px solid ${C.mid}22`, borderRadius:"100px", marginBottom:"18px" }}>
+            <div style={{ width:"7px", height:"7px", borderRadius:"50%", background:C.green, boxShadow:`0 0 8px ${C.green}` }}/>
+            {/* FIX 1: larger eyebrow */}
+            <span style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"13px", fontWeight:"700", color:C.dark, letterSpacing:"1.2px", textTransform:"uppercase" }}>Simple comme bonjour</span>
           </div>
-          <div style={{ display:"flex", alignItems:"flex-end", justifyContent:"space-between", flexWrap:"wrap", gap:"20px" }}>
-            <h2 style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"clamp(34px,4.5vw,56px)", fontWeight:"800", lineHeight:"1.06", letterSpacing:"-0.04em", color:C.noir, margin:0 }}>
-              Réservez en{" "}
-              <span style={{ background:`linear-gradient(110deg,${C.dark},${C.mid})`, WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent" }}>4 étapes.</span>
-            </h2>
-            <p style={{ fontFamily:"'Open Sans',sans-serif", fontSize:"16px", color:C.muted, lineHeight:"1.7", maxWidth:"360px", margin:0 }}>
-              Moins de 20 secondes de votre téléphone au chauffeur. Pas de compte bancaire requis.
-            </p>
-          </div>
+          {/* FIX 1: title bigger */}
+          <h2 style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"clamp(40px,5vw,64px)", fontWeight:"800", lineHeight:"1.06", letterSpacing:"-0.04em", color:C.noir, margin:0 }}>
+            Réservez en{" "}
+            <span style={{ background:`linear-gradient(110deg,${C.dark},${C.mid})`, WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent" }}>4 étapes.</span>
+          </h2>
         </div>
 
-        <div className="ue-hiw-row" style={{ display:"flex", gap:"64px", alignItems:"flex-start", position:"relative", zIndex:1 }}>
-          <div style={{ flex:1, position:"relative" }}>
-            <div style={{ position:"absolute", left:"27px", top:"54px", bottom:"54px", width:"2px", background:`linear-gradient(180deg,${C.dark}28,${C.mid}28,${C.green}28)`, borderRadius:"2px" }}/>
+        {/* FIX ✗: Two-column layout — steps left (flex:1.1), phone right (fixed width). No empty middle. */}
+        <div className="ue-hiw-row" style={{ display:"flex", gap:"40px", alignItems:"flex-start", position:"relative", zIndex:1 }}>
+
+          {/* Steps column — takes all remaining space */}
+          <div style={{ flex:"1 1 0", minWidth:0, position:"relative" }}>
+            {/* Vertical connector line */}
+            <div style={{ position:"absolute", left:"31px", top:"54px", bottom:"54px", width:"2px", background:`linear-gradient(180deg,${C.dark}28,${C.mid}28,${C.green}28)`, borderRadius:"2px" }}/>
+
             {steps.map((s, i) => (
-              <div key={i} className="ue-step" onClick={() => setActive(i)} style={{
-                display:"flex", gap:"18px", alignItems:"flex-start",
-                padding:"22px", borderRadius:"18px", marginBottom:"8px",
-                background: active===i ? `${s.accent}09` : "transparent",
-                border:`1.5px solid ${active===i ? s.accent+"2e" : "transparent"}`,
-              }}>
+              <div
+                key={i}
+                className="ue-step"
+                onClick={() => setActive(i)}
+                style={{
+                  display:"flex", gap:"20px", alignItems:"flex-start",
+                  padding:"22px 20px", borderRadius:"20px", marginBottom:"10px",
+                  background: active===i ? `${s.accent}0a` : "transparent",
+                  border:`1.5px solid ${active===i ? s.accent+"30" : "transparent"}`,
+                  boxShadow: active===i ? `0 8px 32px -8px ${s.accent}22` : "none",
+                }}
+              >
+                {/* FIX 4 & 5: Larger circle, 60px, icon bigger */}
                 <div style={{
-                  width:"54px", height:"54px", borderRadius:"50%", flexShrink:0,
+                  width:"60px", height:"60px", borderRadius:"50%", flexShrink:0,
                   background: active===i ? s.accent : `${s.accent}14`,
                   color: active===i ? C.blanc : s.accent,
                   display:"flex", alignItems:"center", justifyContent:"center",
-                  fontFamily:"'Montserrat',sans-serif", fontSize:"13px", fontWeight:"800",
-                  boxShadow: active===i ? `0 8px 22px ${s.accent}40` : "none",
-                  border:`2px solid ${C.blanc}`,
-                  outline:`2px solid ${active===i ? s.accent+"38" : "transparent"}`,
+                  fontFamily:"'Montserrat',sans-serif",
+                  boxShadow: active===i ? `0 10px 28px ${s.accent}44` : "none",
+                  border:`2.5px solid ${C.blanc}`,
+                  outline:`2.5px solid ${active===i ? s.accent+"38" : "transparent"}`,
                   transition:"all 0.35s ease", position:"relative", zIndex:1,
-                }}>{s.n}</div>
-                <div style={{ flex:1, paddingTop:"6px" }}>
-                  <div style={{ display:"flex", alignItems:"center", gap:"8px", marginBottom:"6px" }}>
-                    <span style={{ color:active===i ? s.accent : C.muted, transition:"color 0.3s" }}>{s.icon}</span>
-                    <h3 style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"16px", fontWeight:"700", color:C.noir, margin:0, letterSpacing:"-0.02em" }}>{s.title}</h3>
+                }}>
+                  <span className={active===i ? "ue-icon-active" : ""}>{s.icon}</span>
+                </div>
+
+                <div style={{ flex:1, paddingTop:"4px" }}>
+                  <div style={{ display:"flex", alignItems:"center", gap:"8px", marginBottom:"8px" }}>
+                    {/* Step number badge */}
+                    <span style={{
+                      fontFamily:"'Montserrat',sans-serif", fontSize:"11px", fontWeight:"800",
+                      color: active===i ? s.accent : C.muted,
+                      letterSpacing:"0.5px",
+                      transition:"color 0.3s",
+                    }}>{s.n}</span>
+                    {/* FIX 4: bigger title, shimmer on active */}
+                    <h3 className={active===i ? "ue-step-active-title" : ""} style={{
+                      fontFamily:"'Montserrat',sans-serif",
+                      fontSize:"18px",      /* was 16px */
+                      fontWeight:"700",
+                      color: active===i ? "unset" : C.noir,
+                      margin:0, letterSpacing:"-0.02em",
+                    }}>{s.title}</h3>
                   </div>
-                  <p style={{ fontFamily:"'Open Sans',sans-serif", fontSize:"13.5px", color:C.muted, lineHeight:"1.65", margin:"0 0 6px" }}>{s.body}</p>
+                  {/* FIX 4: bigger body text */}
+                  <p style={{ fontFamily:"'Open Sans',sans-serif", fontSize:"15px",  /* was 13.5px */ color:C.muted, lineHeight:"1.65", margin:"0 0 6px" }}>{s.body}</p>
                   {active===i && (
-                    <span style={{ display:"inline-flex", alignItems:"center", gap:"5px", fontFamily:"'Montserrat',sans-serif", fontSize:"10.5px", fontWeight:"700", color:s.accent, letterSpacing:"0.5px", textTransform:"uppercase" }}>
-                      <span style={{ display:"inline-block", width:"14px", height:"2px", background:s.accent, borderRadius:"2px" }}/>
+                    <span style={{ display:"inline-flex", alignItems:"center", gap:"5px", fontFamily:"'Montserrat',sans-serif", fontSize:"11px", fontWeight:"700", color:s.accent, letterSpacing:"0.5px", textTransform:"uppercase" }}>
+                      <span style={{ display:"inline-block", width:"16px", height:"2px", background:s.accent, borderRadius:"2px" }}/>
                       {s.detail}
                     </span>
                   )}
                   {active===i && (
-                    <div style={{ height:"2px", background:`${s.accent}1a`, borderRadius:"2px", marginTop:"10px", overflow:"hidden" }}>
+                    <div style={{ height:"2px", background:`${s.accent}18`, borderRadius:"2px", marginTop:"10px", overflow:"hidden" }}>
                       <div key={`bar-${i}`} className="ue-bar" style={{ height:"100%", background:s.accent, borderRadius:"2px" }}/>
                     </div>
                   )}
@@ -256,38 +332,53 @@ const UserExperience = () => {
             ))}
           </div>
 
-          <div className="ue-hiw-phone" style={{ width:"290px", flexShrink:0, position:"sticky", top:"120px" }}>
-            <div className="ue-phone-float">
-              <div style={{ position:"absolute", width:"270px", height:"520px", borderRadius:"50px", background:`radial-gradient(ellipse at 50% 55%, ${steps[active].accent}20, transparent 65%)`, filter:"blur(38px)", zIndex:0, top:0, left:"10px", pointerEvents:"none", transition:"background 0.5s ease" }}/>
-              <div style={{ width:"278px", height:"570px", background:C.noir, borderRadius:"44px", padding:"10px", boxShadow:`0 40px 80px -20px rgba(0,0,0,0.38), 0 0 0 1px rgba(255,255,255,0.07)`, position:"relative", zIndex:1 }}>
-                <div style={{ position:"absolute", top:"13px", left:"50%", transform:"translateX(-50%)", width:"80px", height:"24px", background:"#111", borderRadius:"12px", zIndex:5 }}/>
-                <div style={{ width:"100%", height:"100%", borderRadius:"36px", overflow:"hidden", position:"relative", background:C.noir }}>
+          {/* Phone column — FIX 5: slightly larger, flush right */}
+          <div className="ue-hiw-phone" style={{ width:"310px", flexShrink:0, position:"sticky", top:"120px" }}>
+            <div className="ue-phone-float" style={{ position:"relative" }}>
+              <div style={{ position:"absolute", width:"290px", height:"560px", borderRadius:"54px", background:`radial-gradient(ellipse at 50% 55%, ${steps[active].accent}22, transparent 65%)`, filter:"blur(42px)", zIndex:0, top:0, left:"10px", pointerEvents:"none", transition:"background 0.5s ease" }}/>
+              {/* FIX 5: phone shell bigger: 298×590 */}
+              <div style={{ width:"298px", height:"590px", background:C.noir, borderRadius:"48px", padding:"10px", boxShadow:`0 40px 80px -20px rgba(0,0,0,0.40), 0 0 0 1px rgba(255,255,255,0.07)`, position:"relative", zIndex:1 }}>
+                <div style={{ position:"absolute", top:"13px", left:"50%", transform:"translateX(-50%)", width:"82px", height:"24px", background:"#111", borderRadius:"12px", zIndex:5 }}/>
+                <div style={{ width:"100%", height:"100%", borderRadius:"40px", overflow:"hidden", position:"relative", background:C.noir }}>
                   {stepImages.map((img, i) => (
-                    <img key={i} src={img} alt={`écran étape ${i+1}`} className={active===i ? "ue-photo-visible" : ""} style={{ position:"absolute", inset:0, width:"100%", height:"100%", objectFit:"cover", objectPosition:"top center", opacity:active===i?1:0, transition:active===i?"none":"opacity 0.12s ease", borderRadius:"36px", display:"block" }}/>
+                    <img key={i} src={img} alt={`écran étape ${i+1}`} className={active===i ? "ue-photo-visible" : ""} style={{ position:"absolute", inset:0, width:"100%", height:"100%", objectFit:"cover", objectPosition:"top center", opacity:active===i?1:0, transition:active===i?"none":"opacity 0.12s ease", borderRadius:"40px", display:"block" }}/>
                   ))}
+                  {/* Dots */}
                   <div style={{ position:"absolute", bottom:"18px", left:"50%", transform:"translateX(-50%)", display:"flex", gap:"5px", zIndex:10 }}>
                     {steps.map((_,i) => (
-                      <div key={i} onClick={() => setActive(i)} style={{ width:active===i?"20px":"6px", height:"6px", borderRadius:"3px", background:active===i?steps[i].accent:"rgba(255,255,255,0.45)", cursor:"pointer", transition:"all 0.35s ease", boxShadow:active===i?`0 2px 8px ${steps[i].accent}99`:"none" }}/>
+                      <div key={i} onClick={() => setActive(i)} style={{ width:active===i?"22px":"6px", height:"6px", borderRadius:"3px", background:active===i?steps[i].accent:"rgba(255,255,255,0.45)", cursor:"pointer", transition:"all 0.35s ease", boxShadow:active===i?`0 2px 8px ${steps[i].accent}99`:"none" }}/>
                     ))}
                   </div>
                 </div>
               </div>
             </div>
+
+            {/* FIX 3: subtitle text placed BELOW the phone */}
+            <p style={{
+              fontFamily:"'Open Sans',sans-serif",
+              fontSize:"14px",
+              color:C.muted,
+              lineHeight:"1.65",
+              textAlign:"center",
+              marginTop:"20px",
+              padding:"0 10px",
+            }}>
+              Moins de 20 secondes de votre téléphone au chauffeur.{" "}
+              <strong style={{ color:C.noir, fontWeight:"600" }}>Pas de compte bancaire requis.</strong>
+            </p>
           </div>
         </div>
-
-
       </section>
 
       {/* ══════════════════════════════════════════════════════
-          BLOC 2 — APP DOWNLOAD  (bleu profond)
-          Phone is now centered vertically, fully visible
+          BLOC 2 — APP DOWNLOAD
       ══════════════════════════════════════════════════════ */}
       <section style={{
         fontFamily:"'Open Sans',sans-serif",
         background:`linear-gradient(145deg, #001a5c 0%, ${C.dark} 40%, #001f6e 70%, #001544 100%)`,
         position:"relative", overflow:"hidden",
-        padding:"110px 8%",
+        /* FIX 2: reduced padding */
+        padding:"90px 4%",
       }}>
         {/* BG orbs */}
         <div className="orb1" style={{ position:"absolute", top:"-100px", right:"-80px", width:"500px", height:"500px", borderRadius:"50%", background:`radial-gradient(circle,${C.mid}25,transparent 65%)`, filter:"blur(60px)", pointerEvents:"none" }}/>
@@ -300,12 +391,14 @@ const UserExperience = () => {
           <div style={{ flex:"1" }}>
 
             <div className={inView?"ue-in ue-d1":""} style={{ display:"inline-flex", alignItems:"center", gap:"8px", padding:"6px 14px 6px 10px", background:"rgba(73,206,84,0.15)", border:"1px solid rgba(73,206,84,0.3)", borderRadius:"100px", marginBottom:"24px" }}>
-              <div style={{ width:"6px", height:"6px", borderRadius:"50%", background:C.green, boxShadow:`0 0 8px ${C.green}` }}/>
-              <span style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"11.5px", fontWeight:"700", color:C.green, letterSpacing:"1.2px", textTransform:"uppercase" }}>Disponible maintenant</span>
+              <div style={{ width:"7px", height:"7px", borderRadius:"50%", background:C.green, boxShadow:`0 0 8px ${C.green}` }}/>
+              {/* FIX 1: eyebrow larger */}
+              <span style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"13px", fontWeight:"700", color:C.green, letterSpacing:"1.2px", textTransform:"uppercase" }}>Disponible maintenant</span>
             </div>
 
-            <h2 className={inView?"ue-in ue-d2":""} style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"clamp(38px,5.5vw,68px)", fontWeight:"800", lineHeight:"1.04", letterSpacing:"-0.04em", color:C.blanc, margin:"0 0 8px" }}>Téléchargez</h2>
-            <h2 className={inView?"ue-in ue-d2":""} style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"clamp(38px,5.5vw,68px)", fontWeight:"800", lineHeight:"1.04", letterSpacing:"-0.04em", background:`linear-gradient(110deg,${C.green},#6eea72)`, WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent", margin:"0 0 28px" }}>l'app Inno.</h2>
+            {/* FIX 1: bigger headline */}
+            <h2 className={inView?"ue-in ue-d2":""} style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"clamp(44px,6vw,72px)", fontWeight:"800", lineHeight:"1.04", letterSpacing:"-0.04em", color:C.blanc, margin:"0 0 8px" }}>Téléchargez</h2>
+            <h2 className={inView?"ue-in ue-d2":""} style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"clamp(44px,6vw,72px)", fontWeight:"800", lineHeight:"1.04", letterSpacing:"-0.04em", background:`linear-gradient(110deg,${C.green},#6eea72)`, WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent", margin:"0 0 28px" }}>l'app Inno.</h2>
 
             <div className={inView?"ue-in ue-d2":""} style={{ display:"inline-flex", alignItems:"center", gap:"10px", padding:"8px 16px", background:"rgba(255,255,255,0.08)", borderRadius:"100px", marginBottom:"28px" }}>
               <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" stroke={C.green} strokeWidth="1.5"/><circle cx="6" cy="6" r="2" fill={C.green}/></svg>
@@ -318,11 +411,11 @@ const UserExperience = () => {
             </p>
 
             {/* Stats row */}
-            <div className={inView?"ue-in ue-d3":""} style={{ display:"grid", gridTemplateColumns:"repeat(4,1fr)", gap:"12px", marginBottom:"44px", maxWidth:"460px" }}>
+            <div className={inView?"ue-in ue-d3":""} style={{ display:"grid", gridTemplateColumns:"repeat(4,1fr)", gap:"12px", marginBottom:"44px", maxWidth:"480px" }}>
               {stats.map((s, i) => (
-                <div key={i} className={inView?`stat-in`:""} style={{ animationDelay:`${0.3+i*0.08}s`, padding:"12px 10px", background:"rgba(255,255,255,0.07)", border:"1px solid rgba(255,255,255,0.1)", borderRadius:"14px", textAlign:"center" }}>
-                  <div style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"15px", fontWeight:"800", color:C.blanc, marginBottom:"2px" }}>{s.value}</div>
-                  <div style={{ fontFamily:"'Open Sans',sans-serif", fontSize:"9.5px", color:"rgba(255,255,255,0.45)", lineHeight:"1.3" }}>{s.label}</div>
+                <div key={i} className={inView?`stat-in`:""} style={{ animationDelay:`${0.3+i*0.08}s`, padding:"14px 10px", background:"rgba(255,255,255,0.07)", border:"1px solid rgba(255,255,255,0.1)", borderRadius:"14px", textAlign:"center" }}>
+                  <div style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"16px", fontWeight:"800", color:C.blanc, marginBottom:"2px" }}>{s.value}</div>
+                  <div style={{ fontFamily:"'Open Sans',sans-serif", fontSize:"10px", color:"rgba(255,255,255,0.45)", lineHeight:"1.3" }}>{s.label}</div>
                 </div>
               ))}
             </div>
@@ -339,7 +432,7 @@ const UserExperience = () => {
             </div>
 
             {/* Reviews */}
-            <div className={inView?"ue-in ue-d4":""} style={{ maxWidth:"460px", padding:"20px 22px", background:"rgba(255,255,255,0.06)", backdropFilter:"blur(12px)", border:"1px solid rgba(255,255,255,0.1)", borderRadius:"18px", minHeight:"110px" }}>
+            <div className={inView?"ue-in ue-d4":""} style={{ maxWidth:"480px", padding:"20px 22px", background:"rgba(255,255,255,0.06)", backdropFilter:"blur(12px)", border:"1px solid rgba(255,255,255,0.1)", borderRadius:"18px", minHeight:"110px" }}>
               {reviews.map((r, i) => i===activeReview && (
                 <div key={i} className="review-fade">
                   <div style={{ display:"flex", alignItems:"center", gap:"12px", marginBottom:"10px" }}>
@@ -366,27 +459,16 @@ const UserExperience = () => {
             </div>
           </div>
 
-          {/* ✅ RIGHT — Phone fully visible, centered, floating */}
-          <div className="app-phone-col phone-rise" style={{ flexShrink:0, display:"flex", alignItems:"center", justifyContent:"center", width:"280px" }}>
+          {/* RIGHT — Phone (unchanged layout, bigger phone shell) */}
+          <div className="app-phone-col phone-rise" style={{ flexShrink:0, display:"flex", alignItems:"center", justifyContent:"center", width:"290px" }}>
             <div style={{ position:"relative" }}>
-
-              {/* Pulse rings behind phone */}
               <div className="pulse-ring" style={{ position:"absolute", inset:"-30px", borderRadius:"60px", border:`1px solid ${C.green}30`, pointerEvents:"none" }}/>
               <div className="pulse-ring-2" style={{ position:"absolute", inset:"-50px", borderRadius:"70px", border:`1px solid ${C.mid}20`, pointerEvents:"none" }}/>
+              <div style={{ position:"absolute", width:"270px", height:"520px", borderRadius:"54px", background:`radial-gradient(ellipse at 50% 60%,${C.green}22,${C.mid}10,transparent 70%)`, filter:"blur(32px)", top:"20px", left:"10px", pointerEvents:"none", zIndex:0 }}/>
 
-              {/* Glow */}
-              <div style={{ position:"absolute", width:"260px", height:"500px", borderRadius:"54px", background:`radial-gradient(ellipse at 50% 60%,${C.green}22,${C.mid}10,transparent 70%)`, filter:"blur(32px)", top:"20px", left:"10px", pointerEvents:"none", zIndex:0 }}/>
-
-              {/* Phone shell */}
-              <div className="float-phone" style={{ width:"260px", height:"530px", background:"#0a0f24", borderRadius:"50px", padding:"10px", boxShadow:`0 60px 120px -20px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.08), inset 0 0 0 1px rgba(255,255,255,0.04)`, position:"relative", zIndex:1 }}>
-
-                {/* Notch */}
+              <div className="float-phone" style={{ width:"270px", height:"550px", background:"#0a0f24", borderRadius:"52px", padding:"10px", boxShadow:`0 60px 120px -20px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.08), inset 0 0 0 1px rgba(255,255,255,0.04)`, position:"relative", zIndex:1 }}>
                 <div style={{ position:"absolute", top:"12px", left:"50%", transform:"translateX(-50%)", width:"72px", height:"22px", background:"#060d1c", borderRadius:"11px", zIndex:5 }}/>
-
-                {/* Screen */}
-                <div style={{ width:"100%", height:"100%", borderRadius:"42px", overflow:"hidden", background:`linear-gradient(155deg,#001a5c,${C.dark})`, position:"relative" }}>
-
-                  {/* Map area */}
+                <div style={{ width:"100%", height:"100%", borderRadius:"44px", overflow:"hidden", background:`linear-gradient(155deg,#001a5c,${C.dark})`, position:"relative" }}>
                   <svg viewBox="0 0 240 320" style={{ width:"100%", height:"60%" }}>
                     <rect width="240" height="320" fill="#0f2244"/>
                     {[[0,80],[0,140],[0,200],[0,260]].map(([,y],i)=>(
@@ -398,16 +480,12 @@ const UserExperience = () => {
                     {[[10,70,70,40],[90,55,50,55],[150,65,44,50],[10,130,65,35],[90,130,50,35],[10,190,60,45],[90,185,50,50],[155,185,44,50]].map(([x,y,w,h],i)=>(
                       <rect key={i} x={x} y={y} width={w} height={h} rx="4" fill="rgba(0,61,166,0.45)" stroke="rgba(0,132,204,0.12)" strokeWidth="0.5"/>
                     ))}
-                    {/* Route */}
                     <path d="M 120 300 Q 118 240 100 200 Q 82 165 95 130 Q 104 110 120 90" stroke={C.green} strokeWidth="5" fill="none" strokeOpacity="0.15" strokeLinecap="round"/>
                     <path d="M 120 300 Q 118 240 100 200 Q 82 165 95 130 Q 104 110 120 90" stroke={C.green} strokeWidth="2.5" fill="none" strokeDasharray="6 4" strokeLinecap="round"/>
-                    {/* Origin dot */}
                     <circle cx="120" cy="300" r="8" fill={C.dark} stroke={C.blanc} strokeWidth="2.5"/>
-                    {/* Destination */}
                     <circle cx="120" cy="90" r="13" fill={C.green} opacity="0.15"/>
                     <circle cx="120" cy="90" r="8"  fill={C.green}/>
                     <circle cx="120" cy="90" r="3"  fill={C.blanc}/>
-                    {/* Car icon */}
                     <g transform="translate(100,195)">
                       <rect x="-16" y="-9" width="32" height="18" rx="5" fill={C.dark}/>
                       <rect x="-11" y="-16" width="22" height="9" rx="3" fill={C.mid}/>
@@ -416,9 +494,7 @@ const UserExperience = () => {
                       <circle cx="9"  cy="11" r="4" fill="#111" stroke="rgba(255,255,255,0.2)" strokeWidth="1"/>
                     </g>
                   </svg>
-
-                  {/* Bottom card */}
-                  <div style={{ position:"absolute", bottom:0, left:0, right:0, background:"rgba(255,255,255,0.97)", borderRadius:"22px 22px 42px 42px", padding:"16px 16px 20px" }}>
+                  <div style={{ position:"absolute", bottom:0, left:0, right:0, background:"rgba(255,255,255,0.97)", borderRadius:"22px 22px 44px 44px", padding:"16px 16px 20px" }}>
                     <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between", marginBottom:"12px" }}>
                       <div>
                         <p style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"13px", fontWeight:"800", color:C.noir, margin:0 }}>Votre chauffeur arrive</p>
@@ -450,6 +526,6 @@ const UserExperience = () => {
       </section>
     </>
   );
-}
+};
 
 export default UserExperience;

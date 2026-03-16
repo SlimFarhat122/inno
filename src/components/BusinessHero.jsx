@@ -23,18 +23,18 @@ const BusinessHero = () => {
     return () => clearInterval(interval);
   }, []);
 
-const scrollToContact = () => {
-  const el = document.getElementById("business-contact");
-  const root = document.getElementById("root");
-  if (!el || !root) return;
+  const scrollToContact = () => {
+    const el = document.getElementById("business-contact");
+    const root = document.getElementById("root");
+    if (!el || !root) return;
+    const top = el.getBoundingClientRect().top + root.scrollTop - 80;
+    root.scrollTo({ top, behavior: "smooth" });
+  };
 
-  const top = el.getBoundingClientRect().top + root.scrollTop - 80;
-  root.scrollTo({ top, behavior: "smooth" });
-};
   const C = {
     marine:     "#003DA7",
     cyan:       "#008BD3",
-    anthracite: "#374151",
+    anthracite: "#1a2236",   /* FIX 3: darkened for readability */
     sky:        "#38BDF8",
     lightGray:  "#F3F4F6",
     white:      "#FFFFFF",
@@ -88,12 +88,13 @@ const scrollToContact = () => {
           50% { transform: translateY(-20px) scale(1.03); }
         }
 
+        /* FIX 1,2,✗: Reduced padding, tighter grid gap */
         .bh-inner {
           position: relative; z-index: 2;
           display: grid; grid-template-columns: 1fr 1fr;
-          gap: 80px; align-items: center;
-          padding: 90px 8% 80px;
-          width: 100%; max-width: 1400px; margin: 0 auto;
+          gap: 48px; align-items: center;
+          padding: 80px 4% 70px;           /* was 90px 8% */
+          width: 100%; max-width: 1440px; margin: 0 auto;
         }
 
         .bh-left {
@@ -104,7 +105,7 @@ const scrollToContact = () => {
 
         .bh-badge {
           display: inline-flex; align-items: center; gap: 8px;
-          padding: 6px 14px 6px 10px;
+          padding: 7px 16px 7px 12px;
           background: ${C.marine}0D;
           border: 1px solid ${C.marine}20;
           border-left: 3px solid ${C.cyan};
@@ -112,7 +113,7 @@ const scrollToContact = () => {
         }
 
         .bh-badge-dot {
-          width: 6px; height: 6px; border-radius: 50%;
+          width: 7px; height: 7px; border-radius: 50%;
           background: ${C.cyan}; animation: pulse 2s ease-in-out infinite;
         }
 
@@ -121,18 +122,21 @@ const scrollToContact = () => {
           50% { opacity: 0.5; transform: scale(1.3); }
         }
 
+        /* FIX 1: larger badge text */
         .bh-badge-text {
           font-family: 'Montserrat', sans-serif;
-          font-size: 11px; font-weight: 700;
-          letter-spacing: 1.5px; text-transform: uppercase;
+          font-size: 13px; font-weight: 700;
+          letter-spacing: 1.2px; text-transform: uppercase;
           color: ${C.marine};
         }
 
+        /* FIX 3: Bigger heading */
         .bh-h1 {
           font-family: 'Montserrat', sans-serif;
-          font-size: 48px; font-weight: 700;
-          line-height: 1.15; color: ${C.marine};
-          margin-bottom: 20px; letter-spacing: -0.5px;
+          font-size: clamp(44px, 5vw, 64px);   /* was 48px fixed */
+          font-weight: 800;
+          line-height: 1.1; color: ${C.marine};
+          margin-bottom: 22px; letter-spacing: -1px;
         }
 
         .bh-h1 .accent { color: ${C.cyan}; position: relative; display: inline-block; }
@@ -149,24 +153,27 @@ const scrollToContact = () => {
 
         @keyframes underlineIn { to { transform: scaleX(1); } }
 
+        /* FIX 3: Bigger, darker body text */
         .bh-desc {
-          font-family: 'Open Sans', sans-serif;
-          font-size: 18px; font-weight: 400;
+          font-family: 'Montserrat', sans-serif;   /* was Open Sans */
+          font-size: 18px; font-weight: 500;         /* was 400, harder to read */
           color: ${C.anthracite}; line-height: 1.8;
-          max-width: 500px; margin-bottom: 40px;
+          max-width: 520px; margin-bottom: 40px;
         }
 
-        .bh-stats { display: flex; gap: 32px; margin-bottom: 44px; padding-top: 8px; }
+        .bh-stats { display: flex; gap: 36px; margin-bottom: 44px; padding-top: 8px; }
         .bh-stat { display: flex; flex-direction: column; gap: 4px; }
 
+        /* FIX 3: Much bigger stat values */
         .bh-stat-value {
           font-family: 'Montserrat', sans-serif;
-          font-size: 26px; font-weight: 800; color: ${C.marine}; line-height: 1;
+          font-size: clamp(32px, 4vw, 48px);   /* was 26px */
+          font-weight: 800; color: ${C.marine}; line-height: 1;
         }
 
         .bh-stat-label {
           font-family: 'Open Sans', sans-serif;
-          font-size: 12px; color: ${C.anthracite}99;
+          font-size: 13px; color: ${C.anthracite}99;    /* was 12px */
           font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;
         }
 
@@ -175,9 +182,9 @@ const scrollToContact = () => {
 
         .bh-btn-primary {
           display: inline-flex; align-items: center; gap: 10px;
-          padding: 16px 32px; background: ${C.marine}; color: ${C.white};
+          padding: 18px 36px; background: ${C.marine}; color: ${C.white};
           border: none; border-radius: 8px;
-          font-family: 'Montserrat', sans-serif; font-size: 15px; font-weight: 700;
+          font-family: 'Montserrat', sans-serif; font-size: 16px; font-weight: 700;
           cursor: pointer; transition: all 0.3s ease;
           box-shadow: 0 8px 24px ${C.marine}35; position: relative; overflow: hidden;
         }
@@ -208,14 +215,15 @@ const scrollToContact = () => {
           z-index: 10; backdrop-filter: blur(10px);
         }
 
+        /* FIX ✗: cards repositioned to avoid empty right space */
         .bh-card-main {
-          bottom: -5%; left: -8%; border-bottom: 3px solid ${C.cyan};
-          animation: floatCard 5s ease-in-out infinite; min-width: 190px;
+          bottom: -5%; left: -6%; border-bottom: 3px solid ${C.cyan};
+          animation: floatCard 5s ease-in-out infinite; min-width: 200px;
         }
 
         .bh-card-top {
-          top: 10%; right: -6%; border-top: 3px solid ${C.marine};
-          animation: floatCard 6s ease-in-out infinite 1s; min-width: 160px;
+          top: 8%; right: -4%; border-top: 3px solid ${C.marine};
+          animation: floatCard 6s ease-in-out infinite 1s; min-width: 170px;
         }
 
         @keyframes floatCard {
@@ -245,16 +253,17 @@ const scrollToContact = () => {
         }
 
         .bh-card-label {
-          font-family: 'Open Sans', sans-serif; font-size: 11px; font-weight: 700;
+          font-family: 'Open Sans', sans-serif; font-size: 12px; font-weight: 700;
           color: ${C.anthracite}80; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 6px;
         }
 
+        /* FIX 4: Bigger card values */
         .bh-card-value {
-          font-family: 'Montserrat', sans-serif; font-size: 28px; font-weight: 800;
+          font-family: 'Montserrat', sans-serif; font-size: 34px; font-weight: 800;  /* was 28px */
           color: ${C.marine}; line-height: 1; display: flex; align-items: baseline; gap: 6px;
         }
 
-        .bh-card-sub { font-family: 'Open Sans', sans-serif; font-size: 13px; color: ${C.anthracite}80; font-weight: 400; }
+        .bh-card-sub { font-family: 'Open Sans', sans-serif; font-size: 14px; color: ${C.anthracite}80; font-weight: 400; }
 
         .bh-card-pill {
           display: inline-flex; align-items: center; gap: 5px; padding: 4px 10px;
@@ -263,7 +272,7 @@ const scrollToContact = () => {
         }
 
         @media (max-width: 1024px) {
-          .bh-inner { grid-template-columns: 1fr; gap: 60px; text-align: center; padding: 80px 6% 60px; }
+          .bh-inner { grid-template-columns: 1fr; gap: 60px; text-align: center; padding: 70px 5% 50px; }
           .bh-desc, .bh-badge { margin-left: auto; margin-right: auto; }
           .bh-stats, .bh-cta-row { justify-content: center; }
           .bh-card-main { left: 0; bottom: -3%; }
@@ -271,8 +280,8 @@ const scrollToContact = () => {
         }
 
         @media (max-width: 640px) {
-          .bh-h1 { font-size: 32px; }
-          .bh-inner { padding: 70px 5% 40px; gap: 40px; }
+          .bh-h1 { font-size: 34px; }
+          .bh-inner { padding: 60px 4% 40px; gap: 40px; }
           .bh-stats { gap: 20px; }
           .bh-btn-primary { padding: 14px 20px; font-size: 14px; }
         }
@@ -284,6 +293,7 @@ const scrollToContact = () => {
         <div className="bh-circle2" />
 
         <div className="bh-inner">
+          {/* LEFT */}
           <div className={`bh-left ${isVisible ? "visible" : ""}`}>
 
             <div className="bh-badge">
@@ -328,6 +338,7 @@ const scrollToContact = () => {
             </div>
           </div>
 
+          {/* RIGHT — FIX ✗: image frame now fills the column completely, no dead space */}
           <div className={`bh-right ${isVisible ? "visible" : ""}`}>
 
             <div className="bh-card bh-card-top">
@@ -341,13 +352,18 @@ const scrollToContact = () => {
               </div>
             </div>
 
-            <div className="bh-img-frame" style={{ overflow: "hidden", background: "transparent", boxShadow: "none", border: "none" }}>
+            {/* FIX ✗: width 100% + no max-width constraint → fills column */}
+            <div style={{ width: "100%", overflow: "hidden", background: "transparent", boxShadow: "none", border: "none" }}>
               <div style={{
-                position: "relative", width: "100%", aspectRatio: "4/3",
-                borderRadius: "24px", overflow: "hidden",
+                position: "relative",
+                width: "100%",
+                aspectRatio: "4/3",
+                borderRadius: "20px",
+                overflow: "hidden",
                 background: `linear-gradient(160deg, ${C.marine} 0%, #001F6B 55%, #000D3A 100%)`,
                 boxShadow: `0 40px 100px ${C.marine}40, 0 0 0 1px ${C.cyan}20`,
               }}>
+                {/* Grid floor */}
                 <div style={{
                   position: "absolute", bottom: 0, left: 0, right: 0, height: "45%",
                   backgroundImage: `linear-gradient(${C.cyan}18 1px, transparent 1px), linear-gradient(90deg, ${C.cyan}18 1px, transparent 1px)`,
@@ -358,6 +374,7 @@ const scrollToContact = () => {
                   WebkitMaskImage: "linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 100%)",
                 }} />
 
+                {/* Speed lines */}
                 {[15, 28, 42, 58, 72].map((top, i) => (
                   <div key={i} style={{
                     position: "absolute", top: `${top}%`, left: 0,
@@ -368,6 +385,7 @@ const scrollToContact = () => {
                   }} />
                 ))}
 
+                {/* Glow beneath car */}
                 <div style={{
                   position: "absolute", bottom: "15%", left: "50%", transform: "translateX(-50%)",
                   width: "75%", height: "40%",
@@ -375,12 +393,14 @@ const scrollToContact = () => {
                   filter: "blur(24px)", zIndex: 1,
                 }} />
 
+                {/* Left light sweep */}
                 <div style={{
                   position: "absolute", top: 0, left: "-10%", width: "50%", height: "100%",
                   background: `linear-gradient(90deg, ${C.cyan}12, transparent 70%)`,
                   zIndex: 1, pointerEvents: "none",
                 }} />
 
+                {/* Car image */}
                 <img src={taxiBusiness} alt="Inno Taxi Business" style={{
                   position: "absolute", bottom: "12%", left: "50%",
                   transform: "translateX(-50%)", width: "90%", height: "auto", zIndex: 2,
@@ -388,6 +408,7 @@ const scrollToContact = () => {
                   animation: "carFloat 4s ease-in-out infinite",
                 }} />
 
+                {/* Car shadow */}
                 <div style={{
                   position: "absolute", bottom: "9%", left: "50%", transform: "translateX(-50%)",
                   width: "70%", height: "12px",
@@ -395,16 +416,19 @@ const scrollToContact = () => {
                   filter: "blur(6px)", zIndex: 1, animation: "shadowPulse 4s ease-in-out infinite",
                 }} />
 
+                {/* Top accent bar */}
                 <div style={{
                   position: "absolute", top: 0, left: 0, right: 0, height: "3px",
                   background: `linear-gradient(90deg, ${C.marine}, ${C.cyan}, ${C.sky})`, zIndex: 5,
                 }} />
 
+                {/* Label top-left */}
                 <div style={{ position: "absolute", top: "16px", left: "20px", display: "flex", alignItems: "center", gap: "6px", zIndex: 5 }}>
                   <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: C.sky, boxShadow: `0 0 8px ${C.sky}`, animation: "pulse 2s ease-in-out infinite", display: "inline-block" }} />
                   <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "10px", fontWeight: "700", color: C.sky, textTransform: "uppercase", letterSpacing: "1.5px" }}>Inno Business Fleet</span>
                 </div>
 
+                {/* Particles */}
                 {[
                   { top: "20%", left: "10%", size: 3, delay: "0s" },
                   { top: "35%", left: "80%", size: 2, delay: "0.5s" },
@@ -422,6 +446,7 @@ const scrollToContact = () => {
               </div>
             </div>
 
+            {/* Bottom card */}
             <div className="bh-card bh-card-main">
               <div className="bh-card-label">Optimisation Fleet</div>
               <div className="bh-card-value">-{counter}% <span className="bh-card-sub">de frais</span></div>

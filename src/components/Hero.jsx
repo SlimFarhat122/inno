@@ -1,9 +1,6 @@
 import React from 'react';
 import { ArrowRight } from 'lucide-react';
 
-// ── PALETTE OFFICIELLE INNO (stricte) ────────────────────────
-// #003da6 → Bleu Foncé   |   #0084cc → Bleu Clair   |   #49ce54 → Vert
-
 const INNO = {
   bleuFonce: "#003da6",
   bleuClair: "#0084cc",
@@ -25,7 +22,7 @@ const gridPath = "M -100,240 L 320,240 L 320,80 L 720,80 L 720,560 L 1120,560 L 
 const Hero = () => (
   <section style={{
     position: "relative",
-    padding: "130px 7% 100px",
+    padding: "100px 4% 80px",   /* FIX: was 130px 7% 100px */
     background: INNO.blanc,
     overflow: "hidden",
     minHeight: "100vh",
@@ -38,7 +35,6 @@ const Hero = () => (
     <style>{`
       @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Open+Sans:wght@400;500;600&family=Cairo:wght@400;600;700&display=swap');
 
-      /* ── Subtle grid ── */
       .h-grid {
         position: absolute; inset: 0; pointer-events: none; z-index: 0;
         background-image:
@@ -46,8 +42,6 @@ const Hero = () => (
           linear-gradient(90deg, rgba(0,61,166,0.035) 1px, transparent 1px);
         background-size: 52px 52px;
       }
-
-      /* ── Soft light leak top-right ── */
       .h-leak {
         position: absolute; top: -20%; right: -10%;
         width: 700px; height: 700px; border-radius: 50%;
@@ -61,7 +55,6 @@ const Hero = () => (
         pointer-events: none; z-index: 0;
       }
 
-      /* ── Trajectory ── */
       @keyframes drawPath {
         from { stroke-dashoffset: 2800; }
         to   { stroke-dashoffset: 0; }
@@ -85,7 +78,6 @@ const Hero = () => (
       }
       .traj-car svg { transform: rotate(90deg); }
 
-      /* ── Badge dot ── */
       @keyframes pulseDot {
         0%  { box-shadow: 0 0 0 0 rgba(73,206,84,0.4); }
         70% { box-shadow: 0 0 0 8px rgba(73,206,84,0); }
@@ -93,7 +85,6 @@ const Hero = () => (
       }
       .badge-dot { animation: pulseDot 2.4s infinite; }
 
-      /* ── Buttons ── */
       .btn-p {
         display: inline-flex; align-items: center; gap: 10px;
         padding: 15px 32px; border-radius: 12px;
@@ -124,7 +115,6 @@ const Hero = () => (
         transform: translateY(-2px);
       }
 
-      /* ── Stats ── */
       .s-val {
         font-family: 'Montserrat', sans-serif;
         font-size: 26px; font-weight: 800;
@@ -135,17 +125,12 @@ const Hero = () => (
         font-size: 12.5px; font-weight: 400; color: #94a3b8; margin: 0;
       }
 
-      /* ════════════════════════════════
-         3D GEOMETRIC CAR SCENE
-      ════════════════════════════════ */
-
       .scene-wrap {
         position: relative;
         width: 100%; height: 500px;
         display: flex; align-items: center; justify-content: center;
       }
 
-      /* Rotating outer ring */
       @keyframes spinRing {
         from { transform: rotate(0deg); }
         to   { transform: rotate(360deg); }
@@ -172,15 +157,11 @@ const Hero = () => (
         border: 1.5px solid rgba(73,206,84,0.12);
         animation: spinRing 18s linear infinite;
       }
-
-      /* Orbital dots on rings */
       .orb-dot {
         position: absolute;
         width: 7px; height: 7px; border-radius: 50%;
         top: -3.5px; left: calc(50% - 3.5px);
       }
-
-      /* Central glow */
       .center-glow {
         position: absolute;
         width: 280px; height: 280px; border-radius: 50%;
@@ -188,7 +169,6 @@ const Hero = () => (
         pointer-events: none;
       }
 
-      /* Car float animation */
       @keyframes carFloat {
         0%,100% { transform: translateY(0px) rotate(-2deg); }
         50%      { transform: translateY(-14px) rotate(2deg); }
@@ -201,7 +181,6 @@ const Hero = () => (
                 drop-shadow(0 8px 16px rgba(0,132,204,0.12));
       }
 
-      /* Shadow under car */
       @keyframes shadowPulse {
         0%,100% { transform: scaleX(1);   opacity: 0.18; }
         50%      { transform: scaleX(0.82); opacity: 0.1; }
@@ -214,7 +193,6 @@ const Hero = () => (
         animation: shadowPulse 5s ease-in-out infinite;
       }
 
-      /* Floating corner cards */
       @keyframes fc1 {
         0%,100%{ transform: translate(0,0); }
         50%    { transform: translate(-4px,-10px); }
@@ -243,7 +221,6 @@ const Hero = () => (
         white-space: nowrap; z-index: 20;
       }
 
-      /* Speed line streaks */
       @keyframes streak {
         0%   { opacity: 0; transform: translateX(-20px); }
         30%  { opacity: 1; }
@@ -253,7 +230,6 @@ const Hero = () => (
       .streak-2 { animation: streak 2.2s ease-in-out infinite 0.4s; }
       .streak-3 { animation: streak 2.2s ease-in-out infinite 0.8s; }
 
-      /* Geo triangles */
       @keyframes triFloat {
         0%,100%{ opacity:0.06; transform: rotate(0deg) scale(1); }
         50%    { opacity:0.11; transform: rotate(12deg) scale(1.06); }
@@ -263,7 +239,6 @@ const Hero = () => (
         animation: triFloat 8s ease-in-out infinite;
       }
 
-      /* Responsive */
       @media (max-width: 1000px) {
         .hero-inner { flex-direction: column !important; gap: 56px !important; text-align: center; }
         .hero-left  { align-items: center !important; }
@@ -276,12 +251,10 @@ const Hero = () => (
       }
     `}</style>
 
-    {/* Background layers */}
     <div className="h-grid" />
     <div className="h-leak" />
     <div className="h-leak-2" />
 
-    {/* Trajectory */}
     <div style={{ position:"absolute", inset:0, zIndex:1, pointerEvents:"none" }}>
       <svg width="100%" height="100%" style={{ position:"absolute", inset:0 }}>
         <path className="traj-path" d={gridPath}
@@ -295,21 +268,18 @@ const Hero = () => (
       </div>
     </div>
 
-    {/* ── MAIN LAYOUT ── */}
     <div className="hero-inner" style={{
       display:"flex", flexWrap:"wrap",
       alignItems:"center", justifyContent:"space-between",
-      gap:"48px", width:"100%", maxWidth:"1320px",
+      gap:"48px", width:"100%", maxWidth:"1400px",  /* FIX: maxWidth 1320 → 1400 */
       position:"relative", zIndex:2,
     }}>
 
-      {/* ═══════════ LEFT — Copy ═══════════ */}
       <div className="hero-left" style={{
         flex:"1 1 460px", minWidth:"300px",
         display:"flex", flexDirection:"column", alignItems:"flex-start",
       }}>
 
-        {/* Eyebrow badge */}
         <div style={{
           display:"inline-flex", alignItems:"center", gap:"8px",
           padding:"6px 14px", borderRadius:"100px",
@@ -326,24 +296,18 @@ const Hero = () => (
           Mobilité premium · Tunisie
         </div>
 
-        {/* H1 — Montserrat Black */}
         <h1 style={{
           fontFamily:"'Montserrat', sans-serif",
           fontSize:"clamp(40px, 5.2vw, 68px)",
-          fontWeight:"900",
-          lineHeight:"1.04",
-          letterSpacing:"-2px",
-          color: INNO.noir,
-          margin:"0 0 6px",
+          fontWeight:"900", lineHeight:"1.04",
+          letterSpacing:"-2px", color: INNO.noir, margin:"0 0 6px",
         }}>
           Votre trajet,
         </h1>
         <h1 style={{
           fontFamily:"'Montserrat', sans-serif",
           fontSize:"clamp(40px, 5.2vw, 68px)",
-          fontWeight:"900",
-          lineHeight:"1.04",
-          letterSpacing:"-2px",
+          fontWeight:"900", lineHeight:"1.04", letterSpacing:"-2px",
           margin:"0 0 6px",
           background:`linear-gradient(100deg, ${INNO.bleuFonce} 0%, ${INNO.bleuClair} 100%)`,
           WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent",
@@ -353,23 +317,18 @@ const Hero = () => (
         <h1 style={{
           fontFamily:"'Montserrat', sans-serif",
           fontSize:"clamp(40px, 5.2vw, 68px)",
-          fontWeight:"900",
-          lineHeight:"1.04",
-          letterSpacing:"-2px",
-          color: INNO.vert,
-          margin:"0 0 32px",
+          fontWeight:"900", lineHeight:"1.04",
+          letterSpacing:"-2px", color: INNO.vert, margin:"0 0 32px",
         }}>
           Sans compromis.
         </h1>
 
-        {/* Thin rule */}
         <div style={{
           width:"48px", height:"3px", borderRadius:"2px",
           background:`linear-gradient(90deg, ${INNO.bleuFonce}, ${INNO.vert})`,
           marginBottom:"28px",
         }} />
 
-        {/* Body */}
         <p style={{
           fontFamily:"'Open Sans', sans-serif",
           fontSize:"16.5px", fontWeight:"400",
@@ -380,7 +339,6 @@ const Hero = () => (
           Ponctuel, élégant, disponible 24h/24 — partout en Tunisie.
         </p>
 
-        {/* CTAs */}
         <div className="hero-btns" style={{ display:"flex", gap:"14px", flexWrap:"wrap", marginBottom:"52px" }}>
           <a href="#contact" className="btn-p">
             Réserver un trajet <ArrowRight size={16} />
@@ -390,7 +348,6 @@ const Hero = () => (
           </a>
         </div>
 
-        {/* Stats */}
         <div className="hero-stats" style={{
           display:"flex", gap:"32px",
           paddingTop:"24px",
@@ -410,11 +367,9 @@ const Hero = () => (
         </div>
       </div>
 
-      {/* ═══════════ RIGHT — 3D Geometric Car Scene ═══════════ */}
       <div style={{ flex:"0 1 520px", minWidth:"300px", display:"flex", justifyContent:"center" }}>
         <div className="scene-wrap">
 
-          {/* Geometric background triangles */}
           <svg className="geo-tri" style={{ position:"absolute", top:"5%", right:"8%", width:"120px" }}
             viewBox="0 0 100 100">
             <polygon points="50,5 95,90 5,90"
@@ -436,9 +391,7 @@ const Hero = () => (
             <circle cx="50" cy="50" r="42" fill="none" stroke={INNO.bleuFonce} strokeWidth="3"/>
           </svg>
 
-          {/* Concentric rotating rings */}
           <div className="ring-outer" style={{ border:`1px dashed rgba(0,61,166,0.09)` }}>
-            {/* orbital dot on outer ring */}
             <div className="orb-dot" style={{ background: INNO.bleuClair, opacity:0.5 }} />
           </div>
           <div className="ring-mid">
@@ -448,10 +401,8 @@ const Hero = () => (
             <div className="orb-dot" style={{ background: INNO.bleuFonce, opacity:0.6 }} />
           </div>
 
-          {/* Center glow */}
           <div className="center-glow" />
 
-          {/* Speed streaks */}
           <div style={{ position:"absolute", left:"18%", top:"52%", pointerEvents:"none" }}>
             {[0,8,16].map((offset,i) => (
               <div key={i} className={`streak-${i+1}`} style={{
@@ -462,88 +413,41 @@ const Hero = () => (
             ))}
           </div>
 
-          {/* ── THE CAR — clean SVG illustration ── */}
           <div className="car-svg-wrap">
             <svg width="300" height="150" viewBox="0 0 300 150" fill="none">
-              {/* Car body — main shape */}
-              <rect x="20" y="70" width="260" height="60" rx="12"
-                fill={INNO.bleuFonce}/>
-              {/* Body top highlight */}
-              <rect x="20" y="70" width="260" height="8" rx="12"
-                fill={`${INNO.bleuClair}`} opacity="0.4"/>
-
-              {/* Cabin */}
-              <path d="M 75,70 Q 82,32 108,28 L 200,28 Q 226,28 232,70 Z"
-                fill={INNO.bleuClair}/>
-              {/* Cabin roof edge */}
-              <path d="M 82,70 Q 88,36 110,32 L 198,32 Q 220,32 226,70 Z"
-                fill={INNO.bleuFonce} opacity="0.3"/>
-
-              {/* Windshield */}
-              <path d="M 90,68 Q 96,42 114,38 L 186,38 Q 200,38 208,68 Z"
-                fill={INNO.bleuClair} opacity="0.55"/>
-              {/* Windshield glare */}
-              <path d="M 100,66 Q 104,50 116,44 L 140,44 L 132,66 Z"
-                fill={INNO.blanc} opacity="0.18"/>
-
-              {/* Side windows */}
-              <rect x="88" y="52" width="32" height="18" rx="4"
-                fill={INNO.bleuClair} opacity="0.4"/>
-              <rect x="180" y="52" width="32" height="18" rx="4"
-                fill={INNO.bleuClair} opacity="0.4"/>
-
-              {/* Side body accent stripe */}
-              <rect x="20" y="100" width="260" height="3" rx="2"
-                fill={INNO.bleuClair} opacity="0.5"/>
-
-              {/* Door lines */}
+              <rect x="20" y="70" width="260" height="60" rx="12" fill={INNO.bleuFonce}/>
+              <rect x="20" y="70" width="260" height="8" rx="12" fill={`${INNO.bleuClair}`} opacity="0.4"/>
+              <path d="M 75,70 Q 82,32 108,28 L 200,28 Q 226,28 232,70 Z" fill={INNO.bleuClair}/>
+              <path d="M 82,70 Q 88,36 110,32 L 198,32 Q 220,32 226,70 Z" fill={INNO.bleuFonce} opacity="0.3"/>
+              <path d="M 90,68 Q 96,42 114,38 L 186,38 Q 200,38 208,68 Z" fill={INNO.bleuClair} opacity="0.55"/>
+              <path d="M 100,66 Q 104,50 116,44 L 140,44 L 132,66 Z" fill={INNO.blanc} opacity="0.18"/>
+              <rect x="88" y="52" width="32" height="18" rx="4" fill={INNO.bleuClair} opacity="0.4"/>
+              <rect x="180" y="52" width="32" height="18" rx="4" fill={INNO.bleuClair} opacity="0.4"/>
+              <rect x="20" y="100" width="260" height="3" rx="2" fill={INNO.bleuClair} opacity="0.5"/>
               <line x1="148" y1="70" x2="148" y2="128" stroke={INNO.bleuClair} strokeWidth="1" opacity="0.25"/>
               <line x1="85"  y1="95" x2="148" y2="95"  stroke={INNO.bleuClair} strokeWidth="1" opacity="0.2"/>
               <line x1="148" y1="95" x2="220" y2="95"  stroke={INNO.bleuClair} strokeWidth="1" opacity="0.2"/>
-
-              {/* Door handles */}
               <rect x="108" y="89" width="16" height="4" rx="2" fill={INNO.bleuClair} opacity="0.5"/>
               <rect x="168" y="89" width="16" height="4" rx="2" fill={INNO.bleuClair} opacity="0.5"/>
-
-              {/* Front bumper detail */}
-              <rect x="20" y="118" width="260" height="12" rx="6"
-                fill={INNO.bleuFonce} opacity="0.8"/>
-              <rect x="24" y="120" width="252" height="8" rx="4"
-                fill={INNO.bleuClair} opacity="0.15"/>
-
-              {/* Front lights */}
-              <rect x="24" y="74" width="28" height="10" rx="3"
-                fill={INNO.blanc} opacity="0.9"/>
-              <rect x="25" y="75" width="26" height="8" rx="2"
-                fill={INNO.bleuClair} opacity="0.6"/>
-
-              {/* Rear lights */}
-              <rect x="248" y="74" width="28" height="10" rx="3"
-                fill={INNO.blanc} opacity="0.7"/>
-              <rect x="249" y="75" width="26" height="8" rx="2"
-                fill="#e53e3e" opacity="0.7"/>
-
-              {/* Grille */}
-              <rect x="26" y="86" width="24" height="14" rx="3"
-                fill={INNO.bleuFonce} opacity="0.5"/>
+              <rect x="20" y="118" width="260" height="12" rx="6" fill={INNO.bleuFonce} opacity="0.8"/>
+              <rect x="24" y="120" width="252" height="8" rx="4" fill={INNO.bleuClair} opacity="0.15"/>
+              <rect x="24" y="74" width="28" height="10" rx="3" fill={INNO.blanc} opacity="0.9"/>
+              <rect x="25" y="75" width="26" height="8"  rx="2" fill={INNO.bleuClair} opacity="0.6"/>
+              <rect x="248" y="74" width="28" height="10" rx="3" fill={INNO.blanc} opacity="0.7"/>
+              <rect x="249" y="75" width="26" height="8"  rx="2" fill="#e53e3e" opacity="0.7"/>
+              <rect x="26" y="86" width="24" height="14" rx="3" fill={INNO.bleuFonce} opacity="0.5"/>
               {[0,4,8].map(y => (
                 <line key={y} x1="27" y1={88+y} x2="49" y2={88+y}
                   stroke={INNO.bleuClair} strokeWidth="0.8" opacity="0.5"/>
               ))}
-
-              {/* INNO badge */}
-              <rect x="128" y="74" width="44" height="16" rx="4"
-                fill={INNO.blanc} opacity="0.12"/>
+              <rect x="128" y="74" width="44" height="16" rx="4" fill={INNO.blanc} opacity="0.12"/>
               <text x="150" y="85" textAnchor="middle"
                 fontFamily="Montserrat" fontWeight="800" fontSize="8"
                 fill={INNO.blanc} opacity="0.8">INNO</text>
-
-              {/* Wheels */}
-              {/* Front wheel */}
-              <circle cx="72" cy="130" r="22" fill={INNO.noir}/>
-              <circle cx="72" cy="130" r="16" fill="#1a2332"/>
-              <circle cx="72" cy="130" r="9"  fill={INNO.bleuFonce}/>
-              <circle cx="72" cy="130" r="4"  fill={INNO.bleuClair}/>
+              <circle cx="72"  cy="130" r="22" fill={INNO.noir}/>
+              <circle cx="72"  cy="130" r="16" fill="#1a2332"/>
+              <circle cx="72"  cy="130" r="9"  fill={INNO.bleuFonce}/>
+              <circle cx="72"  cy="130" r="4"  fill={INNO.bleuClair}/>
               {[0,60,120,180,240,300].map(angle => (
                 <line key={angle}
                   x1={72 + 9*Math.cos(angle*Math.PI/180)}
@@ -552,8 +456,6 @@ const Hero = () => (
                   y2={130 + 15*Math.sin(angle*Math.PI/180)}
                   stroke={INNO.bleuClair} strokeWidth="2" opacity="0.6"/>
               ))}
-
-              {/* Rear wheel */}
               <circle cx="228" cy="130" r="22" fill={INNO.noir}/>
               <circle cx="228" cy="130" r="16" fill="#1a2332"/>
               <circle cx="228" cy="130" r="9"  fill={INNO.bleuFonce}/>
@@ -566,28 +468,15 @@ const Hero = () => (
                   y2={130 + 15*Math.sin(angle*Math.PI/180)}
                   stroke={INNO.bleuClair} strokeWidth="2" opacity="0.6"/>
               ))}
-
-              {/* Green vert accent on hood */}
-              <path d="M 26,70 L 74,70 L 70,80 L 30,80 Z"
-                fill={INNO.vert} opacity="0.35"/>
-              {/* Vert door accent strip */}
-              <rect x="30" y="103" width="80" height="2.5" rx="1"
-                fill={INNO.vert} opacity="0.4"/>
+              <path d="M 26,70 L 74,70 L 70,80 L 30,80 Z" fill={INNO.vert} opacity="0.35"/>
+              <rect x="30" y="103" width="80" height="2.5" rx="1" fill={INNO.vert} opacity="0.4"/>
             </svg>
           </div>
 
-          {/* Car ground shadow */}
           <div className="car-shadow" />
 
-          {/* ── Floating chips ── */}
-
-          {/* Top-right — ETA chip */}
           <div className="float-chip fc1" style={{ top:"4%", right:"2%" }}>
-            <div style={{
-              width:"32px", height:"32px", borderRadius:"9px",
-              background:`${INNO.vert}18`,
-              display:"flex", alignItems:"center", justifyContent:"center",
-            }}>
+            <div style={{ width:"32px", height:"32px", borderRadius:"9px", background:`${INNO.vert}18`, display:"flex", alignItems:"center", justifyContent:"center" }}>
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke={INNO.vert} strokeWidth="2.2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
             </div>
             <div>
@@ -596,13 +485,8 @@ const Hero = () => (
             </div>
           </div>
 
-          {/* Bottom-left — Verified chip */}
           <div className="float-chip fc2" style={{ bottom:"14%", left:"0%" }}>
-            <div style={{
-              width:"32px", height:"32px", borderRadius:"9px",
-              background:`${INNO.bleuFonce}12`,
-              display:"flex", alignItems:"center", justifyContent:"center",
-            }}>
+            <div style={{ width:"32px", height:"32px", borderRadius:"9px", background:`${INNO.bleuFonce}12`, display:"flex", alignItems:"center", justifyContent:"center" }}>
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke={INNO.bleuFonce} strokeWidth="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
             </div>
             <div>
@@ -611,13 +495,8 @@ const Hero = () => (
             </div>
           </div>
 
-          {/* Top-left — Price chip */}
           <div className="float-chip fc3" style={{ top:"18%", left:"0%" }}>
-            <div style={{
-              width:"32px", height:"32px", borderRadius:"9px",
-              background:`${INNO.bleuClair}12`,
-              display:"flex", alignItems:"center", justifyContent:"center",
-            }}>
+            <div style={{ width:"32px", height:"32px", borderRadius:"9px", background:`${INNO.bleuClair}12`, display:"flex", alignItems:"center", justifyContent:"center" }}>
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke={INNO.bleuClair} strokeWidth="2.2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
             </div>
             <div>
@@ -626,7 +505,6 @@ const Hero = () => (
             </div>
           </div>
 
-          {/* Dot cluster — decorative */}
           <svg style={{ position:"absolute", bottom:"6%", right:"4%", opacity:0.12 }}
             width="64" height="64" viewBox="0 0 64 64">
             {[0,1,2,3].map(row =>

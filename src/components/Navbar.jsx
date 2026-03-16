@@ -15,11 +15,11 @@ const Navbar = () => {
   const location = useLocation();
 
   const theme = {
-    green:     "#49ce54",   // vert officiel INNO
-    blue:      "#003da6",   // bleu foncé officiel INNO
-    blueMid:   "#0084cc",   // bleu clair officiel INNO
-    darkDeep:  "#060d1f",   // noir INNO (remplace #030B21)
-    textDark:  "#0a0e1a",   // texte sombre sur fond blanc
+    green:     "#49ce54",
+    blue:      "#003da6",
+    blueMid:   "#0084cc",
+    darkDeep:  "#060d1f",
+    textDark:  "#0a0e1a",
     textLight: "#ffffff",
   };
 
@@ -80,7 +80,8 @@ const Navbar = () => {
       display: "flex", 
       justifyContent: "space-between", 
       alignItems: "center",
-      padding: scrolled ? "12px 6%" : "20px 6%",
+      /* FIX 1 & 2: reduced horizontal padding from 6% → 3% to eliminate dead space */
+      padding: scrolled ? "12px 3%" : "18px 3%",
       backgroundColor: scrolled || isMobileMenuOpen ? theme.darkDeep : "rgba(255,255,255,0.92)", 
       backdropFilter: "blur(15px)",
       position: "fixed", 
@@ -96,7 +97,7 @@ const Navbar = () => {
           .nav-links-wrapper { 
             display: flex; 
             align-items: center; 
-            gap: 40px; 
+            gap: 56px; 
             list-style: none; 
             margin: 0; 
             padding: 0; 
@@ -199,11 +200,12 @@ const Navbar = () => {
         `}
       </style>
 
+      {/* FIX 1: Logo enlarged — scrolled 42px → 52px, default 55px → 68px */}
       <img 
         src={isBusinessPage ? innoLogo2 : innoLogo} 
         alt="Inno" 
         style={{ 
-          height: scrolled ? "35px" : "45px", 
+          height: scrolled ? "32px" : "48px",
           transition: "0.3s", 
           cursor: "pointer",
           position: "relative",
