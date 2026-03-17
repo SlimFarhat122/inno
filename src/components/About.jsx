@@ -99,7 +99,7 @@ const About = () => {
 
   const c1 = useCounter(500, 1600, inView);
   const c2 = useCounter(98,  1400, inView);
-  const c3 = useCounter(14,  1200, inView);
+  const c3 = useCounter(3,  1200, inView);
   const c4 = useCounter(24,  1000, inView);
 
   const kpis = [
@@ -525,7 +525,7 @@ const About = () => {
               [
                 { icon: "🛡", text: "Chauffeurs vérifiés" },
                 { icon: "⭐", text: "Note 4.9/5" },
-                { icon: "📍", text: "14 villes" },
+                { icon: "📍", text: "3 villes" },
                 { icon: "⚡", text: "Arrivée en 3 min" },
                 { icon: "🔒", text: "Paiement sécurisé" },
                 { icon: "📞", text: "Support 24/7" },

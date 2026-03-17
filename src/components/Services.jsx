@@ -14,7 +14,7 @@ const C = {
 const services = [
   {
     id: "01",
-    name: "Taxi Normal",
+    name: "Taxi privé ",
     tagline: "Votre trajet, rien que le vôtre.",
     accent: C.dark,
     description:

@@ -74,11 +74,11 @@ const reviews = [
   { name:"Tarek R.",   city:"Tunis",  note:"4.8", text:"Chauffeur certifié, suivi GPS, tout est transparent. Excellent." },
 ];
 
-const cities = ["Tunis","Sfax","Sousse","Bizerte","Monastir","Nabeul","Gabès","Ariana","Gafsa","Kairouan","Mahdia","Hammamet","Djerba","Tozeur"];
+const cities = ["Tunis","Sfax"];
 
 const stats = [
-  { value: "5 000+", label: "utilisateurs actifs" },
-  { value: "14",     label: "villes couvertes" },
+  { value: "10 000+", label: "utilisateurs actifs" },
+  { value: "3",     label: "villes couvertes" },
   { value: "4.9★",   label: "note moyenne" },
   { value: "< 5min", label: "temps d'arrivée" },
 ];

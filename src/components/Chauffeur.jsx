@@ -351,7 +351,7 @@ export default function ChauffeurExperience() {
             <div className={inView?"ch-in ch-d3":""} style={{ display:"grid", gridTemplateColumns:"repeat(4,1fr)", gap:"12px", marginBottom:"44px", maxWidth:"480px" }}>
               {[
                 { value:"500+",  label:"chauffeurs actifs" },
-                { value:"14",    label:"villes couvertes"  },
+                { value:"3",    label:"villes couvertes"  },
                 { value:"15%",   label:"commission seult." },
                 { value:"< 48h", label:"délai démarrage"  },
               ].map((s, i) => (
@@ -373,7 +373,7 @@ export default function ChauffeurExperience() {
                 <div><div style={{ fontSize:"10px", fontWeight:"600", opacity:0.7, letterSpacing:"0.5px" }}>TÉLÉCHARGER SUR</div><div style={{ fontSize:"15px" }}>App Store</div></div>
               </a>
               {/* Google Play */}
-              <a href="https://play.google.com/store/apps/details?id=tn.innocustomer.android" target="_blank" rel="noopener noreferrer" style={{ background:"rgba(255,255,255,0.12)", color:C.blanc, border:"1.5px solid rgba(255,255,255,0.2)", borderRadius:"14px", padding:"14px 24px", display:"inline-flex", alignItems:"center", gap:"12px", fontFamily:"'Montserrat',sans-serif", fontWeight:"700", fontSize:"14px", textDecoration:"none", transition:"all 0.28s ease" }}
+              <a href="https://play.google.com/store/apps/details?id=tn.innodriver.android" target="_blank" rel="noopener noreferrer" style={{ background:"rgba(255,255,255,0.12)", color:C.blanc, border:"1.5px solid rgba(255,255,255,0.2)", borderRadius:"14px", padding:"14px 24px", display:"inline-flex", alignItems:"center", gap:"12px", fontFamily:"'Montserrat',sans-serif", fontWeight:"700", fontSize:"14px", textDecoration:"none", transition:"all 0.28s ease" }}
                 onMouseEnter={e=>{ e.currentTarget.style.transform="translateY(-3px)"; e.currentTarget.style.background="rgba(255,255,255,0.18)"; }}
                 onMouseLeave={e=>{ e.currentTarget.style.transform="translateY(0)";   e.currentTarget.style.background="rgba(255,255,255,0.12)"; }}
               >
@@ -459,7 +459,7 @@ export default function ChauffeurExperience() {
                         <p style={{ fontFamily:"'Open Sans',sans-serif", fontSize:"10px", color:C.muted, margin:"2px 0 0" }}>Avenue H. Bourguiba → Lac 1</p>
                       </div>
                       <div style={{ background:C.green, borderRadius:"10px", padding:"6px 12px", boxShadow:`0 4px 12px ${C.green}44` }}>
-                        <span style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"13px", fontWeight:"800", color:C.blanc }}>4.47 DT</span>
+                        <span style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"13px", fontWeight:"800", color:C.blanc }}>14.47DT</span>
                       </div>
                     </div>
                     <div style={{ display:"flex", gap:"8px" }}>

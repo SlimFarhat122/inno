@@ -12,7 +12,7 @@ const INNO = {
 };
 
 const stats = [
-  { value: '5K+',   label: 'Utilisateurs actifs' },
+  { value: '10K+',   label: 'Utilisateurs actifs' },
   { value: '4.9/5', label: 'Note moyenne' },
   { value: '24/7',  label: 'Support client' },
 ];
