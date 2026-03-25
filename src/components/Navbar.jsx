@@ -80,7 +80,6 @@ const Navbar = () => {
       display: "flex", 
       justifyContent: "space-between", 
       alignItems: "center",
-      /* FIX 1 & 2: reduced horizontal padding from 6% → 3% to eliminate dead space */
       padding: scrolled ? "12px 3%" : "18px 3%",
       backgroundColor: scrolled || isMobileMenuOpen ? theme.darkDeep : "rgba(255,255,255,0.92)", 
       backdropFilter: "blur(15px)",
@@ -104,7 +103,7 @@ const Navbar = () => {
           }
 
           .link-item {
-            font-size: 14px;
+            font-size: 17px;
             font-weight: 600;
             color: ${scrolled || isMobileMenuOpen ? theme.textLight : theme.textDark};
             cursor: pointer;
@@ -200,12 +199,12 @@ const Navbar = () => {
         `}
       </style>
 
-      {/* FIX 1: Logo enlarged — scrolled 42px → 52px, default 55px → 68px */}
+      {/* Logo: scrolled 46px → default 66px */}
       <img 
         src={isBusinessPage ? innoLogo2 : innoLogo} 
         alt="Inno" 
         style={{ 
-          height: scrolled ? "32px" : "48px",
+          height: scrolled ? "46px" : "66px",
           transition: "0.3s", 
           cursor: "pointer",
           position: "relative",

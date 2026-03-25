@@ -20,6 +20,7 @@ import PrivacyPolicy from './components/PrivacyPolicy';
 import TermsOfService from './components/TermsOfService';
 import Navbar from './components/Navbar';
 import Services from './components/Services';
+import ReservationPlanifiee from './components/Reservationplanifiee';
 
 const ScrollToSection = () => {
   const { pathname, hash } = useLocation();
@@ -76,7 +77,7 @@ const Home = () => (
     <div id="about"><About /></div>
     
  <Services />
-      
+      <ReservationPlanifiee/>
       <section id="user-version">
         <UserVersion />
       </section>
