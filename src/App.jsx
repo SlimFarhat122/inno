@@ -77,7 +77,6 @@ const Home = () => (
     <div id="about"><About /></div>
     
  <Services />
-      <ReservationPlanifiee/>
       <section id="user-version">
         <UserVersion />
       </section>

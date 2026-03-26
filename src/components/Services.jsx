@@ -369,9 +369,7 @@ export default function Services() {
                 façon de voyager.
               </span>
             </h2>
-            <p style={{ fontSize: "15px", color: C.muted, lineHeight: "1.7", maxWidth: "340px", margin: 0 }}>
-              Quatre formules adaptées à chaque besoin, chaque budget et chaque occasion.
-            </p>
+           
           </div>
         </div>
 

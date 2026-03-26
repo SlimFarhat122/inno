@@ -365,7 +365,7 @@ export default function ChauffeurExperience() {
             {/* Store buttons */}
             <div className={inView?"ch-in ch-d3":""} style={{ display:"flex", gap:"14px", flexWrap:"wrap", marginBottom:"44px" }}>
               {/* App Store */}
-              <a href="https://apps.apple.com/us/app/inno-app/id6448847710" target="_blank" rel="noopener noreferrer" style={{ background:C.blanc, color:C.dark, boxShadow:"0 12px 32px rgba(0,0,0,0.15)", borderRadius:"14px", padding:"14px 24px", display:"inline-flex", alignItems:"center", gap:"12px", fontFamily:"'Montserrat',sans-serif", fontWeight:"700", fontSize:"14px", textDecoration:"none", transition:"all 0.28s ease" }}
+              <a href="https://apps.apple.com/us/app/inno-driver-app/id6760570381" target="_blank" rel="noopener noreferrer" style={{ background:C.blanc, color:C.dark, boxShadow:"0 12px 32px rgba(0,0,0,0.15)", borderRadius:"14px", padding:"14px 24px", display:"inline-flex", alignItems:"center", gap:"12px", fontFamily:"'Montserrat',sans-serif", fontWeight:"700", fontSize:"14px", textDecoration:"none", transition:"all 0.28s ease" }}
                 onMouseEnter={e=>{ e.currentTarget.style.transform="translateY(-3px)"; e.currentTarget.style.boxShadow="0 20px 48px rgba(0,0,0,0.22)"; }}
                 onMouseLeave={e=>{ e.currentTarget.style.transform="translateY(0)";   e.currentTarget.style.boxShadow="0 12px 32px rgba(0,0,0,0.15)"; }}
               >

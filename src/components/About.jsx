@@ -42,7 +42,7 @@ const features = [
   {
     n: "03",
     title: "Réseau\nnational",
-    text: "500+ chauffeurs certifiés à Tunis, Sfax, Sousse et 12 autres villes. Disponibles 24h/24.",
+    text: "500+ chauffeurs certifiés à Tunis, Sfax,et Gabes. Disponibles 24h/24.",
     accent: INNO.vert,
     icon: (
       <svg width="28" height="28" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24">
