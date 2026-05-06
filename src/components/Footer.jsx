@@ -193,7 +193,7 @@ const Footer = () => {
           <p style={styles.brandDesc}>
             {isBusinessPage
               ? "Solutions de mobilité intelligentes pour les entreprises tunisiennes. Optimisez vos coûts et simplifiez vos déplacements corporate."
-              : "L'application qui révolutionne vos déplacements en taxi. Sécurisé, rapide et disponible à Tunis, Sfax et Gabès."
+              : "L'application qui révolutionne vos déplacements en taxi. Sécurisé, rapide et disponible à Tunis, Sfax, Djerba et Gabès."
             }
           </p>
 
@@ -230,7 +230,7 @@ const Footer = () => {
         <div>
           <h4 style={styles.colTitle}>Contact Direct</h4>
           <div style={{ marginBottom:"18px", display:"flex", gap:"12px", color:theme.muted, alignItems:"center", ...styles.contactText }}>
-            <span style={{ color:activeColor }}>📍</span> Tunis, Sfax &amp; Gabès
+            <span style={{ color:activeColor }}>📍</span> Tunis, Sfax ,Djerba et Gabes
           </div>
           <div style={{ marginBottom:"18px", display:"flex", gap:"12px", color:theme.muted, alignItems:"center", ...styles.contactText }}>
             <span style={{ color:activeColor }}>📞</span> +216 58 000 888
