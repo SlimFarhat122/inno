@@ -193,7 +193,7 @@ const Footer = () => {
           <p style={styles.brandDesc}>
             {isBusinessPage
               ? "Solutions de mobilité intelligentes pour les entreprises tunisiennes. Optimisez vos coûts et simplifiez vos déplacements corporate."
-              : "L'application qui révolutionne vos déplacements en taxi. Sécurisé, rapide et disponible à Tunis, Sfax, Djerba et Gabès."
+              : "L'application qui révolutionne vos déplacements en taxi. Sécurisé, rapide et disponible à Tunis, Sfax, Djerba et Gabes."
             }
           </p>
 
