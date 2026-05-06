@@ -409,33 +409,7 @@ const Downloadheader = () => {
           ))}
         </div>
 
-        {/* ══════════════════════════════════════
-            TRUST STRIP (matches About marquee style)
-        ══════════════════════════════════════ */}
-        <div style={{
-          position: "relative", zIndex: 1,
-          display: "flex", justifyContent: "center",
-          flexWrap: "wrap",
-          padding: "24px 0 0",
-          borderTop: `1px solid ${INNO.bleuFonce}10`,
-        }}>
-          {trust.map((item, i) => (
-            <div
-              key={i}
-              className="dl-trust-item"
-              style={{
-                borderRightColor: `${INNO.bleuFonce}12`,
-              }}
-            >
-              <span style={{ fontSize: "15px" }}>{item.icon}</span>
-              <span style={{
-                fontFamily: "'Montserrat', sans-serif",
-                fontSize: "12px", fontWeight: "600",
-                color: INNO.texte, letterSpacing: "0.2px",
-              }}>{item.text}</span>
-            </div>
-          ))}
-        </div>
+       
 
       </section>
     </>
