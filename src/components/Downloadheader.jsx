@@ -32,8 +32,8 @@ const Downloadheader = () => {
     {
       id: "passenger",
       label: "Passager",
-      title: " Je veux me déplacer",
-      desc: "Réservez en 20 secondes. trajet sécurisé, prix fixe, chauffeur certifié.",
+      title: " Je veux \n me déplacer",
+      desc: "Réservez en 20 secondes .Trajet sécurisé, prix fixe, chauffeur certifié.",
       accent: INNO.bleuFonce,
       accentLight: INNO.bleuClair,
       icon: (
