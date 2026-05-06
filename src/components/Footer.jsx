@@ -235,8 +235,7 @@ const Footer = () => {
         <div>
           <h4 style={styles.colTitle}>Solutions</h4>
           <ul style={{ padding:0, margin:0 }}>
-            <li style={styles.linkItem}><a href="#business-platform" style={styles.link} className="footer-link">Plateforme B2B</a></li>
-            <li style={styles.linkItem}><a href="#business-sectors"  style={styles.link} className="footer-link">Secteurs d'activité</a></li>
+            <li style={styles.linkItem}><a href="https://business.inno.tn/" style={styles.link} className="footer-link" target="_blank" rel="noopener noreferrer">Plateforme B2B</a></li>            <li style={styles.linkItem}><a href="#business-sectors"  style={styles.link} className="footer-link">Secteurs d'activité</a></li>
             <li style={styles.linkItem}><a href="#business-stats"    style={styles.link} className="footer-link">Indicateurs clés</a></li>
             <li style={styles.linkItem}>
               <a 
