@@ -10,6 +10,7 @@ import Chauffeur from "./components/Chauffeur";
 import UserVersion from "./components/UserVersion";
 import ContactForm from './components/ContactForm';
 import InnoExperience from './components/InnoExperience';
+import HeroINNo from './components/HeroINNo';
 // Pages Business
 import BusinessHero from "./components/BusinessHero";
 import BusinessStats from "./components/BusinessStats";
@@ -21,7 +22,7 @@ import TermsOfService from './components/TermsOfService';
 import Navbar from './components/Navbar';
 import Services from './components/Services';
 import ReservationPlanifiee from './components/Reservationplanifiee';
-
+import Downloadheader from './components/Downloadheader';
 const ScrollToSection = () => {
   const { pathname, hash } = useLocation();
 
@@ -74,6 +75,7 @@ const findScrollParent = (el) => {
 const Home = () => (
   <>
     <Hero />
+    <Downloadheader />
     <div id="about"><About /></div>
     
  <Services />

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import imgDash    from "../assets/11.png";
 import imgProfile from "../assets/13.png";
 import imgStats   from "../assets/7.png";
+import googlePlayLogo from "../assets/google-play.png";
 
 // ── PALETTE OFFICIELLE INNO ────────────────────────
 const C = {
@@ -17,7 +18,16 @@ const C = {
 
 const stepImages = [imgStats, imgDash, imgProfile];
 
-/* ── FIX 3: New distinctive icons — 32px, strokeWidth 1.5 ── */
+const AppleIcon = ({ color }) => (
+  <svg width="22" height="22" viewBox="0 0 24 24" fill={color}>
+    <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+  </svg>
+);
+
+const GooglePlayIcon = () => (
+  <img src={googlePlayLogo} alt="Google Play" width="22" height="22" style={{ objectFit: "contain" }} />
+);
+
 const steps = [
   {
     n: "01", accent: C.green, detail: "Vérification sous 24–48h",
@@ -118,7 +128,6 @@ export default function ChauffeurExperience() {
         }
         .ch-phone-float { animation: ch-float 6s ease-in-out infinite; }
 
-        /* FIX 3: step hover slides right, icon pops on active */
         .ch-step {
           cursor: pointer;
           transition: all 0.38s cubic-bezier(0.22,1,0.36,1);
@@ -145,7 +154,6 @@ export default function ChauffeurExperience() {
           animation: ch-shimmer 2.5s linear infinite;
         }
 
-        /* CTA section */
         @keyframes ch-float-cta {
           0%,100%{ transform:translateY(0px) rotate(-1deg); }
           50%    { transform:translateY(-16px) rotate(1deg); }
@@ -173,6 +181,27 @@ export default function ChauffeurExperience() {
         }
         .review-fade { animation: reviewFade 3.5s ease both; }
 
+        .ch-store-btn {
+          display: inline-flex; align-items: center; gap: 12px;
+          border-radius: 14px; padding: 14px 24px;
+          font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 14px;
+          text-decoration: none; transition: all 0.28s ease; cursor: pointer;
+        }
+        .ch-store-btn:hover { transform: translateY(-3px); }
+        .ch-store-primary {
+          background: #fff; color: #003da6;
+          box-shadow: 0 12px 32px rgba(0,0,0,0.15);
+        }
+        .ch-store-primary:hover { box-shadow: 0 20px 48px rgba(0,0,0,0.22); }
+        .ch-store-secondary {
+          background: rgba(255,255,255,0.12); color: #fff;
+          border: 1.5px solid rgba(255,255,255,0.2);
+        }
+        .ch-store-secondary:hover {
+          background: rgba(255,255,255,0.18);
+          border-color: rgba(255,255,255,0.35);
+        }
+
         @media (max-width:960px) {
           .ch-hiw-row   { flex-direction:column !important; }
           .ch-hiw-phone { display:none !important; }
@@ -182,11 +211,9 @@ export default function ChauffeurExperience() {
 
       {/* ══════════════════════════════════════════════════════
           BLOC 1 — HOW IT WORKS CHAUFFEUR
-          FIX: padding 8% → 4% | steps wider | phone bigger | no empty gap
       ══════════════════════════════════════════════════════ */}
       <section ref={ref} style={{
         background: C.blanc,
-        /* FIX 1&2: reduced horizontal padding */
         padding: "80px 4% 80px",
         position: "relative", overflow: "hidden",
         fontFamily: "'Open Sans', sans-serif",
@@ -196,30 +223,20 @@ export default function ChauffeurExperience() {
         <div style={{ position:"absolute", bottom:"-120px", left:"-80px", width:"380px", height:"380px", borderRadius:"50%", background:`radial-gradient(circle,${C.green}08,transparent 65%)`, pointerEvents:"none", zIndex:0 }}/>
 
         <div style={{ position:"relative", zIndex:1 }}>
-
-          {/* Header */}
           <div className={inView?"ch-in ch-d1":""} style={{ marginBottom:"48px" }}>
             <div style={{ display:"inline-flex", alignItems:"center", gap:"8px", padding:"6px 14px 6px 10px", background:`${C.mid}10`, border:`1px solid ${C.mid}22`, borderRadius:"100px", marginBottom:"18px" }}>
               <div className="ch-glow-pulse" style={{ width:"7px", height:"7px", borderRadius:"50%", background:C.green }}/>
-              {/* FIX 1: larger eyebrow */}
               <span style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"13px", fontWeight:"700", color:C.dark, letterSpacing:"1.2px", textTransform:"uppercase" }}>Espace Chauffeur</span>
             </div>
-
-            {/* FIX 1: bigger headline */}
             <h2 style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"clamp(40px,5vw,64px)", fontWeight:"800", lineHeight:"1.06", letterSpacing:"-0.04em", color:C.noir, margin:0 }}>
               Prenez le volant de{" "}
               <span style={{ color:C.green }}>votre succès.</span>
             </h2>
           </div>
 
-          {/* FIX ✗: two-column, no empty gap — steps flex:1, phone fixed width */}
           <div className="ch-hiw-row" style={{ display:"flex", gap:"40px", alignItems:"flex-start" }}>
-
-            {/* Steps column */}
             <div style={{ flex:"1 1 0", minWidth:0, position:"relative" }}>
-              {/* Timeline line */}
               <div style={{ position:"absolute", left:"31px", top:"54px", bottom:"54px", width:"2px", background:`linear-gradient(180deg,${C.green}28,${C.mid}28,${C.dark}28)`, borderRadius:"2px" }}/>
-
               {steps.map((s, i) => (
                 <div key={i} className="ch-step" onClick={() => setActive(i)} style={{
                   display:"flex", gap:"20px", alignItems:"flex-start",
@@ -228,7 +245,6 @@ export default function ChauffeurExperience() {
                   border:`1.5px solid ${active===i ? s.accent+"30" : "transparent"}`,
                   boxShadow: active===i ? `0 8px 32px -8px ${s.accent}22` : "none",
                 }}>
-                  {/* FIX 3: bigger circle 60px, icon 32px */}
                   <div style={{
                     width:"60px", height:"60px", borderRadius:"50%", flexShrink:0,
                     background: active===i ? s.accent : `${s.accent}18`,
@@ -237,25 +253,15 @@ export default function ChauffeurExperience() {
                     boxShadow: active===i ? `0 10px 28px ${s.accent}50` : "none",
                     border:`2.5px solid ${C.blanc}`,
                     outline:`2.5px solid ${active===i ? s.accent+"40" : "transparent"}`,
-                    transition:"all 0.35s ease",
-                    position:"relative", zIndex:1,
+                    transition:"all 0.35s ease", position:"relative", zIndex:1,
                   }}>
                     <span className={active===i ? "ch-icon-active" : ""}>{s.icon}</span>
                   </div>
-
                   <div style={{ flex:1, paddingTop:"4px" }}>
                     <div style={{ display:"flex", alignItems:"center", gap:"8px", marginBottom:"8px" }}>
                       <span style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"11px", fontWeight:"800", color:active===i ? s.accent : C.muted, letterSpacing:"0.5px", transition:"color 0.3s" }}>{s.n}</span>
-                      {/* FIX 3: bigger title + shimmer on active */}
-                      <h3 className={active===i ? "ch-step-active-title" : ""} style={{
-                        fontFamily:"'Montserrat',sans-serif",
-                        fontSize:"18px",
-                        fontWeight:"700",
-                        color: active===i ? "unset" : C.noir,
-                        margin:0, letterSpacing:"-0.02em",
-                      }}>{s.title}</h3>
+                      <h3 className={active===i ? "ch-step-active-title" : ""} style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"18px", fontWeight:"700", color: active===i ? "unset" : C.noir, margin:0, letterSpacing:"-0.02em" }}>{s.title}</h3>
                     </div>
-                    {/* FIX 3: bigger body text */}
                     <p style={{ fontFamily:"'Open Sans',sans-serif", fontSize:"15px", color:C.muted, lineHeight:"1.65", margin:"0 0 6px" }}>{s.body}</p>
                     {active===i && (
                       <span style={{ display:"inline-flex", alignItems:"center", gap:"5px", fontFamily:"'Montserrat',sans-serif", fontSize:"11px", fontWeight:"700", color:s.accent, letterSpacing:"0.5px", textTransform:"uppercase" }}>
@@ -273,12 +279,9 @@ export default function ChauffeurExperience() {
               ))}
             </div>
 
-            {/* FIX 4: Phone — bigger (310px wide), subtitle below */}
             <div className="ch-hiw-phone" style={{ width:"310px", flexShrink:0, position:"sticky", top:"120px" }}>
               <div className="ch-phone-float" style={{ position:"relative" }}>
                 <div style={{ position:"absolute", width:"290px", height:"560px", borderRadius:"54px", background:`radial-gradient(ellipse at 50% 55%, ${steps[active].accent}25, transparent 65%)`, filter:"blur(42px)", zIndex:0, top:0, left:"10px", pointerEvents:"none", transition:"background 0.5s ease" }}/>
-
-                {/* FIX 4: phone shell 298×590 */}
                 <div style={{ width:"298px", height:"590px", background:C.noir, borderRadius:"48px", padding:"10px", boxShadow:`0 40px 80px -20px rgba(0,0,0,0.40), 0 0 0 1px rgba(255,255,255,0.07)`, position:"relative", zIndex:1 }}>
                   <div style={{ position:"absolute", top:"13px", left:"50%", transform:"translateX(-50%)", width:"82px", height:"24px", background:"#111", borderRadius:"12px", zIndex:5 }}/>
                   <div style={{ width:"100%", height:"100%", borderRadius:"40px", overflow:"hidden", position:"relative", background:"#0a1020" }}>
@@ -293,17 +296,7 @@ export default function ChauffeurExperience() {
                   </div>
                 </div>
               </div>
-
-              {/* FIX 3 (✗ espace vide): subtitle placed UNDER the phone */}
-              <p style={{
-                fontFamily:"'Open Sans',sans-serif",
-                fontSize:"14px",
-                color:C.muted,
-                lineHeight:"1.65",
-                textAlign:"center",
-                marginTop:"20px",
-                padding:"0 10px",
-              }}>
+              <p style={{ fontFamily:"'Open Sans',sans-serif", fontSize:"14px", color:C.muted, lineHeight:"1.65", textAlign:"center", marginTop:"20px", padding:"0 10px" }}>
                 Démarrage en moins de{" "}
                 <strong style={{ color:C.noir, fontWeight:"600" }}>48 heures.</strong>
                 {" "}Commission à seulement{" "}
@@ -321,7 +314,6 @@ export default function ChauffeurExperience() {
         fontFamily:"'Open Sans',sans-serif",
         background:`linear-gradient(145deg, #001a5c 0%, ${C.dark} 40%, #001f6e 70%, #001544 100%)`,
         position:"relative", overflow:"hidden",
-        /* FIX 2: reduced padding */
         padding:"90px 4%",
       }}>
         <div className="ch-orb1" style={{ position:"absolute", top:"-100px", right:"-80px", width:"500px", height:"500px", borderRadius:"50%", background:`radial-gradient(circle,${C.mid}25,transparent 65%)`, filter:"blur(60px)", pointerEvents:"none" }}/>
@@ -329,17 +321,12 @@ export default function ChauffeurExperience() {
         <div style={{ position:"absolute", inset:0, pointerEvents:"none", backgroundImage:`radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px)`, backgroundSize:"32px 32px", maskImage:"linear-gradient(to bottom, transparent, rgba(0,0,0,0.4) 30%, rgba(0,0,0,0.4) 70%, transparent)" }}/>
 
         <div className="ch-cta-row" style={{ display:"flex", gap:"60px", alignItems:"center", position:"relative", zIndex:1 }}>
-
-          {/* LEFT — Copy */}
           <div style={{ flex:"1" }}>
-
             <div className={inView?"ch-in ch-d1":""} style={{ display:"inline-flex", alignItems:"center", gap:"8px", padding:"6px 14px 6px 10px", background:"rgba(73,206,84,0.15)", border:"1px solid rgba(73,206,84,0.3)", borderRadius:"100px", marginBottom:"24px" }}>
               <div className="ch-glow-pulse" style={{ width:"7px", height:"7px", borderRadius:"50%", background:C.green }}/>
-              {/* FIX 1: larger eyebrow */}
               <span style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"13px", fontWeight:"700", color:C.green, letterSpacing:"1.2px", textTransform:"uppercase" }}>Rejoignez le réseau</span>
             </div>
 
-            {/* FIX 1: bigger headlines */}
             <h2 className={inView?"ch-in ch-d2":""} style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"clamp(44px,6vw,72px)", fontWeight:"800", lineHeight:"1.04", letterSpacing:"-0.04em", color:C.blanc, margin:"0 0 8px" }}>Devenez chauffeur</h2>
             <h2 className={inView?"ch-in ch-d2":""} style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"clamp(44px,6vw,72px)", fontWeight:"800", lineHeight:"1.04", letterSpacing:"-0.04em", background:`linear-gradient(110deg,${C.green},#6eea72)`, WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent", margin:"0 0 28px" }}>INNO Driver.</h2>
 
@@ -347,11 +334,10 @@ export default function ChauffeurExperience() {
               Gérez vos courses à votre rythme. Commission à seulement <strong style={{ color:C.blanc }}>15%</strong> — paiement hebdomadaire automatique. Démarrage en moins de <strong style={{ color:C.blanc }}>48h</strong>.
             </p>
 
-            {/* Stats grid */}
             <div className={inView?"ch-in ch-d3":""} style={{ display:"grid", gridTemplateColumns:"repeat(4,1fr)", gap:"12px", marginBottom:"44px", maxWidth:"480px" }}>
               {[
                 { value:"500+",  label:"chauffeurs actifs" },
-                { value:"3",    label:"villes couvertes"  },
+                { value:"4",     label:"villes couvertes"  },
                 { value:"15%",   label:"commission seult." },
                 { value:"< 48h", label:"délai démarrage"  },
               ].map((s, i) => (
@@ -362,33 +348,31 @@ export default function ChauffeurExperience() {
               ))}
             </div>
 
-            {/* Store buttons */}
+            {/* ── Driver store buttons ── */}
             <div className={inView?"ch-in ch-d3":""} style={{ display:"flex", gap:"14px", flexWrap:"wrap", marginBottom:"44px" }}>
-              {/* App Store */}
-              <a href="https://apps.apple.com/us/app/inno-driver-app/id6760570381" target="_blank" rel="noopener noreferrer" style={{ background:C.blanc, color:C.dark, boxShadow:"0 12px 32px rgba(0,0,0,0.15)", borderRadius:"14px", padding:"14px 24px", display:"inline-flex", alignItems:"center", gap:"12px", fontFamily:"'Montserrat',sans-serif", fontWeight:"700", fontSize:"14px", textDecoration:"none", transition:"all 0.28s ease" }}
-                onMouseEnter={e=>{ e.currentTarget.style.transform="translateY(-3px)"; e.currentTarget.style.boxShadow="0 20px 48px rgba(0,0,0,0.22)"; }}
-                onMouseLeave={e=>{ e.currentTarget.style.transform="translateY(0)";   e.currentTarget.style.boxShadow="0 12px 32px rgba(0,0,0,0.15)"; }}
-              >
-                <svg width="22" height="22" viewBox="0 0 24 24" fill={C.dark}><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-                <div><div style={{ fontSize:"10px", fontWeight:"600", opacity:0.7, letterSpacing:"0.5px" }}>TÉLÉCHARGER SUR</div><div style={{ fontSize:"15px" }}>App Store</div></div>
+              <a href="https://apps.apple.com/us/app/inno-driver-app/id6760570381" target="_blank" rel="noopener noreferrer" className="ch-store-btn ch-store-primary">
+                <AppleIcon color={C.dark} />
+                <div>
+                  <div style={{ fontSize:"10px", fontWeight:"600", opacity:0.7, letterSpacing:"0.5px" }}>TÉLÉCHARGER SUR</div>
+                  <div style={{ fontSize:"15px" }}>App Store</div>
+                </div>
               </a>
-              {/* Google Play */}
-              <a href="https://play.google.com/store/apps/details?id=tn.innodriver.android" target="_blank" rel="noopener noreferrer" style={{ background:"rgba(255,255,255,0.12)", color:C.blanc, border:"1.5px solid rgba(255,255,255,0.2)", borderRadius:"14px", padding:"14px 24px", display:"inline-flex", alignItems:"center", gap:"12px", fontFamily:"'Montserrat',sans-serif", fontWeight:"700", fontSize:"14px", textDecoration:"none", transition:"all 0.28s ease" }}
-                onMouseEnter={e=>{ e.currentTarget.style.transform="translateY(-3px)"; e.currentTarget.style.background="rgba(255,255,255,0.18)"; }}
-                onMouseLeave={e=>{ e.currentTarget.style.transform="translateY(0)";   e.currentTarget.style.background="rgba(255,255,255,0.12)"; }}
-              >
-                <svg width="22" height="22" viewBox="0 0 24 24" fill={C.green}><path d="m17.523 15.341-1.93-1.107c-.234-.13-.498-.066-.633.15l-.848 1.468a8.11 8.11 0 0 1-3.665.002L9.6 14.385c-.135-.217-.4-.281-.633-.15L7.038 15.34A8.102 8.102 0 0 1 5.5 11.5C5.5 7.358 8.358 4 12 4s6.5 3.358 6.5 7.5a8.1 8.1 0 0 1-1.477 3.841zM8.5 9.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm7 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/></svg>
-                <div><div style={{ fontSize:"10px", fontWeight:"600", opacity:0.7, letterSpacing:"0.5px" }}>DISPONIBLE SUR</div><div style={{ fontSize:"15px" }}>Google Play</div></div>
+              <a href="https://play.google.com/store/apps/details?id=tn.innodriver.android" target="_blank" rel="noopener noreferrer" className="ch-store-btn ch-store-secondary">
+                <GooglePlayIcon />
+                <div>
+                  <div style={{ fontSize:"10px", fontWeight:"600", opacity:0.7, letterSpacing:"0.5px" }}>DISPONIBLE SUR</div>
+                  <div style={{ fontSize:"15px" }}>Google Play</div>
+                </div>
               </a>
             </div>
 
             {/* Driver testimonials */}
             <div className={inView?"ch-in ch-d4":""} style={{ maxWidth:"480px", padding:"20px 22px", background:"rgba(255,255,255,0.06)", backdropFilter:"blur(12px)", border:"1px solid rgba(255,255,255,0.1)", borderRadius:"18px", minHeight:"110px" }}>
               {[
-                { name:"Karim M.",   city:"Tunis",    rev:"5.0", text:"Commission à 15%, paiement chaque semaine. Je recommande à tous les chauffeurs." },
-                { name:"Bilel S.",   city:"Sfax",     rev:"4.9", text:"Inscription facile, support réactif. J'ai commencé à rouler en 2 jours." },
-                { name:"Nizar B.",   city:"Sousse",   rev:"5.0", text:"Interface claire, courses régulières. Mes revenus ont augmenté de 30%." },
-                { name:"Fares H.",   city:"Monastir", rev:"4.8", text:"La meilleure appli chauffeur en Tunisie. Transparence totale sur les gains." },
+                { name:"Karim M.",  city:"Tunis",    rev:"5.0", text:"Commission à 15%, paiement chaque semaine. Je recommande à tous les chauffeurs." },
+                { name:"Bilel S.",  city:"Sfax",     rev:"4.9", text:"Inscription facile, support réactif. J'ai commencé à rouler en 2 jours." },
+                { name:"Nizar B.",  city:"Djerba",   rev:"5.0", text:"Interface claire, courses régulières. Mes revenus ont augmenté de 30%." },
+                { name:"Fares H.",  city:"Gabes", rev:"4.8", text:"La meilleure appli chauffeur en Tunisie. Transparence totale sur les gains." },
               ].map((r, i) => i === (active % 4) && (
                 <div key={i} className="review-fade">
                   <div style={{ display:"flex", alignItems:"center", gap:"12px", marginBottom:"10px" }}>
@@ -414,7 +398,6 @@ export default function ChauffeurExperience() {
               </div>
             </div>
 
-            {/* Arabic tagline */}
             <div className={inView?"ch-in ch-d4":""} style={{ marginTop:"28px", fontFamily:"'Cairo',sans-serif", fontSize:"18px", fontWeight:"700", color:`rgba(73,206,84,0.45)`, direction:"rtl" }}>
               ابدأ رحلتك مع INNO Driver — يهز الكل
             </div>
@@ -475,7 +458,6 @@ export default function ChauffeurExperience() {
               </div>
             </div>
           </div>
-
         </div>
       </section>
     </>

@@ -525,7 +525,7 @@ const About = () => {
               [
                 { icon: "🛡", text: "Chauffeurs vérifiés" },
                 { icon: "⭐", text: "Note 4.9/5" },
-                { icon: "📍", text: "3 villes" },
+                { icon: "📍", text: "4 villes" },
                 { icon: "⚡", text: "Arrivée en 3 min" },
                 { icon: "🔒", text: "Paiement sécurisé" },
                 { icon: "📞", text: "Support 24/7" },

@@ -4,6 +4,7 @@ import imgApp1  from "../assets/3.png";
 import imgApp2  from "../assets/4.png";
 import imgApp3  from "../assets/8.png";
 import imgApp4  from "../assets/14.png";
+import googlePlayLogo from "../assets/google-play.png";
 
 const C = {
   dark:  "#003da6",
@@ -17,7 +18,6 @@ const C = {
 
 const stepImages = [imgApp2, imgApp1, imgApp3, imgApp4];
 
-/* ── FIX 4: Bigger, bolder icons (32px, strokeWidth 1.5, distinctive shapes) ── */
 const steps = [
   {
     n: "01", accent: C.dark, detail: "App Store · Google Play",
@@ -70,18 +70,29 @@ const steps = [
 const reviews = [
   { name:"Sarra B.",   city:"Tunis",  note:"5.0", text:"Arrivée en 3 minutes, chauffeur impeccable. Je n'utilise plus que Inno !" },
   { name:"Mehdi K.",   city:"Sfax",   note:"4.9", text:"Prix fixe affiché à l'avance. Enfin une appli honnête en Tunisie." },
-  { name:"Yasmine A.", city:"Sousse", note:"5.0", text:"Service professionnel, voiture propre, trajet rapide. Parfait !" },
-  { name:"Tarek R.",   city:"Tunis",  note:"4.8", text:"Chauffeur certifié, suivi GPS, tout est transparent. Excellent." },
+  { name:"Yasmine A.", city:"Gabes", note:"5.0", text:"Service professionnel, voiture propre, trajet rapide. Parfait !" },
+  { name:"Tarek R.",   city:"Djerba",  note:"4.8", text:"Chauffeur certifié, suivi GPS, tout est transparent. Excellent." },
 ];
 
-const cities = ["Tunis","Sfax"];
+const cities = ["Tunis","Sfax","Gabes","Djerba"];
 
 const stats = [
   { value: "10 000+", label: "utilisateurs actifs" },
-  { value: "3",     label: "villes couvertes" },
+  { value: "4",       label: "villes couvertes" },
   { value: "4.9★",   label: "note moyenne" },
   { value: "< 5min", label: "temps d'arrivée" },
 ];
+
+/* ── Reusable store button icons ── */
+const AppleIcon = ({ color }) => (
+  <svg width="22" height="22" viewBox="0 0 24 24" fill={color}>
+    <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+  </svg>
+);
+
+const GooglePlayIcon = () => (
+  <img src={googlePlayLogo} alt="Google Play" width="22" height="22" style={{ objectFit: "contain" }} />
+);
 
 const UserExperience = () => {
   const [active,       setActive]  = useState(0);
@@ -131,7 +142,6 @@ const UserExperience = () => {
         }
         .ue-photo-visible { animation: ue-photo-in 0.55s cubic-bezier(0.22,1,0.36,1) both; }
 
-        /* FIX 4: Richer step hover + icon pulse on active */
         .ue-step {
           cursor: pointer;
           transition: all 0.38s cubic-bezier(0.22,1,0.36,1);
@@ -164,7 +174,6 @@ const UserExperience = () => {
         }
         .ue-phone-float { animation: ue-float 6s ease-in-out infinite; }
 
-        /* ── Download section ── */
         @keyframes phoneRise {
           from { opacity:0; transform:translateY(80px) scale(0.95); }
           to   { opacity:1; transform:translateY(0) scale(1); }
@@ -234,11 +243,9 @@ const UserExperience = () => {
 
       {/* ══════════════════════════════════════════════════════
           BLOC 1 — HOW IT WORKS
-          FIX: padding 8% → 4% | steps wider | phone stays right | no empty center gap
       ══════════════════════════════════════════════════════ */}
       <section ref={ref} style={{
         background: C.blanc,
-        /* FIX 1&2: reduced horizontal padding */
         padding: "80px 4% 80px",
         position: "relative", overflow: "hidden",
         fontFamily: "'Open Sans', sans-serif",
@@ -250,22 +257,18 @@ const UserExperience = () => {
         <div className={inView?"ue-in ue-d1":""} style={{ marginBottom:"48px", position:"relative", zIndex:1 }}>
           <div style={{ display:"inline-flex", alignItems:"center", gap:"8px", padding:"6px 14px 6px 10px", background:`${C.mid}10`, border:`1px solid ${C.mid}22`, borderRadius:"100px", marginBottom:"18px" }}>
             <div style={{ width:"7px", height:"7px", borderRadius:"50%", background:C.green, boxShadow:`0 0 8px ${C.green}` }}/>
-            {/* FIX 1: larger eyebrow */}
             <span style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"13px", fontWeight:"700", color:C.dark, letterSpacing:"1.2px", textTransform:"uppercase" }}>Simple comme bonjour</span>
           </div>
-          {/* FIX 1: title bigger */}
           <h2 style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"clamp(40px,5vw,64px)", fontWeight:"800", lineHeight:"1.06", letterSpacing:"-0.04em", color:C.noir, margin:0 }}>
             Réservez en{" "}
             <span style={{ background:`linear-gradient(110deg,${C.dark},${C.mid})`, WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent" }}>4 étapes.</span>
           </h2>
         </div>
 
-        {/* FIX ✗: Two-column layout — steps left (flex:1.1), phone right (fixed width). No empty middle. */}
         <div className="ue-hiw-row" style={{ display:"flex", gap:"40px", alignItems:"flex-start", position:"relative", zIndex:1 }}>
 
-          {/* Steps column — takes all remaining space */}
+          {/* Steps column */}
           <div style={{ flex:"1 1 0", minWidth:0, position:"relative" }}>
-            {/* Vertical connector line */}
             <div style={{ position:"absolute", left:"31px", top:"54px", bottom:"54px", width:"2px", background:`linear-gradient(180deg,${C.dark}28,${C.mid}28,${C.green}28)`, borderRadius:"2px" }}/>
 
             {steps.map((s, i) => (
@@ -281,7 +284,6 @@ const UserExperience = () => {
                   boxShadow: active===i ? `0 8px 32px -8px ${s.accent}22` : "none",
                 }}
               >
-                {/* FIX 4 & 5: Larger circle, 60px, icon bigger */}
                 <div style={{
                   width:"60px", height:"60px", borderRadius:"50%", flexShrink:0,
                   background: active===i ? s.accent : `${s.accent}14`,
@@ -298,24 +300,10 @@ const UserExperience = () => {
 
                 <div style={{ flex:1, paddingTop:"4px" }}>
                   <div style={{ display:"flex", alignItems:"center", gap:"8px", marginBottom:"8px" }}>
-                    {/* Step number badge */}
-                    <span style={{
-                      fontFamily:"'Montserrat',sans-serif", fontSize:"11px", fontWeight:"800",
-                      color: active===i ? s.accent : C.muted,
-                      letterSpacing:"0.5px",
-                      transition:"color 0.3s",
-                    }}>{s.n}</span>
-                    {/* FIX 4: bigger title, shimmer on active */}
-                    <h3 className={active===i ? "ue-step-active-title" : ""} style={{
-                      fontFamily:"'Montserrat',sans-serif",
-                      fontSize:"18px",      /* was 16px */
-                      fontWeight:"700",
-                      color: active===i ? "unset" : C.noir,
-                      margin:0, letterSpacing:"-0.02em",
-                    }}>{s.title}</h3>
+                    <span style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"11px", fontWeight:"800", color: active===i ? s.accent : C.muted, letterSpacing:"0.5px", transition:"color 0.3s" }}>{s.n}</span>
+                    <h3 className={active===i ? "ue-step-active-title" : ""} style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"18px", fontWeight:"700", color: active===i ? "unset" : C.noir, margin:0, letterSpacing:"-0.02em" }}>{s.title}</h3>
                   </div>
-                  {/* FIX 4: bigger body text */}
-                  <p style={{ fontFamily:"'Open Sans',sans-serif", fontSize:"15px",  /* was 13.5px */ color:C.muted, lineHeight:"1.65", margin:"0 0 6px" }}>{s.body}</p>
+                  <p style={{ fontFamily:"'Open Sans',sans-serif", fontSize:"15px", color:C.muted, lineHeight:"1.65", margin:"0 0 6px" }}>{s.body}</p>
                   {active===i && (
                     <span style={{ display:"inline-flex", alignItems:"center", gap:"5px", fontFamily:"'Montserrat',sans-serif", fontSize:"11px", fontWeight:"700", color:s.accent, letterSpacing:"0.5px", textTransform:"uppercase" }}>
                       <span style={{ display:"inline-block", width:"16px", height:"2px", background:s.accent, borderRadius:"2px" }}/>
@@ -332,18 +320,16 @@ const UserExperience = () => {
             ))}
           </div>
 
-          {/* Phone column — FIX 5: slightly larger, flush right */}
+          {/* Phone column */}
           <div className="ue-hiw-phone" style={{ width:"310px", flexShrink:0, position:"sticky", top:"120px" }}>
             <div className="ue-phone-float" style={{ position:"relative" }}>
               <div style={{ position:"absolute", width:"290px", height:"560px", borderRadius:"54px", background:`radial-gradient(ellipse at 50% 55%, ${steps[active].accent}22, transparent 65%)`, filter:"blur(42px)", zIndex:0, top:0, left:"10px", pointerEvents:"none", transition:"background 0.5s ease" }}/>
-              {/* FIX 5: phone shell bigger: 298×590 */}
               <div style={{ width:"298px", height:"590px", background:C.noir, borderRadius:"48px", padding:"10px", boxShadow:`0 40px 80px -20px rgba(0,0,0,0.40), 0 0 0 1px rgba(255,255,255,0.07)`, position:"relative", zIndex:1 }}>
                 <div style={{ position:"absolute", top:"13px", left:"50%", transform:"translateX(-50%)", width:"82px", height:"24px", background:"#111", borderRadius:"12px", zIndex:5 }}/>
                 <div style={{ width:"100%", height:"100%", borderRadius:"40px", overflow:"hidden", position:"relative", background:C.noir }}>
                   {stepImages.map((img, i) => (
                     <img key={i} src={img} alt={`écran étape ${i+1}`} className={active===i ? "ue-photo-visible" : ""} style={{ position:"absolute", inset:0, width:"100%", height:"100%", objectFit:"cover", objectPosition:"top center", opacity:active===i?1:0, transition:active===i?"none":"opacity 0.12s ease", borderRadius:"40px", display:"block" }}/>
                   ))}
-                  {/* Dots */}
                   <div style={{ position:"absolute", bottom:"18px", left:"50%", transform:"translateX(-50%)", display:"flex", gap:"5px", zIndex:10 }}>
                     {steps.map((_,i) => (
                       <div key={i} onClick={() => setActive(i)} style={{ width:active===i?"22px":"6px", height:"6px", borderRadius:"3px", background:active===i?steps[i].accent:"rgba(255,255,255,0.45)", cursor:"pointer", transition:"all 0.35s ease", boxShadow:active===i?`0 2px 8px ${steps[i].accent}99`:"none" }}/>
@@ -352,17 +338,7 @@ const UserExperience = () => {
                 </div>
               </div>
             </div>
-
-            {/* FIX 3: subtitle text placed BELOW the phone */}
-            <p style={{
-              fontFamily:"'Open Sans',sans-serif",
-              fontSize:"14px",
-              color:C.muted,
-              lineHeight:"1.65",
-              textAlign:"center",
-              marginTop:"20px",
-              padding:"0 10px",
-            }}>
+            <p style={{ fontFamily:"'Open Sans',sans-serif", fontSize:"14px", color:C.muted, lineHeight:"1.65", textAlign:"center", marginTop:"20px", padding:"0 10px" }}>
               Moins de 20 secondes de votre téléphone au chauffeur.{" "}
               <strong style={{ color:C.noir, fontWeight:"600" }}>Pas de compte bancaire requis.</strong>
             </p>
@@ -377,10 +353,8 @@ const UserExperience = () => {
         fontFamily:"'Open Sans',sans-serif",
         background:`linear-gradient(145deg, #001a5c 0%, ${C.dark} 40%, #001f6e 70%, #001544 100%)`,
         position:"relative", overflow:"hidden",
-        /* FIX 2: reduced padding */
         padding:"90px 4%",
       }}>
-        {/* BG orbs */}
         <div className="orb1" style={{ position:"absolute", top:"-100px", right:"-80px", width:"500px", height:"500px", borderRadius:"50%", background:`radial-gradient(circle,${C.mid}25,transparent 65%)`, filter:"blur(60px)", pointerEvents:"none" }}/>
         <div className="orb2" style={{ position:"absolute", bottom:"-100px", left:"-80px",  width:"400px", height:"400px", borderRadius:"50%", background:`radial-gradient(circle,${C.green}18,transparent 65%)`, filter:"blur(50px)", pointerEvents:"none" }}/>
         <div style={{ position:"absolute", inset:0, pointerEvents:"none", backgroundImage:`radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px)`, backgroundSize:"32px 32px", maskImage:"linear-gradient(to bottom, transparent, rgba(0,0,0,0.4) 30%, rgba(0,0,0,0.4) 70%, transparent)" }}/>
@@ -389,14 +363,11 @@ const UserExperience = () => {
 
           {/* LEFT — Copy */}
           <div style={{ flex:"1" }}>
-
             <div className={inView?"ue-in ue-d1":""} style={{ display:"inline-flex", alignItems:"center", gap:"8px", padding:"6px 14px 6px 10px", background:"rgba(73,206,84,0.15)", border:"1px solid rgba(73,206,84,0.3)", borderRadius:"100px", marginBottom:"24px" }}>
               <div style={{ width:"7px", height:"7px", borderRadius:"50%", background:C.green, boxShadow:`0 0 8px ${C.green}` }}/>
-              {/* FIX 1: eyebrow larger */}
               <span style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"13px", fontWeight:"700", color:C.green, letterSpacing:"1.2px", textTransform:"uppercase" }}>Disponible maintenant</span>
             </div>
 
-            {/* FIX 1: bigger headline */}
             <h2 className={inView?"ue-in ue-d2":""} style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"clamp(44px,6vw,72px)", fontWeight:"800", lineHeight:"1.04", letterSpacing:"-0.04em", color:C.blanc, margin:"0 0 8px" }}>Téléchargez</h2>
             <h2 className={inView?"ue-in ue-d2":""} style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"clamp(44px,6vw,72px)", fontWeight:"800", lineHeight:"1.04", letterSpacing:"-0.04em", background:`linear-gradient(110deg,${C.green},#6eea72)`, WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent", margin:"0 0 28px" }}>l'app Inno.</h2>
 
@@ -407,7 +378,7 @@ const UserExperience = () => {
             </div>
 
             <p className={inView?"ue-in ue-d3":""} style={{ fontFamily:"'Open Sans',sans-serif", fontSize:"17px", color:"rgba(255,255,255,0.60)", lineHeight:"1.78", maxWidth:"460px", margin:"0 0 44px" }}>
-              Installez l'application en 60 secondes. Premier trajet garanti ou remboursé. Disponible dans 14 villes tunisiennes.
+              Installez l'application en 60 secondes. Premier trajet garanti ou remboursé. Disponible dans 4 villes tunisiennes.
             </p>
 
             {/* Stats row */}
@@ -420,14 +391,21 @@ const UserExperience = () => {
               ))}
             </div>
 
+            {/* ── Passenger store buttons ── */}
             <div className={inView?"ue-in ue-d3":""} style={{ display:"flex", gap:"14px", flexWrap:"wrap", marginBottom:"44px" }}>
               <a href="https://apps.apple.com/us/app/inno-app/id6448847710" target="_blank" rel="noopener noreferrer" className="store-btn store-primary">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill={C.dark}><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-                <div><div style={{ fontSize:"10px", fontWeight:"600", opacity:0.7, letterSpacing:"0.5px" }}>TÉLÉCHARGER SUR</div><div style={{ fontSize:"15px" }}>App Store</div></div>
+                <AppleIcon color={C.dark} />
+                <div>
+                  <div style={{ fontSize:"10px", fontWeight:"600", opacity:0.7, letterSpacing:"0.5px" }}>TÉLÉCHARGER SUR</div>
+                  <div style={{ fontSize:"15px" }}>App Store</div>
+                </div>
               </a>
               <a href="https://play.google.com/store/apps/details?id=tn.innocustomer.android" target="_blank" rel="noopener noreferrer" className="store-btn store-secondary">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill={C.green}><path d="m17.523 15.341-1.93-1.107c-.234-.13-.498-.066-.633.15l-.848 1.468a8.11 8.11 0 0 1-3.665.002L9.6 14.385c-.135-.217-.4-.281-.633-.15L7.038 15.34A8.102 8.102 0 0 1 5.5 11.5C5.5 7.358 8.358 4 12 4s6.5 3.358 6.5 7.5a8.1 8.1 0 0 1-1.477 3.841zM8.5 9.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm7 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/></svg>
-                <div><div style={{ fontSize:"10px", fontWeight:"600", opacity:0.7, letterSpacing:"0.5px" }}>DISPONIBLE SUR</div><div style={{ fontSize:"15px" }}>Google Play</div></div>
+                <GooglePlayIcon />
+                <div>
+                  <div style={{ fontSize:"10px", fontWeight:"600", opacity:0.7, letterSpacing:"0.5px" }}>DISPONIBLE SUR</div>
+                  <div style={{ fontSize:"15px" }}>Google Play</div>
+                </div>
               </a>
             </div>
 
@@ -459,7 +437,7 @@ const UserExperience = () => {
             </div>
           </div>
 
-          {/* RIGHT — Phone (unchanged layout, bigger phone shell) */}
+          {/* RIGHT — Phone */}
           <div className="app-phone-col phone-rise" style={{ flexShrink:0, display:"flex", alignItems:"center", justifyContent:"center", width:"290px" }}>
             <div style={{ position:"relative" }}>
               <div className="pulse-ring" style={{ position:"absolute", inset:"-30px", borderRadius:"60px", border:`1px solid ${C.green}30`, pointerEvents:"none" }}/>
