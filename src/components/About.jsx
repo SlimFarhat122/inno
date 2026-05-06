@@ -99,7 +99,7 @@ const About = () => {
 
   const c1 = useCounter(500, 1600, inView);
   const c2 = useCounter(98,  1400, inView);
-  const c3 = useCounter(3,  1200, inView);
+  const c3 = useCounter(4,  1200, inView);
   const c4 = useCounter(24,  1000, inView);
 
   const kpis = [
