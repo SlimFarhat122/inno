@@ -179,6 +179,8 @@ const Downloadheader = () => {
           position: "relative",
           isolation: "isolate",
           borderTop: `1px solid ${INNO.bleuFonce}10`,
+          overflow: "hidden",
+
         }}
       >
 
