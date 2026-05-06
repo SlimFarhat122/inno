@@ -1,8 +1,9 @@
 import React from "react";
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 const Footer = () => {
   const location = useLocation();
+  const navigate = useNavigate();
 
   const isBusinessPage = location.pathname === "/business";
 
@@ -138,6 +139,21 @@ const Footer = () => {
     },
   };
 
+  const handleDemoClick = (e) => {
+    e.preventDefault();
+    if (isBusinessPage) {
+      const section = document.getElementById("business-contact");
+      if (section) section.scrollIntoView({ behavior: "smooth" });
+      window.dispatchEvent(new CustomEvent("inno:setService", { detail: "Demo Live" }));
+    } else {
+      navigate("/business?service=Demo+Live");
+      setTimeout(() => {
+        const section = document.getElementById("business-contact");
+        if (section) section.scrollIntoView({ behavior: "smooth" });
+      }, 500);
+    }
+  };
+
   const socials = [
     {
       name: "Facebook",
@@ -159,7 +175,7 @@ const Footer = () => {
   return (
     <footer style={styles.footer}>
 
-      {/* ── Decorative circles — same as UserExperience Bloc 1 ── */}
+      {/* ── Decorative circles ── */}
       <div style={{
         position:"absolute", top:"-50px", left:"-50px",
         width:"250px", height:"250px",
@@ -222,7 +238,16 @@ const Footer = () => {
             <li style={styles.linkItem}><a href="#business-platform" style={styles.link} className="footer-link">Plateforme B2B</a></li>
             <li style={styles.linkItem}><a href="#business-sectors"  style={styles.link} className="footer-link">Secteurs d'activité</a></li>
             <li style={styles.linkItem}><a href="#business-stats"    style={styles.link} className="footer-link">Indicateurs clés</a></li>
-            <li style={styles.linkItem}><a href="#business-contact"  style={styles.link} className="footer-link">Demande de Démo</a></li>
+            <li style={styles.linkItem}>
+              <a 
+                href="/business?service=Demo+Live#business-contact" 
+                style={styles.link} 
+                className="footer-link" 
+                onClick={handleDemoClick}
+              >
+                Demande de Démo
+              </a>
+            </li>
           </ul>
         </div>
 
