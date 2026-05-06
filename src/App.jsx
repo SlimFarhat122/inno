@@ -74,8 +74,10 @@ const findScrollParent = (el) => {
 };
 const Home = () => (
   <>
+  
+      <Downloadheader />
+
     <Hero />
-    <Downloadheader />
     <div id="about"><About /></div>
     
  <Services />

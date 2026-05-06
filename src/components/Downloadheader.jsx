@@ -175,7 +175,7 @@ const Downloadheader = () => {
         style={{
           fontFamily: "'Open Sans', sans-serif",
           background: INNO.blanc,
-          padding: "80px 4% 72px",
+        padding: "140px 4% 72px",
           position: "relative",
           isolation: "isolate",
           borderTop: `1px solid ${INNO.bleuFonce}10`,
