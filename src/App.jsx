@@ -23,6 +23,7 @@ import Navbar from './components/Navbar';
 import Services from './components/Services';
 import ReservationPlanifiee from './components/Reservationplanifiee';
 import Downloadheader from './components/Downloadheader';
+import IndicateursPage from './components/IndicateursPage';
 const ScrollToSection = () => {
   const { pathname, hash } = useLocation();
 
@@ -74,7 +75,6 @@ const findScrollParent = (el) => {
 };
 const Home = () => (
   <>
-  
       <Downloadheader />
 
     <Hero />
@@ -118,6 +118,8 @@ function App() {
         <Route path="/condition-of-use/" element={<TermsOfService />} />
         <Route path="/" element={<Home />} />
         <Route path="/business" element={<BusinessPage />} />
+        <Route path="/indicateurs" element={<IndicateursPage />} />
+
       </Routes>
       <Footer />
     </Router>
